@@ -1,5 +1,3 @@
-require 'project'
-
 class UpdatingAProject
 
   def initialize(user, project, attributes = {})

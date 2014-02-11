@@ -1,5 +1,3 @@
-require 'project'
-
 class ViewingProjects
 
   def initialize(user)

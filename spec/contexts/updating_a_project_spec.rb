@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'updating_a_project'
 
 describe UpdatingAProject do
 

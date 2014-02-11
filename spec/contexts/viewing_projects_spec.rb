@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'viewing_projects'
 
 describe ViewingProjects do
 

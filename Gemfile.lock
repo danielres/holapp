@@ -70,6 +70,9 @@ GEM
       actionmailer (>= 3.2.6, < 5)
       devise (>= 3.2.0)
     diff-lcs (1.2.5)
+    em-websocket (0.5.0)
+      eventmachine (>= 0.12.9)
+      http_parser.rb (~> 0.5.3)
     email_spec (1.5.0)
       launchy (~> 2.1)
       mail (~> 2.2)
@@ -95,6 +98,10 @@ GEM
     guard-bundler (2.0.0)
       bundler (~> 1.0)
       guard (~> 2.2)
+    guard-livereload (2.1.0)
+      em-websocket (~> 0.5)
+      guard (~> 2.0)
+      multi_json (~> 1.8)
     guard-rails (0.5.0)
       guard (>= 2.0.0)
     guard-rspec (4.2.6)
@@ -114,6 +121,7 @@ GEM
       haml (>= 4.0.0.rc.1)
       hpricot (~> 0.8.6)
       ruby_parser (~> 3.1.1)
+    http_parser.rb (0.5.3)
     i18n (0.6.9)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
@@ -151,6 +159,8 @@ GEM
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
+    rack-livereload (0.3.15)
+      rack
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.0.2)
@@ -256,6 +266,7 @@ DEPENDENCIES
   factory_girl_rails
   figaro
   guard-bundler
+  guard-livereload
   guard-rails
   guard-rspec
   haml-rails
@@ -263,6 +274,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   quiet_assets
+  rack-livereload
   rails (= 4.0.2)
   rails_layout
   rb-fchange

@@ -13,22 +13,19 @@ describe ViewingProjects do
         Project.create(name: 'project_1')
         Project.create(name: 'project_2')
       end
-      context 'when user is allowed' do
-        before(:each) do
-          allow(user).to receive(:has_role?){ true }
+      describe 'authorization' do
+        context 'without admin role' do
+          it 'prevents the collection of projects from rendering' do
+            expect( context.view ).not_to include 'project_1'
+            expect( context.view ).not_to include 'project_2'
+          end
         end
-        it 'renders the collection of projects' do
-          expect( context.view ).to include 'project_1'
-          expect( context.view ).to include 'project_2'
-        end
-      end
-      context 'when user is not allowed' do
-        before(:each) do
-          allow(user).to receive(:has_role?){ false }
-        end
-        it 'does not render the collection' do
-          expect( context.view ).not_to include 'project_1'
-          expect( context.view ).not_to include 'project_2'
+        context 'with admin role' do
+          before(:each) { user.add_role :admin }
+          it 'renders the collection of projects' do
+            expect( context.view ).to include 'project_1'
+            expect( context.view ).to include 'project_2'
+          end
         end
       end
     end

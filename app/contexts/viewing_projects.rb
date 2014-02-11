@@ -26,10 +26,12 @@ class ViewingProjects
         @projects = Array(project_or_projects)
       end
       def as_html
-        @projects.map do |p|
-          "<li>#{p.name}</li>"
-        end.join
+        "<section>Projects <ul>#{ list_items }</ul> </section>"
       end
+      private
+        def list_items
+          @projects.map{ |p| "<li>#{p.name}</li>" }.join
+        end
     end
 
 end

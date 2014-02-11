@@ -1,0 +1,4 @@
+--color
+--format doc
+-I app/contexts
+-I app/models

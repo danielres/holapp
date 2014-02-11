@@ -13,7 +13,7 @@ class ViewingProjects
 
     module Viewer
       def projects
-        Project.all
+        Project.accessible_by(Ability.new(self), :read)
       end
     end
 

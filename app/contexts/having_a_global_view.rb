@@ -24,7 +24,7 @@ class HavingAGlobalView
           ViewingProjects.new(@viewer).view
         end
         def people_html
-          '<section>People</section>' # TODO: add people list
+          ViewingPeople.new(@viewer).view
         end
         def top_motivations_html
           '<section>Top motivations</section>' # TODO: add top motivations list

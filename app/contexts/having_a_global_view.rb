@@ -17,7 +17,7 @@ class HavingAGlobalView
           people_html,
           top_motivations_html,
           top_skills_html,
-        ].join
+        ].join.html_safe
       end
       private
         def projects_html

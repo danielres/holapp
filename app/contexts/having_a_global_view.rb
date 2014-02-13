@@ -21,10 +21,10 @@ class HavingAGlobalView
       end
       private
         def projects_html
-          ViewingProjects.new(@viewer).view
+          Viewing.new(@viewer, Project, ProjectsPresenter).reveal
         end
         def people_html
-          ViewingPeople.new(@viewer).view
+          Viewing.new(@viewer, User, PeoplePresenter).reveal
         end
         def top_motivations_html
           '<section>Top motivations</section>' # TODO: add top motivations list

@@ -6,7 +6,8 @@ class TaggingAnEntry
     @tags = tags
     @tag_field = tag_field
     @tagger.extend Tagger
-    @taggable.extend Taggable(tag_field)
+    @taggable.extend Taggable
+    @taggable.instance_variable_set(:@tag_field, @tag_field)
   end
 
   def tag
@@ -23,20 +24,20 @@ class TaggingAnEntry
       end
     end
 
-    def Taggable tag_field
-      Module.new do |tag_field|
-        @tag_field = tag_field
+    module Taggable
+      eval "
         def self.extended(object)
           object.class.class_eval do
-            acts_as_taggable_on @tag_field
+            acts_as_taggable_on #{ @tag_field }
           end
         end
-        def add_tags tags
-          set_tag_list_on(@tag_field, tags)
-        end
-        def tags
-          tag_list_on(@tag_field)
-        end
+      "
+      def add_tags tags
+        set_tag_list_on(@tag_field, tags)
+        save!
+      end
+      def tag_list_on *args
+        super
       end
     end
 

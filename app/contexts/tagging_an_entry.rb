@@ -6,12 +6,12 @@ class TaggingAnEntry
     @tags = tags
     @tag_field = tag_field
     @tagger.extend Tagger
-    @taggable.extend Taggable
+    @taggable.extend Taggable(tag_field)
   end
 
   def tag
     if @tagger.can_tag?(@taggable)
-      @taggable.tag_on(@tags, @tag_field)
+      @taggable.add_tags @tags
     end
   end
 
@@ -23,14 +23,21 @@ class TaggingAnEntry
       end
     end
 
-    module Taggable
-      def tag_on new_tags, tag_field
-        new_tags = Array(new_tags)
-        tags[tag_field] ||= []
-        tags[tag_field] += new_tags
-      end
-      def tags
-        @tags ||= {}
+    def Taggable tag_field
+      Module.new do |tag_field|
+        @tag_field = tag_field
+        def self.extended(object)
+          object.class.class_eval do
+            acts_as_taggable_on @tag_field
+          end
+        end
+        def add_tags tags
+          set_tag_list_on(@tag_field, tags)
+        end
+        def tags
+          tag_list_on(@tag_field)
+        end
       end
     end
+
 end

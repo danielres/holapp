@@ -6,7 +6,7 @@ class TaggingAnEntry
     @tags = tags
     @tag_field = tag_field
     @tagger.extend Tagger
-    @taggable.class.send :prepend, Taggable
+    @taggable.extend Taggable
   end
 
   def tag
@@ -24,17 +24,13 @@ class TaggingAnEntry
     end
 
     module Taggable
-      def initialize
-        # super
-        @tags ||= {}
-      end
       def tag_on new_tags, tag_field
         new_tags = Array(new_tags)
-        @tags[tag_field] ||= []
-        @tags[tag_field] += new_tags
+        tags[tag_field] ||= []
+        tags[tag_field] += new_tags
       end
       def tags
-        @tags
+        @tags ||= {}
       end
     end
 end

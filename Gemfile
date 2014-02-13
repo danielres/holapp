@@ -18,6 +18,7 @@ gem 'rolify'
 gem 'simple_form'
 gem 'therubyracer', :platform=>:ruby
 gem 'thin'
+gem 'acts-as-taggable-on'
 group :production do
   gem 'rails_12factor'
 end

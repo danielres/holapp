@@ -1,4 +1,4 @@
-class Viewing
+class ViewingEntries
 
   def initialize(user, type_to_show, presenter)
     @spectator = user

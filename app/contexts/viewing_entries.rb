@@ -1,7 +1,8 @@
 class ViewingEntries
 
-  def initialize(user, type_to_show, presenter)
+  def initialize(user, view_context, type_to_show, presenter)
     @spectator = user
+    @view_context = view_context
     @spectator.extend Spectator
     @type_to_show = type_to_show
     @presenter = presenter

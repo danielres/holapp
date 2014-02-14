@@ -1,6 +1,7 @@
 class HavingAGlobalView
-  def initialize(user)
-    @viewer = user
+  def initialize(viewing_user, view_context)
+    @viewer = viewing_user
+    @view_context = view_context
   end
   def view
     GlobalViewPresenter.new(@viewer).as_html

@@ -1,6 +1,7 @@
 class PeoplePresenter
-  def initialize(person_or_people)
+  def initialize(person_or_people, view_context)
     @people = Array(person_or_people)
+    @view_context = view_context
   end
   def as_html
     "<section>People <ul>#{ list_items }</ul> </section>"

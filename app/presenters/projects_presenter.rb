@@ -1,6 +1,7 @@
 class ProjectsPresenter
-  def initialize(project_or_projects)
+  def initialize(project_or_projects, view_context)
     @projects = Array(project_or_projects)
+    @view_context = view_context
   end
   def as_html
     "<section>Projects <ul>#{ list_items }</ul> </section>"

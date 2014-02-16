@@ -1,10 +1,15 @@
 require 'spec_helper'
 
+
 describe HavingAGlobalView do
+
+  include ActiveSupport::Testing::SetupAndTeardown
+  include ActionView::TestCase::Behavior
+  before(:each) { setup_with_controller }
 
   let(:any_authorized_role){ :admin }
   let(:authorized_viewer){ User.new.tap{ |u| u.add_role(any_authorized_role) } }
-  let(:view_context){ double('view_context') }
+  let(:view_context){ view }
 
   describe 'initialization' do
     context 'given an authorized viewer and a view context' do
@@ -15,6 +20,7 @@ describe HavingAGlobalView do
   end
   describe 'having a global view' do
     subject{ described_class.new(authorized_viewer, view_context) }
+
     context('with existing projects') do
       before(:each) do
         Project.create(name: 'project_A')
@@ -30,6 +36,7 @@ describe HavingAGlobalView do
         User.create!(email: "foo1#{rand}@bar.com", password: 'password', name: 'person_A')
         User.create!(email: "foo2#{rand}@bar.com", password: 'password', name: 'person_B')
       end
+
       it 'displays the rendered list of people' do
         expect( subject.view ).to include 'person_A'
         expect( subject.view ).to include 'person_B'

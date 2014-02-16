@@ -4,14 +4,15 @@ class HavingAGlobalView
     @view_context = view_context
   end
   def view
-    GlobalViewPresenter.new(@viewer).as_html
+    GlobalViewPresenter.new(@viewer, @view_context).as_html
   end
 
   private
 
     class GlobalViewPresenter
-      def initialize viewer
+      def initialize viewer, view_context
         @viewer = viewer
+        @view_context = view_context
       end
       def as_html
         [ projects_html,

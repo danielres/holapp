@@ -21,7 +21,7 @@ class ViewingEntries
     end
 
     def render(objects, presenter)
-      presenter.new(objects).as_html
+      presenter.new(objects, @view_context).as_html
     end
 
 

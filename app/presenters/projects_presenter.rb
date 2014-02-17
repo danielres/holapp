@@ -3,11 +3,16 @@ class ProjectsPresenter
     @projects = Array(project_or_projects)
     @view_context = view_context
   end
+
   def as_html
-    "<section>Projects <ul>#{ list_items }</ul> </section>"
+    h.render partial: 'presenters/projects_presenter',
+              locals: { projects: @projects }
   end
+
   private
-    def list_items
-      @projects.map{ |p| "<li>#{p.name}</li>" }.join
+
+    def h
+      @view_context
     end
+
 end

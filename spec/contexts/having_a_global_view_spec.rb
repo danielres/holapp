@@ -1,15 +1,11 @@
 require 'spec_helper'
-
+require 'view_context_spec_helper'
 
 describe HavingAGlobalView do
 
-  include ActiveSupport::Testing::SetupAndTeardown
-  include ActionView::TestCase::Behavior
-  before(:each) { setup_with_controller }
-
+  let(:view_context){ view }
   let(:any_authorized_role){ :admin }
   let(:authorized_viewer){ User.new.tap{ |u| u.add_role(any_authorized_role) } }
-  let(:view_context){ view }
 
   describe 'initialization' do
     context 'given an authorized viewer and a view context' do

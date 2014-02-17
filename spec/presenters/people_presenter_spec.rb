@@ -14,13 +14,13 @@ describe PeoplePresenter do
     end
   end
 
-  describe 'rendering to html using a template' do
+  describe 'rendering to html' do
     context 'given people' do
       let(:person1){ User.new(email: "foo1#{rand}@bar.com", password: 'password', name: 'person_A') }
       let(:person2){ User.new(email: "foo2#{rand}@bar.com", password: 'password', name: 'person_B') }
       let(:people){ [ person1, person2] }
       let(:subject){ described_class.new(people, view_context) }
-      it 'passes the people to the template' do
+      it 'renders html with the people' do
         expect( subject.as_html ).to include 'person_A'
         expect( subject.as_html ).to include 'person_B'
       end

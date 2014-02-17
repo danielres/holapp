@@ -25,11 +25,6 @@ describe ProjectsPresenter do
         expect( subject.as_html ).to include 'project_B'
       end
     end
-    describe 'using view helpers' do
-      it 'supports using rails helpers' do
-        pending 'we can now test view helpers using the provided view_context'
-      end
-    end
   end
 
 

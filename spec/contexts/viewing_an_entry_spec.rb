@@ -14,27 +14,29 @@ describe ViewingAnEntry do
 
   describe 'initialization' do
 
-    [ Project, User ].each do |entry_type|
+    [ Project, User ].each do |data_object_class|
 
-      before(:each){ allow(entry_type).to receive(:tag_fields) }
+      before(:each) do
+        allow(data_object_class).to receive(:tag_fields)
+      end
 
-      context "given a viewer, a view_context and a #{entry_type.name.downcase}" do
+      context "given a viewer, a view_context and a #{data_object_class.name.downcase}" do
         let(:viewer){ User.new }
-        let(:entry){ entry_type.new }
+        let(:entry){ data_object_class.new }
         it 'initializes correctly' do
           described_class.new(viewer, view_context, entry)
         end
       end
 
-      describe "viewing a #{entry_type.name.downcase}" do
+      describe "viewing a #{data_object_class.name.downcase}" do
 
         let(:subject){ described_class.new(viewer, view_context, entry)  }
-        let(:entry){ build_entry(entry_type) }
+        let(:entry){ build_entry(data_object_class) }
 
         context 'as a guest viewer' do
           let(:viewer){ User.new }
-          it "does not reveal the #{entry_type.name.downcase}" do
-            expect( subject.view ).not_to include "#{entry_type} name"
+          it "does not reveal the #{data_object_class.name.downcase}" do
+            expect( subject.view ).not_to include "#{data_object_class} name"
           end
         end
 
@@ -42,8 +44,20 @@ describe ViewingAnEntry do
           let(:any_authorized_role){ :admin }
           let(:viewer){ User.new.tap{ |u| u.add_role(any_authorized_role) } }
           it "reveals the entry" do
-            expect( subject.view ).to include "#{entry_type} name"
+            expect( subject.view ).to include "#{data_object_class} name"
           end
+
+          describe "when #{ data_object_class.name.downcase } has been tagged" do
+            before(:each) do
+              superuser =  User.new.tap{ |u| u.add_role(:admin) }
+              TaggingAnEntry.new(superuser, entry, "tag1, tag2", :customs).tag
+            end
+            it 'displays the taggings' do
+              expect( subject.view ).to include "tag1"
+              expect( subject.view ).to include "tag2"
+            end
+          end
+
         end
 
       end

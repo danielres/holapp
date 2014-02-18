@@ -10,3 +10,10 @@
     .modal-footer
       = f.submit "Change Role", :class => "btn"
       %a.btn{"data-dismiss" => "modal", :href => "#"} Close
+
+%p
+  - user.taggings.load.group_by{ |t| t.context }.each do |k,vals|
+    %p #{ k }:
+    - vals.each do |v|
+      %li= v.tag
+

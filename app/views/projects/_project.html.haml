@@ -1,2 +1,9 @@
 %p
   = project.name
+
+%p
+  - project.taggings.load.group_by{ |t| t.context }.each do |k,vals|
+    %p #{ k }:
+    - vals.each do |v|
+      %li= v.tag
+

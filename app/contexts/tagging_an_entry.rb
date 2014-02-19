@@ -25,13 +25,11 @@ class TaggingAnEntry
     end
 
     module Taggable
-      eval "
-        def self.extended(object)
-          object.class.class_eval do
-            acts_as_taggable_on #{ @tag_field }
-          end
+      def self.extended(object)
+        object.class.class_eval do
+          acts_as_taggable_on
         end
-      "
+      end
       def add_tags tags
         set_tag_list_on(@tag_field, tags)
         save!

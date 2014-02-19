@@ -27,7 +27,7 @@ class ViewingAnEntry
     module Taggable
       def self.extended(base)
         base.class.class_eval do
-          acts_as_taggable_on tag_fields
+          acts_as_taggable_on
         end
       end
     end

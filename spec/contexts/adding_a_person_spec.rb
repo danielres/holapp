@@ -13,14 +13,14 @@ describe AddingAPerson do
     context 'as a guest user' do
       let(:adder){ User.new }
       it 'does not add the person' do
-        expect( User.last.name ).not_to eq 'Toto'
+        expect( User.last.try(:name) ).not_to eq 'Toto'
       end
     end
     context 'as an authorized adder' do
       let(:any_authorized_role){ :admin }
       let(:adder){ User.new.tap{ |u| u.add_role(any_authorized_role) } }
       it 'adds the person' do
-        expect( User.last.name ).to eq 'Toto'
+        expect( User.last.try(:name) ).to eq 'Toto'
       end
     end
   end

@@ -3,7 +3,8 @@ class HomeController < ApplicationController
 
   def index
     render layout: true,
-             text: ::HavingAGlobalView.new(current_user, view_context).view
+             text: ::HomePresenter.new(current_user, view_context).to_html
   end
 
 end
+

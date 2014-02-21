@@ -1,6 +1,6 @@
 class AddingAPerson
 
-  def initialize(adder, view_context, person_attributes)
+  def initialize(adder, view_context, person_attributes = {})
     @adder = adder
     @view_context = view_context
     @person_attributes = default_person_attributes.merge(person_attributes)

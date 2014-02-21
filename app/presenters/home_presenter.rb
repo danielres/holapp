@@ -4,6 +4,16 @@ class HomePresenter
     @viewer = viewer
   end
   def to_html
-    ::HavingAGlobalView.new(@viewer, @view_context).view
+    html = []
+    html << HavingAGlobalView.new(@viewer, @view_context).view
+    html << AddingAPerson.new(@viewer, @view_context).expose_form
+    html.join
   end
+
+  private
+
+    def h
+      @view_context
+    end
+
 end

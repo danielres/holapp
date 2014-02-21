@@ -11,6 +11,16 @@ describe User do
     }
   end
 
+  it "requires a name" do
+    expect( User.new(name: '').errors_on(:name) ).to include "can't be blank"
+  end
+
+  it "requires name to be unique" do
+    u1 = User.new( @attr.merge(name:'toto') ).save!
+    u2 = User.new(name: 'toto')
+    expect( u2.errors_on(:name) ).to include 'has already been taken'
+  end
+
   it "should create a new instance given a valid attribute" do
     User.create!(@attr)
   end

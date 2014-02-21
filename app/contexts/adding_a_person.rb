@@ -1,8 +1,9 @@
 class AddingAPerson
 
-  def initialize(adder, person_attributes)
+  def initialize(adder, view_context, person_attributes)
     @adder = adder
-    @person_attributes = person_attributes
+    @view_context = view_context
+    @person_attributes = default_person_attributes.merge(person_attributes)
     @adder.extend Adder
   end
 
@@ -12,7 +13,20 @@ class AddingAPerson
     end
   end
 
+  def expose_form
+    return '' unless @adder.can_add_new_person?
+    h.render(partial: 'contexts/adding_a_person/form')
+  end
+
   private
+
+    def h
+      @view_context
+    end
+
+    def default_person_attributes
+      { email: "changeme#{rand}@changema.com", password: "changeme#{rand}" }
+    end
 
     module Adder
       def can_add_new_person?

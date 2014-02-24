@@ -9,4 +9,8 @@ class User < ActiveRecord::Base
   devise :invitable, :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  def to_partial_path
+    'people/person'
+  end
+
 end

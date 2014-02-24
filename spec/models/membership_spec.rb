@@ -1,11 +1,16 @@
 require 'spec_helper'
 
+
+def create_random_person options={}
+  options = { email: "foo1#{rand}@bar.com", password: 'password', name: 'User name'}.merge options
+  User.create!(options)
+end
+
+
 describe Membership do
   context 'given a project and a person' do
-    let!(:project){ Project.create!}
-    let!(:person) do
-      User.create!(email: "foo1#{rand}@bar.com", password: 'password', name: 'User name')
-    end
+    let!(:project){ Project.create! }
+    let!(:person) { create_random_person }
     it 'initializes correctly' do
       described_class.new(project: project, user: person)
     end

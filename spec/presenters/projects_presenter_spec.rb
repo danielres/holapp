@@ -17,10 +17,10 @@ describe ProjectsPresenter do
       let(:project1){ Project.new(name: 'project_A') }
       let(:project2){ Project.new(name: 'project_B') }
       let(:projects){ [ project1, project2] }
-      let(:subject){ described_class.new(projects, view_context) }
+      let(:projects_presenter){ described_class.new(projects, view_context) }
       it 'renders html with the projects' do
-        expect( subject.as_html ).to include 'project_A'
-        expect( subject.as_html ).to include 'project_B'
+        expect( projects_presenter.as_html ).to include 'project_A'
+        expect( projects_presenter.as_html ).to include 'project_B'
       end
     end
   end

@@ -1,10 +1,19 @@
 require 'spec_helper'
 require 'view_context_spec_helper'
 
+
+def build_admin_user
+  User.new.tap{ |u| u.add_role(:admin) }
+end
+def create_random_person options={}
+  options = { email: "foo1#{rand}@bar.com", password: 'password', name: 'User name'}.merge options
+  User.create!(options)
+end
+
+
 describe HavingAGlobalView do
 
-  let(:any_authorized_role){ :admin }
-  let(:authorized_viewer){ User.new.tap{ |u| u.add_role(any_authorized_role) } }
+  let(:authorized_viewer){ build_admin_user }
 
   describe 'initialization' do
     context 'given an authorized viewer and a view context' do
@@ -28,8 +37,8 @@ describe HavingAGlobalView do
     end
     context('with existing people') do
       before(:each) do
-        User.create!(email: "foo1#{rand}@bar.com", password: 'password', name: 'person_A')
-        User.create!(email: "foo2#{rand}@bar.com", password: 'password', name: 'person_B')
+        create_random_person name: 'person_A'
+        create_random_person name: 'person_B'
       end
 
       it 'displays the rendered list of people' do

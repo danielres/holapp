@@ -1,10 +1,13 @@
 require 'spec_helper'
+require 'fast_authentication_spec_helper'
 
-include Warden::Test::Helpers
-Warden.test_mode!
-
+def create_random_person options={}
+  options = { email: "foo1#{rand}@bar.com", password: 'password', name: 'User name'}.merge options
+  User.create!(options)
+end
 def confirmed_user
-  User.create!(email: "visitor@user.com", password: 'password', name: 'Visitor').tap do |u|
+  create_random_person.tap do |u|
+    u.save!
     u.confirm!
   end
 end

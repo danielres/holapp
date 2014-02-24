@@ -1,10 +1,17 @@
 
+
+def create_random_person options={}
+  options = { email: "foo1#{rand}@bar.com", password: 'password', name: 'User name'}.merge options
+  User.create!(options)
+end
+
+
 describe 'Authentication' do
 
   describe 'Logging in' do
 
     let(:visitor) do
-      User.create!(email: "visitor@user.com", password: 'password', name: 'Visitor')
+      create_random_person(email: "visitor@user.com", password: 'password')
     end
 
     before(:each) do

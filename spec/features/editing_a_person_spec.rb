@@ -1,5 +1,5 @@
-include Warden::Test::Helpers
-Warden.test_mode!
+require 'fast_authentication_spec_helper'
+
 
 def admin_user
   User.create!(email: "admin#{rand}@user.com", password: 'password', name: 'Admin#{rand}').tap do |u|
@@ -7,9 +7,14 @@ def admin_user
     u.add_role :admin
   end
 end
+def create_random_person options={}
+  options = { email: "foo1#{rand}@bar.com", password: 'password', name: 'User name'}.merge options
+  User.create!(options)
+end
+
 
 describe 'Editing a person' do
-  let!(:person){ User.create!(email: "person@person.com", password: 'password', name: 'Visitor') }
+  let!(:person){ create_random_person }
   let!(:project){ Project.create!(name: 'Project1') }
   context 'when authenticated' do
 

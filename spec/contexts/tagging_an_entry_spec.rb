@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+def build_admin_user
+  User.new.tap{ |u| u.add_role(:admin) }
+end
+
 describe TaggingAnEntry do
 
   describe 'tagging a project on skills' do
@@ -19,8 +23,7 @@ describe TaggingAnEntry do
       end
     end
     context 'as an authorized tagger' do
-      let(:any_authorized_role){ :admin }
-      let(:tagger){ User.new.tap{ |u| u.add_role(any_authorized_role) } }
+      let(:tagger){ build_admin_user }
       it 'tags the project on skills' do
         expect( taggable.tags_on(:skills).count ).to eq 2
         expect( taggable.tag_list_on :skills ).to include 'tag1'

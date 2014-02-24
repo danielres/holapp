@@ -1,7 +1,5 @@
 require 'spec_helper'
-
-include Warden::Test::Helpers
-Warden.test_mode!
+require 'fast_authentication_spec_helper'
 
 def confirmed_user
   User.create!(email: "visitor@user.com", password: 'password', name: "Visitor#{rand}").tap do |u|

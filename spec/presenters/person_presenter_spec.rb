@@ -1,6 +1,11 @@
 require 'spec_helper'
 require 'view_context_spec_helper'
 
+def build_random_person options={}
+  options = { email: "foo1#{rand}@bar.com", password: 'password', name: 'User name'}.merge options
+  User.create!(options)
+end
+
 describe PersonPresenter do
 
   describe 'initialization' do
@@ -15,7 +20,7 @@ describe PersonPresenter do
 
   describe 'rendering to html' do
     let(:viewer){ User.new }
-    let(:person){ User.new(email: "foo1#{rand}@bar.com", password: 'password', name: 'Alfred') }
+    let(:person){ build_random_person name: 'Alfred' }
     let(:person_presenter){ described_class.new(viewer, person, view_context) }
     it "renders html containing the person's name" do
       expect( person_presenter.to_html ).to include 'Alfred'

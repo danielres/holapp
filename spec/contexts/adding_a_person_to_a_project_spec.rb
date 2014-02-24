@@ -1,6 +1,16 @@
 require 'spec_helper'
 require 'view_context_spec_helper'
 
+
+def build_admin_user
+  User.new.tap{ |u| u.add_role(:admin) }
+end
+def create_random_person options={}
+  options = { email: "foo1#{rand}@bar.com", password: 'password', name: 'User name'}.merge options
+  User.create!(options)
+end
+
+
 describe AddingAPersonToAProject do
 
   let(:adding_a_person_to_a_project){ described_class.new(adder, person, project, view_context)  }
@@ -8,7 +18,7 @@ describe AddingAPersonToAProject do
   describe 'adding a person to a project' do
 
     let(:person) do
-      User.create!(email: "foo1#{rand}@bar.com", password: 'password', name: 'User name')
+      create_random_person
     end
     let(:project){ Project.create!(name: 'Project') }
 
@@ -32,8 +42,8 @@ describe AddingAPersonToAProject do
     end
 
     context 'as an authorized adder' do
-      let(:any_authorized_role){ :admin }
-      let(:adder){ User.new.tap{ |u| u.add_role(any_authorized_role) } }
+
+      let(:adder){ build_admin_user }
 
       describe 'exposing the form' do
         it 'renders the form' do
@@ -54,9 +64,9 @@ describe AddingAPersonToAProject do
         end
         describe 'on success and on failure' do
           it 'commands the controller accordingly' do
-            expect(controller).to receive(:success);
+            expect(controller).to receive(:success)
             adding_a_person_to_a_project.add
-            expect(controller).to receive(:failure);
+            expect(controller).to receive(:failure)
             adding_a_person_to_a_project.add
           end
         end

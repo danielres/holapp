@@ -1,6 +1,16 @@
 require 'spec_helper'
 require 'view_context_spec_helper'
 
+
+def build_admin_user
+  User.new.tap{ |u| u.add_role(:admin) }
+end
+def create_random_person options={}
+  options = { email: "foo1#{rand}@bar.com", password: 'password', name: 'User name'}.merge options
+  User.create!(options)
+end
+
+
 describe ViewingEntries do
 
   describe 'initialization' do
@@ -52,8 +62,8 @@ describe ViewingEntries do
     let(:presenter){ PeoplePresenter }
 
     before(:each) do
-      User.create!(email: "foo1#{rand}@bar.com", password: 'password', name: 'person_1')
-      User.create!(email: "foo1#{rand}@bar.com", password: 'password', name: 'person_2')
+      create_random_person name: 'person_1'
+      create_random_person name: 'person_2'
     end
 
     context 'as a guest viewer' do
@@ -65,8 +75,7 @@ describe ViewingEntries do
     end
 
     context 'as an authorized viewer' do
-      let(:any_authorized_role){ :admin }
-      let(:viewer){ User.new.tap{ |u| u.add_role(any_authorized_role) } }
+      let(:viewer){ build_admin_user }
       it 'reveals the people' do
         expect( subject.reveal ).to include 'person_1'
         expect( subject.reveal ).to include 'person_2'

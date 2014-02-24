@@ -1,6 +1,12 @@
 require 'spec_helper'
 require 'view_context_spec_helper'
 
+
+def build_admin_user
+  User.new.tap{ |u| u.add_role(:admin) }
+end
+
+
 describe AddingAPerson do
 
   let(:adding_a_person){ described_class.new(adder, view_context)  }
@@ -25,11 +31,9 @@ describe AddingAPerson do
 
   end
 
-
   context 'as an authorized adder' do
 
-    let(:any_authorized_role){ :admin }
-    let(:adder){ User.new.tap{ |u| u.add_role(any_authorized_role) } }
+    let(:adder){ build_admin_user }
 
     describe 'exposing the form' do
       it 'renders the form' do

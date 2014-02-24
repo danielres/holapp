@@ -4,5 +4,5 @@
   = f.association :project, label: 'Member of' if local_assigns[:person]
   = f.hidden_field :person_id, value: person.id if local_assigns[:person]
   = f.hidden_field :project_id, value: project.id if local_assigns[:project]
-  = f.button :submit, 'Create membership'
+  = f.button :button, 'Create membership'
 

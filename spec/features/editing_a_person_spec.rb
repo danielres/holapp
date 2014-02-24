@@ -24,7 +24,7 @@ describe 'Editing a person' do
         visit person_path(person)
         within 'form.new_membership' do
           page.select(project.name)
-          page.find('input[type=submit]').click
+          page.find('button[type=submit]').click
         end
       end
       it %q[adds the project on the person's page] do

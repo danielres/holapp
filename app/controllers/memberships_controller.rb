@@ -2,7 +2,7 @@ class MembershipsController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    person = User.find params[:membership][:person_id]
+    person = User.find params[:membership][:user_id]
     project = Project.find params[:membership][:project_id]
     adding_a_person_to_a_project = AddingAPersonToAProject.new(current_user, person, project, self)
     adding_a_person_to_a_project.command(self)

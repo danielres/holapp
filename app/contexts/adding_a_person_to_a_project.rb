@@ -51,8 +51,8 @@ class AddingAPersonToAProject
     module HasMembers
       def self.extended(object)
         object.class.class_eval do
-          has_many :memberships
-          has_many :members, through: :memberships, source: :user
+          # has_many :memberships
+          # has_many :members, through: :memberships, source: :user
         end
       end
     end

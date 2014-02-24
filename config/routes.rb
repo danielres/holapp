@@ -4,4 +4,6 @@ Marketplace::Application.routes.draw do
   resources :people, only:  [:create]
   resources :users
   resources :projects
+  resources :memberships
 end
+

@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
   devise :invitable, :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :memberships
+  has_many :project, through: :memberships
+
   def to_partial_path
     'people/person'
   end

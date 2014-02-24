@@ -20,7 +20,11 @@ class AddingAPersonToAProject
 
   def expose_form
     return unless @adder.can_manage_memberships?
-    h.render(partial: 'contexts/adding_a_person_to_a_project/form_from_person', locals: { person: @person })
+    if @person
+      h.render(partial: 'contexts/adding_a_person_to_a_project/form_from_person', locals: { person: @person })
+    else
+      h.render(partial: 'contexts/adding_a_person_to_a_project/form_from_project', locals: { project: @project })
+    end
   end
 
   def command(controller)

@@ -1,4 +1,4 @@
 .people
   People
-  %ul
+  %ul{ data: { purpose: 'people-list' } }
     = render collection: people, partial: 'presenters/shared/list_item'

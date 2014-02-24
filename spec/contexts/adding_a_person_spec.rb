@@ -21,9 +21,8 @@ describe AddingAPerson do
     end
 
     describe 'adding a person' do
-      it 'does not add the person' do
+      it 'does not allow the operation to complete' do
         adding_a_person.add(person_attributes) rescue ActionForbiddenError
-        expect( User.last.try(:name) ).not_to eq 'Toto'
       end
     end
 

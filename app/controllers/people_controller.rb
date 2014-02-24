@@ -1,6 +1,11 @@
 class PeopleController < ApplicationController
   before_filter :authenticate_user!
 
+  def show
+    person = User.find(params[:id])
+    render inline: PersonPresenter.new(current_user, person, view_context).to_html, layout: true
+  end
+
   def create
     adding_a_person = AddingAPerson.new(current_user, self)
     adding_a_person.command(self)

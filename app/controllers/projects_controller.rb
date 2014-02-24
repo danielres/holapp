@@ -3,8 +3,7 @@ class ProjectsController < ApplicationController
 
   def show
     project = Project.find(params[:id])
-    render layout: true,
-             text: ::ViewingAnEntry.new(current_user, view_context, project).view
+    render inline: ProjectPresenter.new(current_user, project, view_context).to_html, layout: true
   end
 
 end

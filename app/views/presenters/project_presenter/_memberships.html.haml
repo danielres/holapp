@@ -1,0 +1,3 @@
+%ul{ data: { purpose: 'memberships-list'}}
+  - memberships.each do |m|
+    %li= link_to m.user.name, m.user

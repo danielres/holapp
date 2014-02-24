@@ -1,0 +1,7 @@
+- project ||= Project.new
+
+= simple_form_for project, url: 'projects', html: { method: :post } do |f|
+  = f.input :name
+  = f.button :submit, 'Add project'
+
+

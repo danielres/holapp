@@ -7,6 +7,7 @@ class HomePresenter
     html = []
     html << HavingAGlobalView.new(@viewer, @view_context).view
     html << AddingAPerson.new(@viewer, @view_context).expose_form
+    html << AddingAProject.new(@viewer, @view_context).expose_form
     html.join
   end
 

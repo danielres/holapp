@@ -5,11 +5,15 @@ def create_random_person options={}
   options = { email: "foo1#{rand}@bar.com", password: 'password', name: 'User name'}.merge options
   User.create!(options)
 end
+def create_random_project options={}
+  options = { name: "project#{rand}" }.merge options
+  Project.create!(options)
+end
 
 
 describe Membership do
   context 'given a project and a person' do
-    let!(:project){ Project.create! }
+    let!(:project){ create_random_project }
     let!(:person) { create_random_person }
     it 'initializes correctly' do
       described_class.new(project: project, user: person)

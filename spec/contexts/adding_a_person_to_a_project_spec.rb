@@ -3,7 +3,6 @@ require 'view_context_spec_helper'
 
 describe AddingAPersonToAProject do
 
-  let(:view_context){ view }
   let(:adding_a_person_to_a_project){ described_class.new(adder, person, project, view_context)  }
 
   describe 'adding a person to a project' do

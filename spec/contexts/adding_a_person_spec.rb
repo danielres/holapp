@@ -3,11 +3,8 @@ require 'view_context_spec_helper'
 
 describe AddingAPerson do
 
-  let(:view_context){ view }
-
   let(:adding_a_person){ described_class.new(adder, view_context)  }
   let(:person_attributes){ { name: 'Toto'} }
-
 
   context 'as a guest user' do
 

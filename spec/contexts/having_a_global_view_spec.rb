@@ -3,7 +3,6 @@ require 'view_context_spec_helper'
 
 describe HavingAGlobalView do
 
-  let(:view_context){ view }
   let(:any_authorized_role){ :admin }
   let(:authorized_viewer){ User.new.tap{ |u| u.add_role(any_authorized_role) } }
 

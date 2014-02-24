@@ -3,8 +3,6 @@ require 'view_context_spec_helper'
 
 describe PeoplePresenter do
 
-  let(:view_context){ view }
-
   describe 'initialization' do
     context 'given a collection and a view_context' do
       let(:people){ [] }

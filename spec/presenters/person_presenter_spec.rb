@@ -3,8 +3,6 @@ require 'view_context_spec_helper'
 
 describe PersonPresenter do
 
-  let(:view_context){ view }
-
   describe 'initialization' do
     context 'given a viewer, person and a view_context' do
       let(:viewer){ double('viewer') }

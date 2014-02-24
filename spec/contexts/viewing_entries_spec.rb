@@ -3,8 +3,6 @@ require 'view_context_spec_helper'
 
 describe ViewingEntries do
 
-  let(:view_context){ view }
-
   describe 'initialization' do
     context 'given a viewer, a view_context, a type of entries and a presenter' do
       let(:viewer){ User.new }

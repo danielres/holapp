@@ -19,8 +19,8 @@ describe ProjectsPresenter do
       let(:projects){ [ project1, project2] }
       let(:projects_presenter){ described_class.new(projects, view_context) }
       it 'renders html with the projects' do
-        expect( projects_presenter.as_html ).to include 'project_A'
-        expect( projects_presenter.as_html ).to include 'project_B'
+        expect( projects_presenter.to_html ).to include 'project_A'
+        expect( projects_presenter.to_html ).to include 'project_B'
       end
     end
   end

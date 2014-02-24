@@ -4,7 +4,7 @@ class ProjectsPresenter
     @view_context = view_context
   end
 
-  def as_html
+  def to_html
     h.render partial: 'presenters/projects_presenter',
               locals: { projects: @projects }
   end

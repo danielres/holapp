@@ -24,8 +24,8 @@ describe PeoplePresenter do
       let(:people){ [ person1, person2] }
       let(:people_presenter){ described_class.new(people, view_context) }
       it 'renders html with the people' do
-        expect( people_presenter.as_html ).to include 'person_A'
-        expect( people_presenter.as_html ).to include 'person_B'
+        expect( people_presenter.to_html ).to include 'person_A'
+        expect( people_presenter.to_html ).to include 'person_B'
       end
     end
   end

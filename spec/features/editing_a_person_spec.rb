@@ -1,5 +1,5 @@
 require 'fast_authentication_spec_helper'
-
+require 'purpose_selector_spec_helper'
 
 def admin_user
   User.create!(email: "admin#{rand}@user.com", password: 'password', name: 'Admin#{rand}').tap do |u|
@@ -28,7 +28,7 @@ describe 'Editing a person' do
         end
       end
       it %q[adds the project on the person's page] do
-        within '[data-purpose=memberships-list]' do
+        within the('memberships-list') do
           expect( page ).to have_content 'Project1'
         end
       end

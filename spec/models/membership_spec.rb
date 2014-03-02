@@ -18,6 +18,11 @@ describe Membership do
     it 'initializes correctly' do
       described_class.new(project: project, user: person)
     end
+    it 'associates the person with the project' do
+      described_class.new(project: project, user: person).save
+      expect( project.members ).to include person
+      expect( person.projects ).to include project
+    end
 
     describe 'validations' do
       let(:attrs) do

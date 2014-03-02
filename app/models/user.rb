@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :memberships
-  has_many :project, through: :memberships
+  has_many :projects, through: :memberships
 
   def to_partial_path
     'people/person'

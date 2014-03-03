@@ -11,23 +11,19 @@ describe User do
     }
   end
 
-  it "requires a name" do
-    expect( User.new(name: '').errors_on(:name) ).to include "can't be blank"
+  describe "model attributes" do
+    it 'has a unique name' do
+      expect(subject).to validate_presence_of(:name)
+      expect(subject).to validate_uniqueness_of(:name)
+    end
+    it 'has a unique email' do
+      expect(subject).to validate_presence_of(:email)
+      expect(subject).to validate_uniqueness_of(:email)
+    end
   end
 
-  it "requires name to be unique" do
-    u1 = User.new( @attr.merge(name:'toto') ).save!
-    u2 = User.new(name: 'toto')
-    expect( u2.errors_on(:name) ).to include 'has already been taken'
-  end
-
-  it "should create a new instance given a valid attribute" do
+  it "should create a new instance given valid attributes" do
     User.create!(@attr)
-  end
-
-  it "should require an email address" do
-    no_email_user = User.new(@attr.merge(:email => ""))
-    no_email_user.should_not be_valid
   end
 
   it "should accept valid email addresses" do

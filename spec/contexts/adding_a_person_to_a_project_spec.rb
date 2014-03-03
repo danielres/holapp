@@ -1,80 +1,49 @@
 require 'spec_helper'
+require 'factories_spec_helper'
 require 'view_context_spec_helper'
-
-
-def build_admin_user
-  User.new.tap{ |u| u.add_role(:admin) }
-end
-def create_random_person options={}
-  options = { email: "foo1#{rand}@bar.com", password: 'password', name: 'User name'}.merge options
-  User.create!(options)
-end
-
+require 'html_fragment_spec_helper'
 
 describe AddingAPersonToAProject do
+  subject{ described_class.new(adder, person, project, view_context)  }
+  let(:person){ create(:person) }
+  let(:project){ create(:project) }
 
-  let(:adding_a_person_to_a_project){ described_class.new(adder, person, project, view_context)  }
 
-  describe 'adding a person to a project' do
-
-    let(:person) do
-      create_random_person
+  context 'by a guest user' do
+    let(:adder){ build(:no_roles_user) }
+    it 'is forbidden' do
+      expect{ subject.add }.to raise_error ActionForbiddenError
     end
-    let(:project){ Project.create!(name: 'Project') }
-
-    context 'as a guest user' do
-
-      let(:adder){ User.new }
-
-      describe 'exposing the form' do
-        it 'does not render the form' do
-          node = Capybara.string(adding_a_person_to_a_project.expose_form.to_s)
-          expect( node ).not_to have_css 'form.new_membership'
-        end
+    describe 'form' do
+      it 'is not exposed' do
+        expect( fragment(subject.expose_form) ).not_to have_css 'form.new_membership'
       end
-
-      describe 'adding a person to a project' do
-        it 'does not allow the operation to complete' do
-          adding_a_person_to_a_project.add rescue ActionForbiddenError
-        end
-      end
-
     end
-
-    context 'as an authorized adder' do
-
-      let(:adder){ build_admin_user }
-
-      describe 'exposing the form' do
-        it 'renders the form' do
-          node = Capybara.string(adding_a_person_to_a_project.expose_form)
-          expect( node ).to have_css 'form.new_membership'
-        end
-      end
-
-      it 'adds the person to the project' do
-        adding_a_person_to_a_project.add
-        expect( project.members ).to match_array [person]
-      end
-
-      context 'commanding the controller' do
-        let(:controller){ double('controller') }
-        before(:each) do
-          adding_a_person_to_a_project.command(controller)
-        end
-        describe 'on success and on failure' do
-          it 'commands the controller accordingly' do
-            expect(controller).to receive(:success)
-            adding_a_person_to_a_project.add
-            expect(controller).to receive(:failure)
-            adding_a_person_to_a_project.add
-          end
-        end
-      end
-
-    end
-
-
   end
+
+
+  context 'by a superuser' do
+    let(:adder){ create(:super_user) }
+    it 'is supported' do
+      subject.add
+      expect( project.members ).to match_array [person]
+    end
+    describe 'form' do
+      it 'is exposed' do
+        expect( fragment(subject.expose_form) ).to have_css 'form.new_membership'
+      end
+    end
+    describe 'on success and failure' do
+      let(:controller){ double('controller') }
+      before(:each){ subject.command(controller) }
+      it 'commands the controller accordingly' do
+        expect(controller).to receive(:success)
+        subject.add
+        expect(controller).to receive(:failure)
+        subject.add
+      end
+    end
+  end
+
 
 end

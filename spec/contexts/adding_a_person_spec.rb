@@ -1,69 +1,48 @@
 require 'spec_helper'
+require 'factories_spec_helper'
 require 'view_context_spec_helper'
-
-
-def build_admin_user
-  User.new.tap{ |u| u.add_role(:admin) }
-end
-
+require 'html_fragment_spec_helper'
 
 describe AddingAPerson do
+  subject{ described_class.new(adder, view_context) }
+  let(:added_person_attrs){ { name: 'Toto'} }
 
-  let(:adding_a_person){ described_class.new(adder, view_context)  }
-  let(:person_attributes){ { name: 'Toto'} }
 
-  context 'as a guest user' do
-
-    let(:adder){ User.new }
-
-    describe 'exposing the form' do
-      it 'does not render the form' do
-        node = Capybara.string(adding_a_person.expose_form.to_s)
-        expect( node ).not_to have_css 'form.new_user'
+  context 'by a guest user' do
+    let(:adder){ build(:no_roles_user) }
+    it 'is forbidden' do
+      expect{ subject.add(added_person_attrs) }.to raise_error ActionForbiddenError
+    end
+    describe 'form' do
+      it 'is not exposed' do
+        expect( fragment(subject.expose_form) ).not_to have_css 'form.new_user'
       end
     end
-
-    describe 'adding a person' do
-      it 'does not allow the operation to complete' do
-        adding_a_person.add(person_attributes) rescue ActionForbiddenError
-      end
-    end
-
   end
 
-  context 'as an authorized adder' do
 
-    let(:adder){ build_admin_user }
-
-    describe 'exposing the form' do
-      it 'renders the form' do
-        node = Capybara.string(adding_a_person.expose_form)
-        expect( node ).to have_css 'form.new_user'
+  context 'by a superuser' do
+    let(:adder){ create(:super_user) }
+    it "is supported given just a name" do
+      subject.add(added_person_attrs)
+      expect( User.last.name ).to eq 'Toto'
+    end
+    describe 'form' do
+      it 'is exposed' do
+        expect( fragment(subject.expose_form) ).to have_css 'form.new_user'
       end
     end
-
-    describe 'adding a person' do
-      context "given only the person's name" do
-        it 'adds the person' do
-          adding_a_person.add(person_attributes)
-          expect( User.last.name ).to eq 'Toto'
-        end
-      end
-    end
-
-    context 'commanding the controller' do
+    describe 'on success and failure' do
       let(:controller){ double('controller') }
-      before(:each) do
-        adding_a_person.command(controller)
-      end
-      describe 'on success and on failure' do
-        it 'commands the controller accordingly' do
-          expect(controller).to receive(:success); adding_a_person.add(person_attributes)
-          expect(controller).to receive(:failure); adding_a_person.add(person_attributes)
-        end
+      before(:each){ subject.command(controller) }
+      it 'commands the controller accordingly' do
+        expect(controller).to receive(:success)
+        subject.add(added_person_attrs)
+        expect(controller).to receive(:failure)
+        subject.add(added_person_attrs)
       end
     end
-
   end
+
 
 end

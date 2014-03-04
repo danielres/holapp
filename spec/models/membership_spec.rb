@@ -1,39 +1,21 @@
 require 'spec_helper'
-
-
-def create_random_person options={}
-  options = { email: "foo1#{rand}@bar.com", password: 'password', name: 'User name'}.merge options
-  User.create!(options)
-end
-def create_random_project options={}
-  options = { name: "project#{rand}" }.merge options
-  Project.create!(options)
-end
-
+require 'factories_spec_helper'
 
 describe Membership do
-  context 'given a project and a person' do
-    let!(:project){ create_random_project }
-    let!(:person) { create_random_person }
-    it 'initializes correctly' do
-      described_class.new(project: project, user: person)
-    end
-    it 'associates the person with the project' do
-      described_class.new(project: project, user: person).save
+
+    let!(:project){ build(:project) }
+    let!(:person) { build(:person) }
+    subject{ described_class.new(project: project, user: person) }
+    it 'associates a person with a project' do
+      subject.save
       expect( project.members ).to include person
       expect( person.projects ).to include project
     end
 
     describe 'validations' do
-      let(:attrs) do
-        { project: project, user: person }
-      end
-      let!(:membership){ Membership.create!(attrs) }
-      let(:duplicate_membership){ Membership.new(attrs) }
-      it "requires the project-person association to be unique" do
-        expect( duplicate_membership.errors_on :project_id ).to include 'has already been taken'
+      it 'prevents duplicate memberships' do
+        expect( subject ).to validate_uniqueness_of(:project_id).scoped_to(:user_id)
       end
     end
 
-  end
 end

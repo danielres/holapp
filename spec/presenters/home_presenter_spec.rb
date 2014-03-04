@@ -1,42 +1,35 @@
 require 'spec_helper'
+require 'factories_spec_helper'
+require 'view_context_spec_helper'
+require 'html_fragment_spec_helper'
+require 'purpose_selector_spec_helper'
 
 describe HomePresenter do
+  subject{ described_class.new(viewer, view_context) }
+  let(:view_context){ view }
 
-  let(:view_context){ double('view_context').as_null_object }
-  let(:viewer){ double('viewer').as_null_object }
+  context 'for a superuser' do
+    let(:viewer){ create(:super_user) }
 
-
-  describe 'Initialization' do
-    context 'given a viewer and a view_context' do
-      it 'initializes correctly' do
-        described_class.new(viewer, view_context)
+    describe 'rendering to html' do
+      describe 'providing a global view' do
+        it 'presents the people' do
+          expect( fragment(subject.to_html) ).to have_the 'people-list'
+        end
+        it 'presents the projects' do
+          expect( fragment(subject.to_html) ).to have_the 'people-list'
+        end
+      end
+      describe 'exposing forms' do
+        it 'exposes the form to add a person' do
+          expect( fragment(subject.to_html) ).to have_css 'form.new_user'
+        end
+        it 'exposes the form to add a project' do
+          expect( fragment(subject.to_html) ).to have_css 'form.new_project'
+        end
       end
     end
-  end
-
-
-  describe 'Rendering to html' do
-
-    let(:home_presenter){ described_class.new(viewer, view_context) }
-    let(:having_a_global_view){ double }
-    let(:adding_a_person){ double }
-    after(:each) do
-      home_presenter.to_html
-    end
-
-    it 'exposes a global view' do
-      expect( HavingAGlobalView ).to receive(:new)
-                                 .with(viewer, view_context)
-                                 .and_return{ having_a_global_view }
-      expect( having_a_global_view ).to receive(:view)
-    end
-    it 'exposes a form to add a person' do
-      expect( AddingAPerson ).to receive(:new)
-                                 .and_return{ adding_a_person }
-      expect( adding_a_person ).to receive(:expose_form)
-    end
 
   end
-
 
 end

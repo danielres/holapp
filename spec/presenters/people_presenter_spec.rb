@@ -1,34 +1,22 @@
 require 'spec_helper'
+require 'factories_spec_helper'
 require 'view_context_spec_helper'
-
-def build_random_person options={}
-  options = { email: "foo1#{rand}@bar.com", password: 'password', name: 'User name'}.merge options
-  User.create!(options)
-end
+require 'html_fragment_spec_helper'
+require 'purpose_selector_spec_helper'
 
 describe PeoplePresenter do
 
-  describe 'initialization' do
-    context 'given a collection and a view_context' do
-      let(:people){ [] }
-      it 'initializes correctly' do
-        described_class.new(people, view_context)
-      end
-    end
-  end
-
   describe 'rendering to html' do
-    context 'given people' do
-      let(:person1){ build_random_person name: 'person_A' }
-      let(:person2){ build_random_person name: 'person_B' }
-      let(:people){ [ person1, person2] }
-      let(:people_presenter){ described_class.new(people, view_context) }
-      it 'renders html with the people' do
-        expect( people_presenter.to_html ).to include 'person_A'
-        expect( people_presenter.to_html ).to include 'person_B'
-      end
+    subject{ described_class.new(people, view_context) }
+    let(:person1){ build(:person, name: 'person1') }
+    let(:person2){ build(:person, name: 'person2') }
+    let(:people){ [ person1, person2 ] }
+    let(:view_context){ view }
+    it 'presents the people' do
+      expect( fragment(subject.to_html) ).to have_the 'people-list'
+      expect( fragment(subject.to_html) ).to have_content('person1')
+      expect( fragment(subject.to_html) ).to have_content('person2')
     end
   end
-
 
 end

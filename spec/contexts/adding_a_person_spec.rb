@@ -1,13 +1,12 @@
 require 'spec_helper'
 require 'factories_spec_helper'
-require 'view_context_spec_helper'
-require 'html_fragment_spec_helper'
 require_relative 'shared_examples_for_form_providers'
 require_relative 'shared_examples_for_controller_commanders'
 
 describe AddingAPerson do
   subject{ described_class.new(adder, view_context) }
   let(:added_person_attrs){ { name: 'Toto'} }
+  let(:view_context){ double('view_context') }
 
 
   context 'by a guest user' do
@@ -33,6 +32,6 @@ describe AddingAPerson do
 
   end
 
-  include_examples 'a form provider', 'form.new_user'
+  include_examples 'a form provider'
 
 end

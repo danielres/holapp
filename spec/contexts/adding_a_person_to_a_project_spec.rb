@@ -1,14 +1,13 @@
 require 'spec_helper'
 require 'factories_spec_helper'
-require 'view_context_spec_helper'
-require 'html_fragment_spec_helper'
 require_relative 'shared_examples_for_form_providers'
 require_relative 'shared_examples_for_controller_commanders'
 
 describe AddingAPersonToAProject do
   subject{ described_class.new(adder, person, project, view_context)  }
-  let(:person){ create(:person) }
-  let(:project){ create(:project) }
+  let(:person){ build(:person) }
+  let(:project){ build(:project) }
+  let(:view_context){ double('view_context') }
 
   context 'by a guest user' do
     let(:adder){ build(:no_roles_user) }

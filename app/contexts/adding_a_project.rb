@@ -38,7 +38,10 @@ class AddingAProject
     module Adder
       def add_project(project, callbacks = {})
         raise ActionForbiddenError unless can_add_project?
-        project.save ? callbacks[:success].call : callbacks[:failure].call
+        success?(project) ? callbacks[:success].call : callbacks[:failure].call
+      end
+      def success?(project)
+        project.save
       end
       def can_add_project?
         Ability.new(self).can? :create, Project

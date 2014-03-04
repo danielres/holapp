@@ -1,69 +1,37 @@
 require 'spec_helper'
-require 'view_context_spec_helper'
-
-
-def build_admin_user
-  User.new.tap{ |u| u.add_role(:admin) }
-end
-
+require 'factories_spec_helper'
+require_relative 'shared_examples_for_form_providers'
+require_relative 'shared_examples_for_controller_commanders'
 
 describe AddingAProject do
-
-  let(:adding_a_project){ described_class.new(adder, view_context)  }
+  subject{ described_class.new(adder, view_context)  }
   let(:project_attributes){ { name: 'My project'} }
+  let(:view_context){ double('view_context') }
 
-  context 'as a guest user' do
 
-    let(:adder){ User.new }
+  context 'by a guest user' do
+    let(:adder){ build(:no_roles_user) }
+    it 'is forbidden' do
+      expect{ subject.add(project_attributes) }.to raise_error ActionForbiddenError
+    end
+  end
 
-    describe 'exposing the form' do
-      it 'does not render the form' do
-        node = Capybara.string(adding_a_project.expose_form.to_s)
-        expect( node ).not_to have_css 'form.new_project'
-      end
+
+  context 'by a superuser' do
+    let(:adder){ create(:super_user) }
+    it "is supported given just a name" do
+      subject.add(project_attributes)
+      expect( Project.last.name ).to eq 'My project'
     end
 
-    describe 'adding a project' do
-      it 'does not allow the operation to complete' do
-        adding_a_project.add(project_attributes) rescue ActionForbiddenError
-      end
+    describe 'performing' do
+      let(:performer){ adder }
+      let(:perform){ ->{ subject.add(project_attributes) } }
+      include_examples 'a controller commander'
     end
 
   end
 
-  context 'as an authorized adder' do
-
-    let(:adder){ build_admin_user }
-
-    describe 'exposing the form' do
-      it 'renders the form' do
-        node = Capybara.string(adding_a_project.expose_form)
-        expect( node ).to have_css 'form.new_project'
-      end
-    end
-
-    describe 'adding a project' do
-      context "given only the project's name" do
-        it 'adds the project' do
-          adding_a_project.add(project_attributes)
-          expect( Project.last.name ).to eq 'My project'
-        end
-      end
-    end
-
-    context 'commanding the controller' do
-      let(:controller){ double('controller') }
-      before(:each) do
-        adding_a_project.command(controller)
-      end
-      describe 'on success and on failure' do
-        it 'commands the controller accordingly' do
-          expect(controller).to receive(:success); adding_a_project.add(project_attributes)
-          expect(controller).to receive(:failure); adding_a_project.add(project_attributes)
-        end
-      end
-    end
-
-  end
+  include_examples 'a form provider'
 
 end

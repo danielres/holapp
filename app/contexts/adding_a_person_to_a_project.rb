@@ -41,10 +41,13 @@ class AddingAPersonToAProject
       def add_person_to_project(person, project, callbacks = {})
         raise ActionForbiddenError unless can_manage_memberships?
         membership = Membership.new(project: project, user: person)
-        membership.save ? callbacks[:success].call(membership) : callbacks[:failure].call(membership)
+        success?(membership) ? callbacks[:success].call(membership) : callbacks[:failure].call(membership)
       end
       def can_manage_memberships?
         Ability.new(self).can? :manage, :memberships
+      end
+      def success?(membership)
+        membership.save
       end
     end
 

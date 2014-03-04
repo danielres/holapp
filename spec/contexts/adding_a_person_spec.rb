@@ -2,6 +2,8 @@ require 'spec_helper'
 require 'factories_spec_helper'
 require 'view_context_spec_helper'
 require 'html_fragment_spec_helper'
+require_relative 'shared_examples_for_form_providers'
+require_relative 'shared_examples_for_controller_commanders'
 
 describe AddingAPerson do
   subject{ described_class.new(adder, view_context) }
@@ -13,11 +15,6 @@ describe AddingAPerson do
     it 'is forbidden' do
       expect{ subject.add(added_person_attrs) }.to raise_error ActionForbiddenError
     end
-    describe 'form' do
-      it 'is not exposed' do
-        expect( fragment(subject.expose_form) ).not_to have_css 'form.new_user'
-      end
-    end
   end
 
 
@@ -27,22 +24,15 @@ describe AddingAPerson do
       subject.add(added_person_attrs)
       expect( User.last.name ).to eq 'Toto'
     end
-    describe 'form' do
-      it 'is exposed' do
-        expect( fragment(subject.expose_form) ).to have_css 'form.new_user'
-      end
+
+    describe 'performing' do
+      let(:performer){ adder }
+      let(:perform){ ->{ subject.add(added_person_attrs) } }
+      include_examples 'a controller commander'
     end
-    describe 'on success and failure' do
-      let(:controller){ double('controller') }
-      before(:each){ subject.command(controller) }
-      it 'commands the controller accordingly' do
-        expect(controller).to receive(:success)
-        subject.add(added_person_attrs)
-        expect(controller).to receive(:failure)
-        subject.add(added_person_attrs)
-      end
-    end
+
   end
 
+  include_examples 'a form provider', 'form.new_user'
 
 end

@@ -38,7 +38,10 @@ class AddingAPerson
     module Adder
       def add_person(person, callbacks = {})
         raise ActionForbiddenError unless can_add_person?
-        person.save ? callbacks[:success].call : callbacks[:failure].call
+        success?(person) ? callbacks[:success].call : callbacks[:failure].call
+      end
+      def success?(person)
+        person.save
       end
       def can_add_person?
         Ability.new(self).can? :create, User

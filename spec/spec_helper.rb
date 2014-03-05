@@ -42,6 +42,11 @@ RSpec.configure do |config|
 end
 
 
+RSpec.configure do |config|
+  Capybara.javascript_driver = :webkit
+end
+
+
 # transactions are well supported with rack_test only
 # so we switch to truncation in other cases, see:
 # http://stackoverflow.com/questions/8178120/capybara-with-js-true-causes-test-to-fail/8698940#8698940

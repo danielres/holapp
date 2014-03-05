@@ -2,18 +2,21 @@ require 'spec_helper'
 require 'fast_authentication_spec_helper'
 require 'purpose_selector_spec_helper'
 require 'factories_spec_helper'
-
+require 'best_in_place_spec_helper'
 
 describe 'Editing a project' do
-  let(:super_user){ create(:super_user) }
-
   let!(:project){ create(:project) }
-  let!(:person){ create(:person, name: "Person's name") }
+
   context 'as a superuser' do
+    let(:super_user){ create(:super_user) }
+
+    before(:each) do
+      login_as(super_user, scope: :user)
+    end
 
     describe 'adding the project to a person' do
+      let!(:person){ create(:person, name: "Person's name") }
       before(:each) do
-        login_as(super_user, scope: :user)
         visit project_path(project)
         within 'form.new_membership' do
           page.select(person.name)
@@ -27,7 +30,20 @@ describe 'Editing a project' do
       end
     end
 
+    describe 'updating the project description', js: true do
+      before(:each) do
+        project.update(description: 'description')
+        visit project_path(project)
+      end
+      it 'updates the description on the project page' do
+        bip_area(project, :description, 'updated description'); sleep 0.1
+        visit project_path(project)
+        expect( page ).to have_content('updated description')
+      end
+    end
+
   end
+
 end
 
 

@@ -39,13 +39,25 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
-  config.before(:suite) do
-    DatabaseCleaner.strategy = :truncation
-  end
-  config.before(:each) do
+end
+
+
+# transactions are well supported with rack_test only
+# so we switch to truncation in other cases, see:
+# http://stackoverflow.com/questions/8178120/capybara-with-js-true-causes-test-to-fail/8698940#8698940
+RSpec.configure do |config|
+  config.use_transactional_fixtures = false
+
+  config.before :each do
+    if Capybara.current_driver == :rack_test
+      DatabaseCleaner.strategy = :transaction
+    else
+      DatabaseCleaner.strategy = :truncation
+    end
     DatabaseCleaner.start
   end
-  config.after(:each) do
+
+  config.after do
     DatabaseCleaner.clean
   end
 end

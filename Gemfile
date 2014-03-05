@@ -19,6 +19,7 @@ gem 'simple_form'
 gem 'therubyracer', :platform=>:ruby
 gem 'thin'
 gem 'acts-as-taggable-on'
+gem 'best_in_place', github: 'bernat/best_in_place'
 group :production do
   gem 'rails_12factor'
 end
@@ -44,6 +45,7 @@ group :development, :test do
 end
 group :test do
   gem 'capybara'
+  gem 'capybara-webkit'
   gem 'database_cleaner', '1.0.1'
   gem 'email_spec'
   gem 'shoulda'

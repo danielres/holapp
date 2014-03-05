@@ -1,23 +1,15 @@
-
-
-def create_random_person options={}
-  options = { email: "foo1#{rand}@bar.com", password: 'password', name: 'User name'}.merge options
-  User.create!(options)
-end
-
+require 'factories_spec_helper'
 
 describe 'Authentication' do
 
   describe 'Logging in' do
 
-    let(:visitor) do
-      create_random_person(email: "visitor@user.com", password: 'password')
-    end
+    let(:visitor){ create(:person) }
 
     before(:each) do
       visit '/'
-      fill_in :user_email, with: 'visitor@user.com'
-      fill_in :user_password, with: 'password'
+      fill_in :user_email, with: visitor.email
+      fill_in :user_password, with: visitor.password
     end
 
     context 'when visitor has not been confirmed' do

@@ -1,24 +1,15 @@
 require 'fast_authentication_spec_helper'
 require 'purpose_selector_spec_helper'
-
-def admin_user
-  User.create!(email: "admin#{rand}@user.com", password: 'password', name: 'Admin#{rand}').tap do |u|
-    u.confirm!
-    u.add_role :admin
-  end
-end
-def create_random_person options={}
-  options = { email: "foo1#{rand}@bar.com", password: 'password', name: 'User name'}.merge options
-  User.create!(options)
-end
-
+require 'factories_spec_helper'
 
 describe 'Adding a person' do
-  context 'when authenticated' do
+  let(:super_user){ create(:super_user) }
+
+  context 'as superuser' do
 
     describe 'using the form to add a person' do
       before(:each) do
-        login_as(admin_user, scope: :user)
+        login_as(super_user, scope: :user)
         visit '/'
         within 'form.new_user' do
           page.fill_in :user_name, with: 'Alfred'
@@ -31,7 +22,9 @@ describe 'Adding a person' do
         end
       end
     end
+
   end
+
 end
 
 

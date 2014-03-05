@@ -12,11 +12,11 @@ describe User do
   end
 
   describe "model attributes" do
-    it 'has a unique name' do
+    it 'should have a unique name' do
       expect(subject).to validate_presence_of(:name)
       expect(subject).to validate_uniqueness_of(:name)
     end
-    it 'has a unique email' do
+    it 'should have a unique email' do
       expect(subject).to validate_presence_of(:email)
       expect(subject).to validate_uniqueness_of(:email)
     end

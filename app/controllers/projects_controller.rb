@@ -20,11 +20,21 @@ class ProjectsController < ApplicationController
     redirect_to :back, notice: %Q[project "#{project.name}" has been added successfully]
   end
 
+  def update
+    project = Project.find(params[:id])
+    respond_to do |format|
+      if project.update_attributes(project_params)
+        format.json { head :ok }
+      else
+        format.json { respond_with_bip(project) }
+      end
+    end
+  end
 
   private
 
     def project_params
-      params.require(:project).permit(:name)
+      params.require(:project).permit(:name, :description)
     end
 
 

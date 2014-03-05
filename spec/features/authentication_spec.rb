@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'factories_spec_helper'
 
 describe 'Authentication' do

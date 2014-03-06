@@ -2,6 +2,10 @@
   = person.name
 Email: #{person.email if person.email}
 
+%h2
+  description:
+  = best_in_place person, :description, type: :textarea, path: "/people/#{person.id}"
+
 = memberships
 = new_membership_form
 

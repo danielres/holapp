@@ -2,18 +2,21 @@ require 'spec_helper'
 require 'fast_authentication_spec_helper'
 require 'purpose_selector_spec_helper'
 require 'factories_spec_helper'
-
+require 'best_in_place_spec_helper'
 
 describe 'Editing a person' do
-  let(:super_user){ create(:super_user) }
-
   let!(:person){ create(:person) }
-  let!(:project){ create(:project, name: 'Project name') }
+
   context 'as a superuser' do
+    let(:super_user){ create(:super_user) }
+
+    before(:each) do
+      login_as(super_user, scope: :user)
+    end
 
     describe 'adding the person to a project' do
+      let!(:project){ create(:project, name: "Project's name") }
       before(:each) do
-        login_as(super_user, scope: :user)
         visit person_path(person)
         within 'form.new_membership' do
           page.select(project.name)
@@ -22,11 +25,25 @@ describe 'Editing a person' do
       end
       it %q[mentions the project on the person's page] do
         within the('memberships-list') do
-          expect( page ).to have_content 'Project name'
+          expect( page ).to have_content "Project's name"
         end
       end
     end
+
+    describe 'updating the person description', js: true do
+      before(:each) do
+        person.update(description: 'description')
+        visit person_path(person)
+      end
+      it 'updates the description on the person page' do
+        edit_in_place_textarea(person, :description, 'updated description')
+        visit person_path(person)
+        expect( page ).to have_content('updated description')
+      end
+    end
+
   end
+
 end
 
 

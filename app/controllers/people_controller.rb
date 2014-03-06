@@ -20,10 +20,21 @@ class PeopleController < ApplicationController
     redirect_to :back, notice: %Q[Person "#{person.name}" has been added successfully]
   end
 
+  def update
+    person = User.find(params[:id])
+    respond_to do |format|
+      if person.update_attributes(user_params)
+        format.json { head :ok }
+      else
+        format.json { respond_with_bip(person) }
+      end
+    end
+  end
+
   private
 
     def user_params
-      params.require(:user).permit(:name)
+      params.require(:user).permit(:name, :description)
     end
 
 end

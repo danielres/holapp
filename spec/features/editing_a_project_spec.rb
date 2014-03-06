@@ -36,7 +36,7 @@ describe 'Editing a project' do
         visit project_path(project)
       end
       it 'updates the description on the project page' do
-        bip_area(project, :description, 'updated description'); sleep 0.1
+        edit_in_place_textarea(project, :description, 'updated description')
         visit project_path(project)
         expect( page ).to have_content('updated description')
       end

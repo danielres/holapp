@@ -11,15 +11,11 @@ describe User do
     }
   end
 
-  describe "model attributes" do
-    it 'should have a unique name' do
-      expect(subject).to validate_presence_of(:name)
-      expect(subject).to validate_uniqueness_of(:name)
-    end
-    it 'should have a unique email' do
-      expect(subject).to validate_presence_of(:email)
-      expect(subject).to validate_uniqueness_of(:email)
-    end
+  describe 'validations' do
+    expect_it { to validate_presence_of(:name) }
+    expect_it { to validate_uniqueness_of(:name).case_insensitive }
+    expect_it { to validate_presence_of(:email) }
+    expect_it { to validate_uniqueness_of(:email) }
   end
 
   it "should create a new instance given valid attributes" do

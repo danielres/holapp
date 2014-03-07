@@ -25,7 +25,7 @@ class ProjectPresenter
     end
 
     def new_membership_form_html
-      AddingAPersonToAProject.new(@viewer, nil, @project, @view_context).expose_form
+      AddingAPersonToAProject.new(@viewer, nil, @project).expose_form(@view_context)
     end
 
 end

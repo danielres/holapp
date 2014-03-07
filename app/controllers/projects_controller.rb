@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    adding_a_project = AddingAProject.new(current_user, self)
+    adding_a_project = AddingAProject.new(current_user)
     adding_a_project.command(self)
     adding_a_project.add(project_params)
   end

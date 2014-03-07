@@ -7,7 +7,7 @@ class PeopleController < ApplicationController
   end
 
   def create
-    adding_a_person = AddingAPerson.new(current_user, self)
+    adding_a_person = AddingAPerson.new(current_user)
     adding_a_person.command(self)
     adding_a_person.add(user_params)
   end

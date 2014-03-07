@@ -2,9 +2,8 @@ class ActionForbiddenError < StandardError; end
 
 class AddingAProject
 
-  def initialize(adder, view_context)
+  def initialize(adder)
     @adder = adder
-    @view_context = view_context
     @adder.extend Adder
   end
 
@@ -15,9 +14,9 @@ class AddingAProject
                        success: ->{ @controller.try(:success, project) }, )
   end
 
-  def expose_form
+  def expose_form(view_context)
     return unless @adder.can_add_project?
-    h.render(partial: 'contexts/adding_a_project/form')
+    view_context.render(partial: 'contexts/adding_a_project/form')
   end
 
   def command(controller)
@@ -26,10 +25,6 @@ class AddingAProject
 
 
   private
-
-    def h
-      @view_context
-    end
 
     def random_attributes
       { name: "ChangeMe#{rand}" }

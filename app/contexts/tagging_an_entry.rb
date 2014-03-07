@@ -16,11 +16,26 @@ class TaggingAnEntry
     end
   end
 
+  def expose_form(view_context)
+    return unless @tagger.can_tag?(@taggable)
+    view_context.render(partial: 'contexts/tagging_an_entry/form')
+  end
+
+  def expose_list(view_context)
+    return unless @tagger.can_read_taggings?(@taggable)
+    view_context.render(partial: 'contexts/tagging_an_entry/list')
+    'list exposed'
+  end
+
+
   private
 
     module Tagger
       def can_tag? taggable
         Ability.new(self).can? :manage, taggable
+      end
+      def can_read_taggings? taggable
+        Ability.new(self).can? :read, taggable
       end
     end
 

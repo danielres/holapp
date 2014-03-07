@@ -1,17 +1,16 @@
 class HavingAGlobalView
-  def initialize(viewing_user, view_context)
-    @viewer = viewing_user
-    @view_context = view_context
+  def initialize(user)
+    @user = user
   end
-  def view
-    GlobalViewPresenter.new(@viewer, @view_context).as_html
+  def view(view_context)
+    GlobalViewPresenter.new(@user, view_context).as_html
   end
 
   private
 
     class GlobalViewPresenter
       def initialize viewer, view_context
-        @viewer = viewer
+        @user = viewer
         @view_context = view_context
       end
       def as_html
@@ -23,10 +22,10 @@ class HavingAGlobalView
       end
       private
         def projects_html
-          ViewingEntries.new(@viewer, @view_context, Project, ProjectsPresenter).reveal
+          ViewingEntries.new(@user, @view_context, Project, ProjectsPresenter).reveal
         end
         def people_html
-          ViewingEntries.new(@viewer, @view_context, User, PeoplePresenter).reveal
+          ViewingEntries.new(@user, @view_context, User, PeoplePresenter).reveal
         end
         def top_motivations_html
           '<section>Top motivations</section>' # TODO: add top motivations list

@@ -3,14 +3,14 @@ require 'factories_spec_helper'
 
 describe HavingAGlobalView do
 
-  subject{ described_class.new(viewer, view_context) }
-  let(:viewer){ create(:super_user) }
-  let(:view_context){ double('view_context') }
+  subject{ described_class.new(user) }
+  let(:user){ create(:super_user) }
 
   describe 'having a global view' do
+    let(:view_context){ double('view_context') }
     let!(:project){ create( :project, name: 'Project 1') }
     let(:projects){ [ project  ] }
-    let(:people){ [ viewer ] }
+    let(:people){ [ user ] }
     it 'renders projects and people' do
       expect( view_context )
         .to receive(:render)
@@ -18,7 +18,7 @@ describe HavingAGlobalView do
       expect( view_context )
         .to receive(:render)
         .with hash_including( locals: { people: people }  )
-      subject.view
+      subject.view(view_context)
     end
 
   end

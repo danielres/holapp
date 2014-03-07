@@ -2,9 +2,8 @@ class ActionForbiddenError < StandardError; end
 
 class AddingAPerson
 
-  def initialize(adder, view_context)
+  def initialize(adder)
     @adder = adder
-    @view_context = view_context
     @adder.extend Adder
   end
 
@@ -15,9 +14,9 @@ class AddingAPerson
                        success: ->{ @controller.try(:success, person) }, )
   end
 
-  def expose_form
+  def expose_form(view_context)
     return unless @adder.can_add_person?
-    h.render(partial: 'contexts/adding_a_person/form')
+    view_context.render(partial: 'contexts/adding_a_person/form')
   end
 
   def command(controller)
@@ -26,10 +25,6 @@ class AddingAPerson
 
 
   private
-
-    def h
-      @view_context
-    end
 
     def random_attributes
       { email: "ChangeMe#{rand}@changeme.com", password: "password#{rand}" }

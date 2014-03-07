@@ -2,11 +2,10 @@ class ActionForbiddenError < StandardError; end
 
 class AddingAPersonToAProject
 
-  def initialize(adder, person, project, view_context)
+  def initialize(adder, person, project)
     @adder = adder if adder
     @person = person
     @project = project
-    @view_context = view_context
     @adder.extend Adder
     @project.extend HasMembers if @project
     @person.extend IsMemberOfProject
@@ -18,12 +17,12 @@ class AddingAPersonToAProject
                        success: ->(membership){ @controller.try(:success, membership) }, )
   end
 
-  def expose_form
+  def expose_form(view_context)
     return unless @adder.can_manage_memberships?
     if @person
-      h.render(partial: 'contexts/adding_a_person_to_a_project/form_from_person', locals: { person: @person })
+      view_context.render(partial: 'contexts/adding_a_person_to_a_project/form_from_person', locals: { person: @person })
     else
-      h.render(partial: 'contexts/adding_a_person_to_a_project/form_from_project', locals: { project: @project })
+      view_context.render(partial: 'contexts/adding_a_person_to_a_project/form_from_project', locals: { project: @project })
     end
   end
 
@@ -32,10 +31,6 @@ class AddingAPersonToAProject
   end
 
   private
-
-    def h
-      @view_context
-    end
 
     module Adder
       def add_person_to_project(person, project, callbacks = {})

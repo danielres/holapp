@@ -42,6 +42,13 @@ describe 'Editing a person' do
       end
     end
 
+    describe 'adding skills' do
+      before(:each) do
+        visit person_path(person)
+      end
+      it 'adds the skills to the person page'
+    end
+
   end
 
 end

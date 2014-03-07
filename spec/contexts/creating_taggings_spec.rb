@@ -1,14 +1,12 @@
 require 'spec_helper'
 require 'factories_spec_helper'
 require_relative 'shared_examples_for_form_providers'
-require_relative 'shared_examples_for_list_providers'
-# require_relative 'shared_examples_for_controller_commanders'
 
-describe TaggingAnEntry do
+describe CreatingTaggings do
   subject{ described_class.new(user, taggable, tag_list, tag_field)  }
 
-  describe 'tagging a project on skills' do
-    let(:taggable){ create(:project) }
+  describe 'tagging a person on skills' do
+    let(:taggable){ create(:person) }
     let(:tag_list){ 'tag1, tag2' }
     let(:tag_field){ :skills }
     context 'by a guest user' do
@@ -22,7 +20,7 @@ describe TaggingAnEntry do
     end
     context 'by an authorized user' do
       let(:user){ create(:super_user) }
-      it 'tags the project on skills' do
+      it 'tags the person on skills' do
         subject.tag
         expect( taggable.tags_on(:skills).count ).to eq 2
         expect( taggable.tag_list_on :skills ).to include 'tag1'
@@ -31,9 +29,7 @@ describe TaggingAnEntry do
     end
 
     include_examples 'a form provider'
-    include_examples 'a list provider'
 
   end
-
 
 end

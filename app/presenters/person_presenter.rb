@@ -31,11 +31,11 @@ class PersonPresenter
     end
 
     def skills_list_html
-      TaggingAnEntry.new(@viewer, @person, nil, :skills).expose_list(@view_context)
+      ViewingTaggings.new(@viewer, @person).expose_list(@view_context)
     end
 
     def skills_adder_html
-      TaggingAnEntry.new(@viewer, @person, nil, :skills).expose_form(@view_context)
+      CreatingTaggings.new(@viewer, @person, nil, :skills).expose_form(@view_context)
     end
 
 end

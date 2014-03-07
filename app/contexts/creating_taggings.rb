@@ -1,4 +1,4 @@
-class TaggingAnEntry
+class CreatingTaggings
 
   def initialize(tagger, taggable, tags, tag_field)
     @tagger = tagger
@@ -18,23 +18,14 @@ class TaggingAnEntry
 
   def expose_form(view_context)
     return unless @tagger.can_tag?(@taggable)
-    view_context.render(partial: 'contexts/tagging_an_entry/form')
+    view_context.render(partial: 'contexts/creating_taggings/form')
   end
-
-  def expose_list(view_context)
-    return unless @tagger.can_read_taggings?(@taggable)
-    view_context.render(partial: 'contexts/tagging_an_entry/list', locals: { taggings: @taggable.taggings })
-  end
-
 
   private
 
     module Tagger
       def can_tag? taggable
         Ability.new(self).can? :manage, taggable
-      end
-      def can_read_taggings? taggable
-        Ability.new(self).can? :read, taggable
       end
     end
 
@@ -47,9 +38,6 @@ class TaggingAnEntry
       def add_tags tags
         set_tag_list_on(@tag_field, tags)
         save!
-      end
-      def tag_list_on *args
-        super
       end
     end
 

@@ -1,0 +1,8 @@
+%ul{ data: { purpose: 'skills-list'} }
+  - taggings.load.group_by{ |t| t.context }.each do |k,vals|
+    %p #{ k }:
+    - vals.each do |v|
+      %li= v.tag
+
+%p{ data: { purpose: 'skills-adder'} }
+  [skills adder]

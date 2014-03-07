@@ -23,8 +23,7 @@ class TaggingAnEntry
 
   def expose_list(view_context)
     return unless @tagger.can_read_taggings?(@taggable)
-    view_context.render(partial: 'contexts/tagging_an_entry/list')
-    'list exposed'
+    view_context.render(partial: 'contexts/tagging_an_entry/list', locals: { taggings: @taggable.taggings })
   end
 
 

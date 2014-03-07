@@ -4,7 +4,7 @@ class MembershipsController < ApplicationController
   def create
     person = User.find params[:membership][:user_id]
     project = Project.find params[:membership][:project_id]
-    adding_a_person_to_a_project = AddingAPersonToAProject.new(current_user, person, project, self)
+    adding_a_person_to_a_project = AddingAPersonToAProject.new(current_user, person, project)
     adding_a_person_to_a_project.command(self)
     adding_a_person_to_a_project.add
   end

@@ -46,7 +46,15 @@ describe 'Editing a person' do
       before(:each) do
         visit person_path(person)
       end
-      it 'adds the skills to the person page'
+      it 'adds the skills to the person page' do
+        within the('skills-adder') do
+          fill_in :tagging_tag_list, with: 'skill1, skill2'
+          first('[type=submit]').click
+        end
+        visit person_path(person)
+        expect( page ).to have_content('skill1')
+        expect( page ).to have_content('skill2')
+      end
     end
 
   end

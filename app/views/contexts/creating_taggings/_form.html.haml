@@ -1,2 +1,6 @@
-%form{ data: { purpose: 'skills-adder'} }
-  [skills adder]
+= simple_form_for(Tagging.new, html: { data: { purpose: "#{tag_field}-adder" } }) do |f|
+  = f.hidden_field :taggable_id, value: taggable.id
+  = f.hidden_field :taggable_type, value: taggable.class
+  = f.hidden_field :tag_field, value: tag_field
+  = f.input 'tagging[tag_list]', label: tag_field.capitalize, as: :fake
+  = f.button :submit

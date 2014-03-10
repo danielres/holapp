@@ -1,3 +1,3 @@
 %ul{ data: { purpose: "#{ tag_field }-list"} }
   - taggings.each do |t|
-    %li= t.tag
+    %li= link_to t.tag, tag_path(t.tag)

@@ -13,15 +13,15 @@ describe ViewingTaggings do
       let(:user){ build(:no_roles_user) }
       it 'is not exposed' do
         expect( view_context ).not_to receive(:render)
-        subject.expose_list(view_context)
+        subject.expose_list(:skills, view_context)
       end
     end
 
     context 'for super users' do
       let(:user){ create(:super_user) }
       it 'is exposed' do
-        expect( view_context ).to receive(:render).with( hash_including locals: { taggings: anything } )
-        subject.expose_list(view_context)
+        expect( view_context ).to receive(:render).with( hash_including locals: { tag_field: :skills,  taggings: anything } )
+        subject.expose_list(:skills, view_context)
       end
     end
 

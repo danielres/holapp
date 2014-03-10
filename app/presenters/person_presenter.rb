@@ -31,7 +31,7 @@ class PersonPresenter
     end
 
     def skills_list_html
-      ViewingTaggings.new(@viewer, @person).expose_list(@view_context)
+      ViewingTaggings.new(@viewer, @person).expose_list(:skills, @view_context)
     end
 
     def skills_adder_html

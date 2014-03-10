@@ -3,6 +3,7 @@ require 'fast_authentication_spec_helper'
 require 'purpose_selector_spec_helper'
 require 'factories_spec_helper'
 require 'best_in_place_spec_helper'
+require_relative 'shared_examples_for_taggables_spec'
 
 describe 'Editing a person' do
   let!(:person){ create(:person) }
@@ -42,19 +43,10 @@ describe 'Editing a person' do
       end
     end
 
-    describe 'adding skills' do
-      before(:each) do
-        visit person_path(person)
-      end
-      it 'adds the skills to the person page' do
-        within the('skills-adder') do
-          fill_in :tagging_tag_list, with: 'skill1, skill2'
-          first('[type=submit]').click
-        end
-        visit person_path(person)
-        expect( page ).to have_content('skill1')
-        expect( page ).to have_content('skill2')
-      end
+    describe 'tagging' do
+      let(:taggable){ person }
+      let(:tag_field){ :skills }
+      include_examples 'a taggable'
     end
 
   end

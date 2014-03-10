@@ -7,4 +7,5 @@ Marketplace::Application.routes.draw do
   resources :projects
   resources :memberships
   resources :taggings, only: [ :create ]
+  resources :tags, only: [ :show, :update ]
 end

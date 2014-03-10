@@ -42,6 +42,21 @@ describe 'Editing a project' do
       end
     end
 
+    describe 'adding skills' do
+      before(:each) do
+        visit project_path(project)
+      end
+      it 'adds the skills to the project page' do
+        within the('skills-adder') do
+          fill_in :tagging_tag_list, with: 'skill1, skill2'
+          first('[type=submit]').click
+        end
+        visit project_path(project)
+        expect( page ).to have_content('skill1')
+        expect( page ).to have_content('skill2')
+      end
+    end
+
   end
 
 end

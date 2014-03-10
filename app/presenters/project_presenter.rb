@@ -11,6 +11,9 @@ class ProjectPresenter
                    project: @project,
               memberships: memberships_html,
       new_membership_form: new_membership_form_html,
+              skills_list: skills_list_html,
+             skills_adder: skills_adder_html,
+
     })
   end
 
@@ -27,5 +30,14 @@ class ProjectPresenter
     def new_membership_form_html
       AddingAPersonToAProject.new(@viewer, nil, @project).expose_form(@view_context)
     end
+
+    def skills_list_html
+      ViewingTaggings.new(@viewer, @project).expose_list(:skills, @view_context)
+    end
+
+    def skills_adder_html
+      CreatingTaggings.new(@viewer, @project, nil, :skills).expose_form(@view_context)
+    end
+
 
 end

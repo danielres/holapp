@@ -13,6 +13,8 @@ class PersonPresenter
       new_membership_form: new_membership_form_html,
               skills_list: skills_list_html,
              skills_adder: skills_adder_html,
+         motivations_list: motivations_list_html,
+        motivations_adder: motivations_adder_html,
     })
   end
 
@@ -36,6 +38,14 @@ class PersonPresenter
 
     def skills_adder_html
       CreatingTaggings.new(@viewer, @person, nil, :skills).expose_form(@view_context)
+    end
+
+    def motivations_list_html
+      ViewingTaggings.new(@viewer, @person).expose_list(:motivations, @view_context)
+    end
+
+    def motivations_adder_html
+      CreatingTaggings.new(@viewer, @person, nil, :motivations).expose_form(@view_context)
     end
 
 end

@@ -19,32 +19,36 @@ describe 'Tag page' do
         visit tag_path(tag)
       end
       subject{ page }
-      it 'presents the name' do
+      it 'presents its name' do
         expect( page ).to have_content 'the name'
       end
-      it 'presents the description' do
+      it 'presents its description' do
         expect( page ).to have_content 'the description'
       end
 
     end
 
-    describe 'presenting the tagged elements' do
-      context 'when applied to a people and projects' do
-        let!(:person){ create(:person) }
-        let!(:project){ create(:project) }
-        before(:each) do
-          CreatingTaggings.new(user, person, 'skill1', :skills).tag
-          CreatingTaggings.new(user, project, 'skill1', :skills).tag
-          tag = Tag.find_by_name('skill1')
-          visit tag_path(tag)
+    context 'when people and projects have been tagged' do
+      let!(:person){ create(:person) }
+      let!(:project){ create(:project) }
+      let!(:tag){ create(:tag, name: 'my_tag') }
+      let!(:tagging1){ Tagging.create!( tag_id: tag.id, taggable_type: person.class.name, taggable_id: person.id, context: :skills ) }
+      let!(:tagging2){ Tagging.create!( tag_id: tag.id, taggable_type: project.class.name, taggable_id: project.id, context: :skills ) }
+      let!(:tagging3){ Tagging.create!( tag_id: tag.id, taggable_type: project.class.name, taggable_id: project.id, context: :needs ) }
+      before(:each) do
+        visit tag_path(tag)
+      end
+      it 'presents the list of tagged people' do
+        within the 'people-list' do
+          expect( page ).to have_content person.name
+          expect( page ).to have_content 'skills'
         end
-        it 'presents the links to the tagged people and projects' do
-          within the 'projects-list' do
-            expect( page ).to have_content project.name
-          end
-          within the 'people-list' do
-            expect( page ).to have_content person.name
-          end
+      end
+      it 'presents the list of tagged projects' do
+        within the 'projects-list' do
+          expect( page ).to have_content project.name
+          expect( page ).to have_content 'needs'
+          expect( page ).to have_content 'skills'
         end
       end
     end

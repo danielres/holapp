@@ -7,10 +7,18 @@ class TagPresenter
   end
 
   def to_html
-    h.render(partial: 'presenters/tag_presenter/tag', locals: {tag: @tag, })
+    h.render(partial: 'presenters/tag_presenter/tag',
+      locals: {
+        tag: @tag,
+        taggables: taggables,
+        })
   end
 
   private
+
+    def taggables
+      ViewingTaggables.new(@viewer, @tag).expose_taggings_by_taggable_types(@view_context)
+    end
 
     def h
       @view_context

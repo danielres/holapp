@@ -17,26 +17,30 @@ describe TagPresenter do
         expect( fragment subject.to_html ).to have_content('skill1')
       end
 
-      describe 'presenting the tagged elements' do
-        context 'when applied to a people and projects' do
-          let!(:person){ create(:person) }
-          let!(:project){ create(:project) }
-          before(:each) do
-            CreatingTaggings.new(viewer, person, 'skill1', :skills).tag
-            CreatingTaggings.new(viewer, project, 'skill1', :skills).tag
-            tag = Tag.find_by_name('skill1')
-          end
-          it 'presents the links to the tagged people and projects' do
-            expect( fragment subject.to_html ).to have_content person.name
-            expect( fragment subject.to_html ).to have_content project.name
-            #   within the 'projects-list' do
-            #     expect( page ).to have_content project.name
-            #   end
-            #   within the 'people-list' do
-            #     expect( page ).to have_content person.name
-            #   end
-          end
+      context 'when people and projects have been tagged' do
+        let!(:person){ create(:person) }
+        let!(:project){ create(:project) }
+        let!(:tag){ create(:tag, name: 'my_tag') }
+        let!(:tagging1){ Tagging.create!( tag_id: tag.id, taggable_type: person.class.name, taggable_id: person.id, context: :skills ) }
+        let!(:tagging2){ Tagging.create!( tag_id: tag.id, taggable_type: project.class.name, taggable_id: project.id, context: :skills ) }
+        let!(:tagging3){ Tagging.create!( tag_id: tag.id, taggable_type: project.class.name, taggable_id: project.id, context: :needs ) }
+
+        it 'presents the list of tagged people' do
+          expect( fragment subject.to_html )
+            .to have_css( the('people-list'), text: person.name)
+          expect( fragment subject.to_html )
+            .to have_css( the('people-list'), text: 'skills')
         end
+
+        it 'presents the list of tagged projects' do
+          expect( fragment subject.to_html )
+            .to have_css( the('projects-list'), text: project.name)
+          expect( fragment subject.to_html )
+            .to have_css( the('projects-list'), text: 'skills')
+          expect( fragment subject.to_html )
+            .to have_css( the('projects-list'), text: 'needs')
+        end
+
       end
 
     end

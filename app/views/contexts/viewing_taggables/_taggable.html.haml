@@ -1,0 +1,4 @@
+%tr
+  - taggable = tagging.taggable_type.constantize.find(tagging.taggable_id)
+  %td= link_to taggable.name, taggable
+  %td= tagging.context

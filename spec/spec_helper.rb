@@ -9,6 +9,9 @@ require 'email_spec'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+require 'simplecov'
+SimpleCov.start 'rails'
+
 RSpec.configure do |config|
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)

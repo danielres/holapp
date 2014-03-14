@@ -26,23 +26,15 @@ describe ViewingTaggables do
       let!(:tagging2){ Tagging.create!( tag_id: tag.id, taggable_type: project1.class.name, taggable_id: project1.id, context: :needs ) }
       let!(:tagging3){ Tagging.create!( tag_id: tag.id, taggable_type: project2.class.name, taggable_id: project2.id, context: :needs ) }
       let(:user){ create(:super_user) }
-      it 'invokes rendering of the taggings grouped by taggable types' do
-        expect( view_context )
-          .to receive(:render)
-          .with( hash_including locals: {
-                  type: 'User',
-                 title: 'People',
-              taggings: [ tagging1 ]
-            }
-          )
-        expect( view_context )
-          .to receive(:render)
-          .with( hash_including locals: {
-                  type: 'Project',
-                 title: 'Projects',
-              taggings: [ tagging2, tagging3 ]
-            }
-          )
+      it 'invokes rendering of taggings, grouped by their taggable types' do
+        expect( view_context ).to receive(:render).twice do |options|
+          if options[:locals][:type] == 'User'
+            expect( options[:locals][:taggings] ).to match_array [ tagging1 ]
+          end
+          if options[:locals][:type] == 'Project'
+            expect( options[:locals][:taggings] ).to match_array [ tagging2, tagging3 ]
+          end
+        end
         subject.expose_taggings_by_taggable_types(view_context)
       end
     end

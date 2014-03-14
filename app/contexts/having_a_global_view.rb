@@ -29,10 +29,10 @@ class HavingAGlobalView
           # ViewingEntries.new(@user, @view_context, User, PeoplePresenter).reveal
         end
         def top_motivations_html
-          '<section>Top motivations</section>' # TODO: add top motivations list
+          '<section><h1>Top motivations</h1></section>' # TODO: add top motivations list
         end
         def top_skills_html
-          '<section>Top skills</section>' # TODO: add top skills list
+          '<section><h1>Top skills</h1></section>' # TODO: add top skills list
         end
     end
 

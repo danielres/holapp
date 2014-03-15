@@ -1,2 +1,2 @@
-%ul{ data: { purpose: 'projects-list' } }
-  = render collection: projects, partial: 'presenters/shared/list_item'
+%table{ data: { purpose: 'projects-list' } }
+  = render collection: projects, partial: 'presenters/shared/table_row', as: :item

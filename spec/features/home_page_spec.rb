@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'fast_authentication_spec_helper'
 require 'factories_spec_helper'
+require 'purpose_selector_spec_helper'
 
 
 describe 'Homepage' do
@@ -19,10 +20,10 @@ describe 'Homepage' do
       expect( page ).to have_content 'Projects'
     end
     it 'displays a top skills section' do
-      expect( page ).to have_content 'Top skills'
+      expect( page ).to have_the 'top-skills'
     end
     it 'displays a top motivations section' do
-      expect( page ).to have_content 'Top motivations'
+      expect( page ).to have_the 'top-motivations'
     end
 
   end

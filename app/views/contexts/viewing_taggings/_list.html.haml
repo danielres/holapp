@@ -1,3 +1,5 @@
-%ul{ data: { purpose: "#{ tag_field }-list"} }
+%table{ data: { purpose: "#{ tag_field }-list"} }
+  %caption= tag_field.capitalize
   - taggings.each do |t|
-    %li= link_to t.tag, tag_path(t.tag)
+    %tr[t]
+      %td= link_to t.tag, tag_path(t.tag)

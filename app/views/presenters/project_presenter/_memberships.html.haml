@@ -1,3 +1,5 @@
-%ul{ data: { purpose: 'memberships-list'}}
+%table{ data: { purpose: 'memberships-list'}}
+  %caption People
   - memberships.each do |m|
-    %li= link_to m.user.name, m.user
+    %tr[m]
+      %td= link_to m.user.name, m.user

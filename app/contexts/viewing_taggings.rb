@@ -9,6 +9,7 @@ class ViewingTaggings
 
   def expose_list(tag_field, view_context)
     return unless @viewer.can_view_taggings?(@taggable)
+    return unless taggings(tag_field).any?
     view_context.render(
       partial: 'contexts/viewing_taggings/list',
       locals: {

@@ -1,40 +1,24 @@
-%h1= person.name
+.col-md-12
+  %h1= person.name
 
-%div.col-md-8
-
-  %div
-    = best_in_place person, :description, type: :textarea, path: "/people/#{person.id}"
-
-
-
-  %div
-    %h1 Projects
-    = memberships
-
-  %div
-    %h1 Skills
-    = skills_list
-
-  %div
-    %h1 Motivations
-    = motivations_list
+.col-md-8
+  = best_in_place person, :description, type: :textarea, path: "/people/#{person.id}"
+  = memberships
+  = skills_list
+  = motivations_list
 
 
 %aside.col-md-4
-  %div
-    %table
-      %tr
-        %th Email:
-        %td= person.email
+  %table
+    %tr
+      %th Email
+      %td= person.email
 
-  %div
-    %h1 Add to project
-    = new_membership_form
+  %h1 Add to project
+  = new_membership_form
 
-  %div
-    %h1 Add skills
-    = skills_adder
+  %h1 Add skills
+  = skills_adder
 
-  %div
-    %h1 Add motivations
-    = motivations_adder
+  %h1 Add motivations
+  = motivations_adder

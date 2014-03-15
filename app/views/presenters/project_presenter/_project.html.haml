@@ -1,25 +1,17 @@
-%h1= project.name
+.col-md-12
+  %h1= project.name
 
-%main.col-md-8
+.col-md-8
+  = best_in_place project, :description, type: :textarea
+  = memberships
+  = skills_list
 
-  %div
-    = best_in_place project, :description, type: :textarea
-
-  %div
-    %h1 People
-    = memberships
-
-  %div
-    %h1 Skills
-    = skills_list
 
 %aside.col-md-4
 
-  %div
-    %h1 Add to project
-    = new_membership_form
+  %h1 Add to project
+  = new_membership_form
 
-  %div
-    %h1 Add skills
-    = skills_adder
+  %h1 Add skills
+  = skills_adder
 

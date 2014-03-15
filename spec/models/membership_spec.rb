@@ -5,6 +5,7 @@ describe Membership do
   describe 'attributes' do
     expect_it { to have_attribute('project_id') }
     expect_it { to have_attribute('user_id') }
+    expect_it { to have_attribute('description') }
   end
 
   describe 'associations' do

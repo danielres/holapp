@@ -12,12 +12,13 @@ describe HavingAGlobalView do
     let(:projects){ [ project  ] }
     let(:people){ [ user ] }
     it 'renders projects and people' do
-      expect( view_context )
-        .to receive(:render)
-        .with hash_including( locals: { projects: projects } )
-      expect( view_context )
-        .to receive(:render)
-        .with hash_including( locals: { people: people }  )
+      allow( view_context ).to receive(:render)
+      expect( view_context ).to receive(:render) do |options|
+        expect( options[:locals][:projects] ).to match_array projects
+      end
+      expect( view_context ).to receive(:render) do |options|
+        expect( options[:locals][:people] ).to match_array people
+      end
       subject.view(view_context)
     end
 

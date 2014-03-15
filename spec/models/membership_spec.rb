@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe Membership do
 
+  describe 'attributes' do
+    expect_it { to have_attribute('project_id') }
+    expect_it { to have_attribute('user_id') }
+  end
+
   describe 'associations' do
     expect_it { to belong_to(:project) }
     expect_it { to belong_to(:user) }

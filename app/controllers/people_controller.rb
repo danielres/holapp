@@ -6,30 +6,38 @@ class PeopleController < ApplicationController
     render inline: PersonPresenter.new(current_user, person, view_context).to_html, layout: true
   end
 
+
   def create
     adding_a_person = AddingAPerson.new(current_user)
     adding_a_person.command(self)
     adding_a_person.add(user_params)
   end
-
   def failure(person)
     redirect_to :back, alert: render_to_string(partial: 'shared/errors', locals: { object: person }).html_safe
   end
-
   def success(person)
     redirect_to :back, notice: %Q[Person "#{person.name}" has been added successfully]
   end
 
+
   def update
     person = User.find(params[:id])
+    updating_a_person = UpdatingAPerson.new(current_user, person)
+    updating_a_person.command(self)
+    updating_a_person.update(user_params)
+  end
+  def update_failure(person)
     respond_to do |format|
-      if person.update_attributes(user_params)
-        format.json { head :ok }
-      else
-        format.json { respond_with_bip(person) }
-      end
+      format.json { respond_with_bip(person) }
     end
   end
+  def update_success(person)
+    respond_to do |format|
+      format.json { head :ok }
+    end
+  end
+
+
 
   private
 

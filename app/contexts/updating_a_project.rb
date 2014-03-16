@@ -1,21 +1,44 @@
+class ActionForbiddenError < StandardError; end
+
 class UpdatingAProject
 
-  def initialize(user, project, attributes = {})
+  def initialize(user, project)
     @updater = user
     @project = project
-    @attributes = attributes
+    @updater.extend Updater
     @project.extend UpdatableProject
   end
 
-  def update
-    @project.update_with(@attributes)
+  def update(attributes)
+    @updater.update_project_with(@project, attributes,
+                      failure: ->{ @controller && @controller.update_failure(@project) },
+                      success: ->{ @controller && @controller.update_success(@project) }, )
+  end
+
+  def command(controller)
+    @controller = controller
   end
 
   private
+
+    module Updater
+      def update_project_with(project, attributes, callbacks = {})
+        raise ActionForbiddenError unless can_update_project?(project)
+        success?(project, attributes) ? callbacks[:success].call : callbacks[:failure].call
+      end
+      def success?(project, attributes)
+        project.update_with(attributes)
+      end
+      def can_update_project?(project)
+        Ability.new(self).can? :manage, project
+      end
+    end
+
 
     module UpdatableProject
       def update_with(attributes = {})
         update_attributes(attributes)
       end
     end
+
 end

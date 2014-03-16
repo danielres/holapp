@@ -22,7 +22,7 @@ class ViewingTaggings
   private
 
     def taggings(tag_field)
-      @taggable.taggings.where(context: tag_field)
+      Tagging.where(taggable_id: @taggable.id, taggable_type: @taggable.class.name, context: tag_field)
     end
 
     module Viewer

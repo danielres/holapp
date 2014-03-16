@@ -2,4 +2,5 @@
   %caption= tag_field.capitalize
   - taggings.each do |t|
     %tr[t]
-      %td= link_to t.tag, tag_path(t.tag)
+      %td= link_to t.tag.name, tag_path(t.tag)
+      %td= best_in_place t, :description, type: :textarea

@@ -12,13 +12,36 @@ class TaggingsController < ApplicationController
     create_taggings.command(self)
     create_taggings.tag
   end
-
   def failure
     redirect_to :back, alert: 'Could not apply tags'
   end
-
   def success
     redirect_to :back, notice: 'Tags applied successfully'
   end
+
+
+  def update
+    tagging = Tagging.find(params[:id])
+    updating_a_tagging = UpdatingATagging.new(current_user, tagging)
+    updating_a_tagging.command(self)
+    updating_a_tagging.update(tagging_params)
+  end
+  def update_failure(tagging)
+    respond_to do |format|
+      format.json { respond_with_bip(tagging) }
+    end
+  end
+  def update_success(tagging)
+    respond_to do |format|
+      format.json { head :ok }
+    end
+  end
+
+  private
+
+    def tagging_params
+      params.require(:tagging).permit(:description)
+    end
+
 
 end

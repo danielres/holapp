@@ -2,3 +2,4 @@
   - taggable = tagging.taggable_type.constantize.find(tagging.taggable_id)
   %td= link_to taggable.name, taggable
   %td= tagging.context
+  %td= best_in_place tagging, :description, type: :textarea

@@ -3,3 +3,4 @@
   - memberships.each do |m|
     %tr[m]
       %td= link_to m.user.name, m.user
+      %td= best_in_place m, :description, type: :textarea

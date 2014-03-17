@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140316191936) do
+ActiveRecord::Schema.define(version: 20140317000457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20140316191936) do
     t.string   "context",       limit: 128
     t.datetime "created_at"
     t.text     "description"
+    t.integer  "quantifier"
   end
 
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree

@@ -40,7 +40,7 @@ class TaggingsController < ApplicationController
   private
 
     def tagging_params
-      params.require(:tagging).permit(:description)
+      params.require(:tagging).permit(:description, :quantifier)
     end
 
 

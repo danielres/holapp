@@ -51,6 +51,7 @@ group :test do
   gem 'email_spec'
   gem 'shoulda'
   gem 'simplecov', require: false, group: :test
+  gem 'selenium-webdriver'
 
 end
 

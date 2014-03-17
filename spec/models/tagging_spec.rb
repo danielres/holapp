@@ -6,6 +6,7 @@ describe Tagging do
     expect_it { to have_attribute('taggable_type') }
     expect_it { to have_attribute('context') }
     expect_it { to have_attribute('description') }
+    expect_it { to have_attribute('quantifier') }
   end
 
 end

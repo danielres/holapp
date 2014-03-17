@@ -5,6 +5,9 @@ module BestInPlace
         bip_area *args
         sleep 0.1
       end
+      def edit_in_place_select *args
+        bip_select *args
+      end
     end
   end
 end

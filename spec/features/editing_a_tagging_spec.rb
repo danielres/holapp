@@ -4,6 +4,8 @@ require 'purpose_selector_spec_helper'
 require 'factories_spec_helper'
 require 'best_in_place_spec_helper'
 
+
+
 describe 'Editing a tagging' do
 
   context 'as a superuser' do
@@ -52,6 +54,26 @@ describe 'Editing a tagging' do
         visit tag_path(tag)
         within the('projects-list') do
           expect( page ).to have_content "updated_description"
+        end
+      end
+    end
+
+    describe 'updating the tagging quantifier from the project side', js: true, driver: :selenium do
+      before(:each) do
+        tagging.update(quantifier: 0)
+        visit project_path(project)
+        edit_in_place_select(tagging, :quantifier, '5')
+      end
+      it %q[mentions the updated quantifier on the tag page] do
+        visit tag_path(tag)
+        within the('projects-list') do
+          expect( page ).to have_content '5'
+        end
+      end
+      it %q[mentions the updated quantifier on the project page] do
+        visit project_path(project)
+        within the('skills-list') do
+          expect( page ).to have_content '5'
         end
       end
     end

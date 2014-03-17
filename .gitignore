@@ -86,3 +86,5 @@ pickle-email-*.html
 
 .tags
 doc/
+.gemtags
+.tags_sorted_by_file

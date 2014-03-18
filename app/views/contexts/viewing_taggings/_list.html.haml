@@ -1,8 +1,0 @@
-%table{ data: { purpose: "#{ tag_field }-list"} }
-  %caption= tag_field.capitalize
-  - taggings.each do |t|
-    %tr[t]
-      %td= link_to t.tag.name, tag_path(t.tag)
-      %td= best_in_place t, :description, type: :textarea
-      %td= best_in_place t, :quantifier, type: :select, collection: [[0, '—'], [1, 1], [2, 2], [3, 3], [4, 4], [5, 5] ]
-

@@ -9,25 +9,19 @@ class ViewingTaggings
 
   def expose_list(tag_field, view_context)
     return unless @viewer.can_view_taggings?(@taggable)
-    view_context.render(
-      partial: 'contexts/viewing_taggings/list',
-      locals: {
-        tag_field: tag_field,
-         taggings: taggings(tag_field),
-      }
-    )
+    taggings = @viewer.available_taggings(@taggable,tag_field)
+    TaggingsPresenter.new(taggings, tag_field, view_context).to_html
   end
 
 
   private
 
-    def taggings(tag_field)
-      Tagging.where(taggable_id: @taggable.id, taggable_type: @taggable.class.name, context: tag_field)
-    end
-
     module Viewer
       def can_view_taggings? taggable
         Ability.new(self).can? :read, taggable
+      end
+      def available_taggings(taggable, tag_field)
+        Tagging.where(taggable_id: taggable.id, taggable_type: taggable.class.name, context: tag_field)
       end
     end
 

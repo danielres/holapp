@@ -1,0 +1,14 @@
+%tr[tagging]
+
+  %td.name
+    = link_to tagging.tag.name, tag_path(tagging.tag)
+
+  %td.description
+    = best_in_place tagging, :description,
+            type: :textarea,
+             nil: '…'
+
+  %td.quantifier
+    = best_in_place tagging, :quantifier,
+      collection: quantifier_values,
+            type: :select

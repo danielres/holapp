@@ -9,12 +9,17 @@ table
     font-size: 2em
     margin-top: 30px
   td, th
+    vertical-align: top
     padding: 10px
-    &:first-child
+    &.description
+      width: 60%
+    &.quantifier
       width: 10em
 
 .best_in_place
   padding: 5px
   display: block
   &:hover
-    background: transparentize(#3FD4FF, 0.9)
+    background: transparentize(#3FD4FF, 0.8)
+
+

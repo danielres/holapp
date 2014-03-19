@@ -17,7 +17,7 @@ class TagPresenter
   private
 
     def taggables
-      ViewingTagTaggings.new(@viewer, @tag).expose_taggings_by_taggable_types(@view_context)
+      ViewingATagTaggings.new(@viewer, @tag).expose_taggings_by_taggable_types(@view_context)
     end
 
     def h

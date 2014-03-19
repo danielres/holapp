@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'factories_spec_helper'
 
-describe ViewingTagTaggings do
+describe ViewingATagTaggings do
 
   let(:user){ build(:no_roles_user) }
   subject{ described_class.new(user, tag)  }

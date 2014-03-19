@@ -1,4 +1,4 @@
-class ViewingTaggables
+class ViewingTagTaggings
 
   def initialize(viewer, tag)
     @viewer = viewer

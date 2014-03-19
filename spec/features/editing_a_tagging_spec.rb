@@ -66,20 +66,20 @@ describe 'Editing a tagging' do
       before(:each) do
         tagging.update(quantifier: 0)
         visit project_path(project)
-        edit_in_place_select(tagging, :quantifier, '5')
+        edit_in_place_select(tagging, :quantifier, '▮▮▮▮▯')
       end
       it %q[mentions the updated quantifier on the tag page] do
         visit tag_path(tag)
         within the('projects-taggings') do
           within the('skills-list') do
-            expect( page ).to have_content '5'
+            expect( page ).to have_content '▮▮▮▮▯'
           end
         end
       end
       it %q[mentions the updated quantifier on the project page] do
         visit project_path(project)
         within the('skills-list') do
-          expect( page ).to have_content '5'
+          expect( page ).to have_content '▮▮▮▮▯'
         end
       end
     end

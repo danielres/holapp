@@ -5,7 +5,8 @@ class TaggingsPresenter
     @tag_field = tag_field
   end
 
-  def to_html
+  def to_html(options={})
+    @viewed_from = options[:viewed_from]
     @view_context.render(
       partial: 'presenters/shared/table',
       locals: { purpose: "#{ @tag_field }-list",
@@ -22,7 +23,10 @@ class TaggingsPresenter
       @view_context.render(
         collection: @taggings,
            partial: 'presenters/taggings_presenter/tagging',
-            locals: { quantifier_values: quantifier_values },
+            locals: {
+              quantifier_values: quantifier_values,
+              viewed_from: @viewed_from,
+            },
       )
     end
 

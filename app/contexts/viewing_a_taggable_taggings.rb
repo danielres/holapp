@@ -11,7 +11,7 @@ class ViewingATaggableTaggings
   def expose_list(tag_field, view_context)
     return unless @viewer.can_view_taggings?(@taggable)
     taggings = @viewer.available_taggings(@taggable,tag_field)
-    TaggingsPresenter.new(taggings, tag_field, view_context).to_html
+    TaggingsPresenter.new(taggings, tag_field, view_context).to_html(viewed_from: :taggable)
   end
 
 

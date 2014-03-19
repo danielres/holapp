@@ -17,7 +17,7 @@ class ViewingATagTaggings
       output << "<section data-purpose='#{ title.downcase }-taggings'>"
       output << "<h1>#{ title }</h1>"
       taggings.group_by(&:context).map do |tag_field, taggings|
-        output << TaggingsPresenter.new(taggings, tag_field, view_context).to_html
+        output << TaggingsPresenter.new(taggings, tag_field, view_context).to_html(viewed_from: :tag)
       end
       output << "</section>"
     end

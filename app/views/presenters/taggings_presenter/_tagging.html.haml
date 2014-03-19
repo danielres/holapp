@@ -1,10 +1,12 @@
 %tr[tagging]
 
-  %td.name
-    = link_to(tagging.tag.name, tagging.tag)
+  - unless viewed_from == :tag
+    %td.name
+      = link_to(tagging.tag.name, tagging.tag)
 
-  %td.name
-    = link_to(tagging.taggable.name, tagging.taggable)
+  - unless viewed_from == :taggable
+    %td.name
+      = link_to(tagging.taggable.name, tagging.taggable)
 
   %td.description
     = best_in_place tagging, :description,

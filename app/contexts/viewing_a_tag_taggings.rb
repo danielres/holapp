@@ -5,10 +5,12 @@ class ViewingATagTaggings
     @tag = tag
     @viewer.extend Viewer
     @tag.extend Tag
+    setup_taggings_associations
   end
 
   def expose_taggings_by_taggable_types(view_context)
     raise 'Access forbidden' unless @viewer.can_view_taggables? @tag
+    output = []
     taggings.group_by(&:taggable_type).map do |type, taggings|
       title = type.pluralize
       title = 'People' if title == 'Users'
@@ -20,6 +22,13 @@ class ViewingATagTaggings
       output << "</section>"
     end
     "<section>#{ output.join }</section>".html_safe
+  end
+
+  def setup_taggings_associations
+    Tagging.class_eval do
+        belongs_to :tag
+        belongs_to :taggable, polymorphic: true
+      end
   end
 
   private

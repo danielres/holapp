@@ -12,11 +12,14 @@ class ViewingATagTaggings
     taggings.group_by(&:taggable_type).map do |type, taggings|
       title = type.pluralize
       title = 'People' if title == 'Users'
-      purpose = type.pluralize
-      purpose = 'People' if purpose == 'Users'
-      purpose = "#{purpose.downcase.pluralize}-list"
-      view_context.render partial: 'contexts/viewing_taggables/by_type', locals: { type: type, title: title,  taggings: taggings, purpose: purpose }
-    end.join.html_safe
+      output << "<section data-purpose='#{ title.downcase }-taggings'>"
+      output << "<h1>#{ title }</h1>"
+      taggings.group_by(&:context).map do |tag_field, taggings|
+        output << TaggingsPresenter.new(taggings, tag_field, view_context).to_html
+      end
+      output << "</section>"
+    end
+    "<section>#{ output.join }</section>".html_safe
   end
 
   private

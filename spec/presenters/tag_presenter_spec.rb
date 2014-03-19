@@ -27,18 +27,16 @@ describe TagPresenter do
 
         it 'presents the list of tagged people' do
           expect( fragment subject.to_html )
-            .to have_css( the('people-list'), text: person.name)
-          expect( fragment subject.to_html )
-            .to have_css( the('people-list'), text: 'skills')
+            .to have_css( the('people-taggings')  , text: person.name)
         end
 
         it 'presents the list of tagged projects' do
           expect( fragment subject.to_html )
-            .to have_css( the('projects-list'), text: project.name)
+            .to have_css( the('projects-taggings'), text: project.name)
           expect( fragment subject.to_html )
-            .to have_css( the('projects-list'), text: 'skills')
+            .to have_css( the('skills-list'), text: project.name)
           expect( fragment subject.to_html )
-            .to have_css( the('projects-list'), text: 'needs')
+            .to have_css( the('needs-list'), text: project.name)
         end
 
       end

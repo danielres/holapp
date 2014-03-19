@@ -27,7 +27,8 @@ describe ViewingATagTaggings do
       let!(:tagging3){ Tagging.create!( tag_id: tag.id, taggable_type: project2.class.name, taggable_id: project2.id, context: :needs ) }
       let(:user){ create(:super_user) }
       it 'invokes rendering of taggings, grouped by their taggable types' do
-        expect( view_context ).to receive(:render).twice do |options|
+        allow( view_context ).to receive(:render)
+        expect( view_context ).to receive(:render) do |options|
           if options[:locals][:type] == 'User'
             expect( options[:locals][:taggings] ).to match_array [ tagging1 ]
           end

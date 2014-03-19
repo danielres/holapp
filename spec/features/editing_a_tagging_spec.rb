@@ -32,8 +32,10 @@ describe 'Editing a tagging' do
       end
       it %q[mentions the updated description on the tag page] do
         visit tag_path(tag)
-        within the('projects-list') do
-          expect( page ).to have_content "updated_description"
+        within the('projects-taggings') do
+          within the('skills-list') do
+            expect( page ).to have_content "updated_description"
+          end
         end
       end
     end
@@ -52,8 +54,10 @@ describe 'Editing a tagging' do
       end
       it %q[mentions the updated description on the tag page] do
         visit tag_path(tag)
-        within the('projects-list') do
-          expect( page ).to have_content "updated_description"
+        within the('projects-taggings') do
+          within the('skills-list') do
+            expect( page ).to have_content "updated_description"
+          end
         end
       end
     end
@@ -66,8 +70,10 @@ describe 'Editing a tagging' do
       end
       it %q[mentions the updated quantifier on the tag page] do
         visit tag_path(tag)
-        within the('projects-list') do
-          expect( page ).to have_content '5'
+        within the('projects-taggings') do
+          within the('skills-list') do
+            expect( page ).to have_content '5'
+          end
         end
       end
       it %q[mentions the updated quantifier on the project page] do

@@ -39,16 +39,20 @@ describe 'Tag page' do
         visit tag_path(tag)
       end
       it 'presents the list of tagged people' do
-        within the 'people-list' do
-          expect( page ).to have_content person.name
-          expect( page ).to have_content 'skills'
+        within the 'people-taggings' do
+          within the 'skills-list' do
+            expect( page ).to have_content person.name
+          end
         end
       end
       it 'presents the list of tagged projects' do
-        within the 'projects-list' do
-          expect( page ).to have_content project.name
-          expect( page ).to have_content 'needs'
-          expect( page ).to have_content 'skills'
+        within the 'projects-taggings' do
+          within the 'skills-list' do
+            expect( page ).to have_content project.name
+          end
+          within the 'needs-list' do
+            expect( page ).to have_content project.name
+          end
         end
       end
     end

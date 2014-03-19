@@ -1,7 +1,10 @@
 %tr[tagging]
 
   %td.name
-    = link_to tagging.tag.name, tag_path(tagging.tag)
+    = link_to(tagging.tag.name, tagging.tag)
+
+  %td.name
+    = link_to(tagging.taggable.name, tagging.taggable)
 
   %td.description
     = best_in_place tagging, :description,

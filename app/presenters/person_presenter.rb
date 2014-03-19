@@ -33,7 +33,7 @@ class PersonPresenter
     end
 
     def skills_list_html
-      ViewingTaggings.new(@viewer, @person).expose_list(:skills, @view_context)
+      ViewingTaggableTaggings.new(@viewer, @person).expose_list(:skills, @view_context)
     end
 
     def skills_adder_html
@@ -41,7 +41,7 @@ class PersonPresenter
     end
 
     def motivations_list_html
-      ViewingTaggings.new(@viewer, @person).expose_list(:motivations, @view_context)
+      ViewingTaggableTaggings.new(@viewer, @person).expose_list(:motivations, @view_context)
     end
 
     def motivations_adder_html

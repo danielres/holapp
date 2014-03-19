@@ -32,7 +32,7 @@ class ProjectPresenter
     end
 
     def skills_list_html
-      ViewingTaggings.new(@viewer, @project).expose_list(:skills, @view_context)
+      ViewingTaggableTaggings.new(@viewer, @project).expose_list(:skills, @view_context)
     end
 
     def skills_adder_html

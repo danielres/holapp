@@ -9,10 +9,11 @@ describe TaggingsPresenter do
   describe 'rendering to html' do
     subject{ described_class.new(taggings, tag_field, view_context) }
     let(:taggings){ [ tagging1, tagging2] }
-    let(:tagging1){ Tagging.new(tag_id: tag1.id, context: tag_field) }
-    let(:tagging2){ Tagging.new(tag_id: tag2.id, context: tag_field) }
-    let(:tag1){ create(:tag, name: 'skill1') }
-    let(:tag2){ create(:tag, name: 'skill2') }
+    let(:tagging1){ mock_model(Tagging, tag: tag1, context: tag_field, taggable: taggable) }
+    let(:tagging2){ mock_model(Tagging, tag: tag2, context: tag_field, taggable: taggable) }
+    let(:tag1){ mock_model(Tag, name: 'skill1') }
+    let(:tag2){ mock_model(Tag, name: 'skill2') }
+    let(:taggable){ mock_model(Project) }
     let(:tag_field){ :skills }
     let(:view_context){ view }
     it 'presents the taggings' do

@@ -10,8 +10,8 @@ class AddingAPerson
   def add(attributes)
     person = User.new(random_attributes.merge(attributes))
     @adder.add_person( person,
-                       failure: ->{ @controller.try(:failure, person) },
-                       success: ->{ @controller.try(:success, person) }, )
+                       create_failure: ->{ @controller.try(:create_failure, person) },
+                       create_success: ->{ @controller.try(:create_success, person) }, )
   end
 
   def expose_form(view_context)
@@ -33,7 +33,7 @@ class AddingAPerson
     module Adder
       def add_person(person, callbacks = {})
         raise ActionForbiddenError unless can_add_person?
-        success?(person) ? callbacks[:success].call : callbacks[:failure].call
+        success?(person) ? callbacks[:create_success].call : callbacks[:create_failure].call
       end
       def success?(person)
         person.save

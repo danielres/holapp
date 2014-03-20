@@ -12,10 +12,10 @@ class PeopleController < ApplicationController
     adding_a_person.command(self)
     adding_a_person.add(user_params)
   end
-  def failure(person)
+  def create_failure(person)
     redirect_to :back, alert: render_to_string(partial: 'shared/errors', locals: { object: person }).html_safe
   end
-  def success(person)
+  def create_success(person)
     redirect_to :back, notice: %Q[Person "#{person.name}" has been added successfully]
   end
 

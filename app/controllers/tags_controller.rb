@@ -17,6 +17,14 @@ class TagsController < ApplicationController
     end
   end
 
+  def autocomplete
+    string = params[:q]
+    tags = Tag.where("name LIKE ?", "%#{ string }%").select("name")
+    respond_to do |format|
+      format.json { render inline: tags.to_json }
+    end
+  end
+
   private
 
     def tag_params

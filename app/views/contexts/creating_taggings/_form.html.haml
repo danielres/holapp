@@ -5,6 +5,32 @@
   = f.input 'tagging[tag_list]', label: tag_field.capitalize, as: :fake
   = f.button :submit
 
--  alltags = Tag.all.map{ |t| t.name }.to_s
 :javascript
-  $("form#add_#{ tag_field } .controls input").select2( { width: 'resolve' , tags: #{ alltags } }) ;
+  $("form#add_#{ tag_field } .controls input").select2({
+    tags: true,
+    multiple: true,
+    placeholder: "Add #{ tag_field }",
+    minimumInputLength: 2,
+    width: 'resolve' ,
+    ajax: {
+      url: "/tags/autocomplete/results.json",
+      dataType: 'json',
+      data: function (term, page) {
+        return {
+          q: term,
+          page_limit: 10,
+        };
+      },
+      results: function(data, page) {
+        return {
+          results: $.map( data, function(tag, i) {
+            return { id: tag.id, text: tag.name }
+          } )
+        }
+      }
+    },
+    createSearchChoice: function (term) {
+        var text = term;
+        return { id: term, text: text };
+    },
+  }) ;

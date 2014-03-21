@@ -1,8 +1,10 @@
-= simple_form_for(Tagging.new, html: { data: { purpose: "#{tag_field}-adder" } }) do |f|
+= simple_form_for(Tagging.new, html: { id: "add_#{ tag_field }", data: { purpose: "#{tag_field}-adder" } }) do |f|
   = f.hidden_field :taggable_id, value: taggable.id
   = f.hidden_field :taggable_type, value: taggable.class
   = f.hidden_field :tag_field, value: tag_field
   = f.input 'tagging[tag_list]', label: tag_field.capitalize, as: :fake
   = f.button :submit
-/ :javascript
-/   $("input.tags").select2({tags:["red", "green", "blue"]});
+
+-  alltags = Tag.all.map{ |t| t.name }.to_s
+:javascript
+  $("form#add_#{ tag_field } .controls input").select2( { width: 'resolve' , tags: #{ alltags } }) ;

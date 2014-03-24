@@ -5,7 +5,7 @@ require_relative 'shared_examples_for_controller_commanders'
 
 describe AddingAPerson do
   subject{ described_class.new(user) }
-  let(:added_person_attrs){ { name: 'Toto'} }
+  let(:added_person_attrs){ { name: 'Alfred Hitchie'} }
 
 
   context 'by a guest user' do
@@ -20,7 +20,7 @@ describe AddingAPerson do
     let(:user){ create(:super_user) }
     it "is supported given just a name" do
       subject.add(added_person_attrs)
-      expect( User.last.name ).to eq 'Toto'
+      expect( User.last.name ).to eq 'Alfred'
     end
 
     describe 'performing' do

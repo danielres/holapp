@@ -11,10 +11,10 @@ describe PersonPresenter do
     context 'for a superuser' do
       subject{ described_class.new(viewer, person, view_context) }
       let(:viewer){ create(:super_user) }
-      let(:person){ build(:person, name: 'Person name') }
+      let(:person){ build(:person, first_name: 'Firstname', last_name: 'Lastname') }
       let(:view_context){ view }
       it 'presents the person' do
-        expect( fragment subject.to_html ).to have_content('Person name')
+        expect( fragment subject.to_html ).to have_content('Firstname')
       end
       it 'presents the skills' do
         expect( fragment subject.to_html ).to have_the('skills-list')

@@ -13,7 +13,7 @@ describe 'Adding a person' do
         login_as(super_user, scope: :user)
         visit '/'
         within 'form.new_user' do
-          page.fill_in :user_name, with: 'Alfred'
+          page.fill_in :user_name, with: 'Alfred Hitchie'
           page.find('input[type=submit]').click
         end
       end

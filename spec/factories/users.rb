@@ -9,12 +9,14 @@ FactoryGirl.define do
     confirmed_at Time.now
 
     factory :no_roles_user do
-      name 'New user'
+      first_name 'New user'
+      last_name 'New user'
       email 'regular@example.com'
     end
 
     factory :super_user do
-      name 'Superuser'
+      first_name 'Superuser'
+      last_name 'Superuser'
       email 'super@example.com'
       after(:create) {|user| user.add_role(:admin)}
     end

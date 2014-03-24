@@ -7,7 +7,7 @@ describe UpdatingAPerson do
   context 'given a user and a person' do
     subject{ described_class.new(user, person)  }
     let(:user) { double('user') }
-    let(:person){ create(:person, name: 'initial_name', description: 'initial_description') }
+    let(:person){ create(:person, first_name: 'initial_firstname', last_name: 'initial_lastname', description: 'initial_description') }
 
     context 'by a guest user' do
       let(:user){ build(:no_roles_user) }
@@ -18,12 +18,12 @@ describe UpdatingAPerson do
 
     context 'by a superuser' do
       let(:user){ create(:super_user) }
-      let(:desired_attributes) { { name: 'desired_name', description: 'desired_description' } }
+      let(:desired_attributes) { { first_name: 'desired_firstname', last_name: 'desired_lastname', description: 'desired_description' } }
       it 'supports updating the person name' do
         expect{ subject.update(desired_attributes) }
           .to change{ person.name }
-          .from('initial_name')
-          .to('desired_name')
+          .from('initial_firstname')
+          .to('desired_firstname')
       end
       it 'supports updating the person description' do
         expect{ subject.update(desired_attributes) }

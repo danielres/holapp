@@ -15,12 +15,12 @@ describe 'Person page' do
 
     describe 'presenting the person data' do
       before(:each) do
-        person.update_attributes(name: 'the name', description: 'the description')
+        person.update_attributes(first_name: 'Dave', description: 'the description')
         visit person_path(person)
       end
       subject{ page }
       it 'presents the name' do
-        expect( page ).to have_content 'the name'
+        expect( page ).to have_content 'Dave'
       end
       it 'presents the description' do
         expect( page ).to have_content 'the description'

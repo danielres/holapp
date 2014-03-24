@@ -12,13 +12,40 @@ describe User do
   end
 
   describe 'attributes' do
-    expect_it { to have_attribute('name') }
+    expect_it { to respond_to('name') }
+    expect_it { to have_attribute('display_name') }
+    expect_it { to have_attribute('first_name') }
+    expect_it { to have_attribute('last_name') }
     expect_it { to have_attribute('description') }
   end
 
+  describe 'quick creation' do
+    it 'extract the firstname and last name from single name field' do
+      user = User.create!(name: 'Jean de Dupont', email: 'anything@anything.com', password: 'anything')
+      expect( user.first_name ).to eq 'Jean'
+      expect( user.last_name ).to eq 'de Dupont'
+    end
+  end
+
+  describe 'returning a name to display' do
+    context 'when name is not set' do
+      it 'returns the value of first_name' do
+        user = User.create!(name: 'Jean de Dupont', email: 'anything@anything.com', password: 'anything')
+        expect( user.name ).to eq 'Jean'
+      end
+    end
+    context 'when display_name is set' do
+      it 'returns the value of name' do
+        user = User.create!(name: 'Jean de Dupont', email: 'anything@anything.com', password: 'anything')
+        user.display_name = 'Tonton'
+        expect( user.name ).to eq 'Tonton'
+      end
+    end
+  end
+
   describe 'validations' do
-    expect_it { to validate_presence_of(:name) }
-    expect_it { to validate_uniqueness_of(:name).case_insensitive }
+    expect_it { to validate_presence_of(:first_name) }
+    expect_it { to validate_uniqueness_of(:first_name).scoped_to(:last_name).case_insensitive }
     expect_it { to validate_presence_of(:email) }
     expect_it { to validate_uniqueness_of(:email) }
   end

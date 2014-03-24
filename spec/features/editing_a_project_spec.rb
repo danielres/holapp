@@ -16,7 +16,7 @@ describe 'Editing a project' do
     end
 
     describe 'adding the project to a person' do
-      let!(:person){ create(:person, name: "Person's name") }
+      let!(:person){ create(:person, first_name: 'Dave') }
       before(:each) do
         visit project_path(project)
         within 'form.new_membership' do
@@ -26,7 +26,7 @@ describe 'Editing a project' do
       end
       it %q[mentions the person on the project's page] do
         within the('memberships-list') do
-          expect( page ).to have_content "Person's name"
+          expect( page ).to have_content 'Dave'
         end
       end
     end

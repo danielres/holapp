@@ -2,11 +2,11 @@
   = f.hidden_field :taggable_id, value: taggable.id
   = f.hidden_field :taggable_type, value: taggable.class
   = f.hidden_field :tag_field, value: tag_field
-  = f.input 'tagging[tag_list]', label: tag_field.capitalize, as: :fake
-  = f.button :submit
+  = f.input_field 'tagging[tag_list]', label: tag_field.capitalize, as: :fake
+  = f.button :submit, value: 'Add'
 
 :javascript
-  $("form#add_#{ tag_field } .controls input").select2({
+  $("form#add_#{ tag_field } input[type=text]").select2({
     tags: true,
     multiple: true,
     placeholder: "Add #{ tag_field }",

@@ -317,6 +317,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   pg
+  pry
   quiet_assets
   rack-livereload
   rails (= 4.0.2)

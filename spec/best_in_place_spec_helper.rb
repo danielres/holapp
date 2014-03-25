@@ -1,6 +1,10 @@
 module BestInPlace
   module TestHelpers
     module Custom
+      def edit_in_place_text *args
+        bip_text *args
+        sleep 0.1
+      end
       def edit_in_place_textarea *args
         bip_area *args
         sleep 0.1

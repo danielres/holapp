@@ -1,7 +1,10 @@
 .col-md-12
+
   %h1
     = person.name
     %small (#{ person.first_name } #{ person.last_name })
+
+  %p= person.email
 
   .panel
     %table.details
@@ -9,8 +12,17 @@
         %th Description
         %td= best_in_place person, :description, type: :textarea, path: "/people/#{person.id}", nil: '…'
       %tr
-        %th Email
-        %td= person.email
+        %th Firstname
+        %td= best_in_place person, :first_name,  path: "/people/#{person.id}", nil: '…'
+      %tr
+        %th Last name
+        %td= best_in_place person, :last_name,  path: "/people/#{person.id}", nil: '…'
+      %tr
+        %th Display name
+        %td= best_in_place person, :display_name,  path: "/people/#{person.id}", nil: '…'
+      %tr
+        %th Trigram
+        %td= best_in_place person, :trigram,  path: "/people/#{person.id}", nil: '…'
 
   .panel
     = memberships

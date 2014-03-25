@@ -31,15 +31,30 @@ describe 'Editing a person' do
       end
     end
 
-    describe 'updating the person description', js: true do
+    describe 'updating the person details', js: true do
       before(:each) do
-        person.update(description: 'description')
+        person.update(
+          description: 'initial_description',
+           first_name: 'initial_first_name',
+            last_name: 'initial_last_name',
+         display_name: 'initial_display_name',
+              trigram: 'initial_trigram',
+        )
         visit person_path(person)
       end
-      it 'updates the description on the person page' do
-        edit_in_place_textarea(person, :description, 'updated description')
+      it "supports updating 'description', 'firstname', 'last name', 'display name' and 'trigram' on the person's page" do
+        edit_in_place_textarea(person, :description, 'updated_description')
+        edit_in_place_text(person, :first_name  , 'updated_first_name')
+        edit_in_place_text(person, :last_name   , 'updated_last_name')
+        edit_in_place_text(person, :display_name, 'updated_display_name')
+        edit_in_place_text(person, :trigram     , 'updated_trigram')
+
         visit person_path(person)
-        expect( page ).to have_content('updated description')
+        expect( page ).to have_content('updated_description')
+        expect( page ).to have_content('updated_first_name')
+        expect( page ).to have_content('updated_last_name')
+        expect( page ).to have_content('updated_display_name')
+        expect( page ).to have_content('updated_trigram')
       end
     end
 

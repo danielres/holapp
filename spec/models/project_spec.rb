@@ -7,6 +7,7 @@ describe Project do
     expect_it { to have_attribute('description') }
     expect_it { to have_attribute('starts_at') }
     expect_it { to have_attribute('ends_at') }
+    expect_it { to have_attribute('type') }
   end
 
   describe 'associations' do

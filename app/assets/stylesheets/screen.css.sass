@@ -3,7 +3,7 @@ section
   margin: 0
 
 body
-  background: #eee
+  background: #ccc
 
 h1, h2, h3, h4, h5
   font-weight: normal
@@ -31,30 +31,42 @@ h1
 
 table
   width: 100%
-  background: white
-  margin: 2em 0
   caption
     @extend h3
     text-align: left
     margin-top: 30px
-    background: white
-    padding: 10px
-    margin: 0
+    padding: 0
+    margin: 0 0 20px
   td, th
     vertical-align: top
-    padding: 10px
+    padding: 5px
     &.name
-      width: 7em
+      width: 10em
     &.quantifier
-      width: 5em
+      width: 6em
     &.description
       width: auto
+  &.details
+    th
+      width: 10em
+  tr
+    border: 1px solid #ddd
+    border-width: 1px 0
+  & + form
+    margin-top: 20px
+
+.quantifier
+  color: #444
+
+.panel
+  margin: 2em 0
+  padding: 20px
 
 .best_in_place
   display: block
   &:hover
     $color: transparentize(#3FD4FF, 0.8)
     background: $color
-    outline: 5px solid $color
+    outline: 4px solid $color
 
 

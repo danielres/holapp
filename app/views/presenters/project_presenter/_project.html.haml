@@ -1,17 +1,21 @@
 .col-md-12
   %h1= project.name
 
-.col-md-8
-  = best_in_place project, :description, type: :textarea, nil: '…'
-  = memberships
-  = skills_list
+  .panel
+    %table.details
+      %tr
+        %th Description
+        %td= best_in_place project, :description, type: :textarea, nil: '…'
+
+  .panel
+    = memberships
+    = new_membership_form
+
+  .panel
+    = skills_list
+    = skills_adder
 
 
-%aside.col-md-4
 
-  %h1 Add to project
-  = new_membership_form
 
-  %h1 Add skills
-  = skills_adder
 

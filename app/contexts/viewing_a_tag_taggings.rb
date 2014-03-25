@@ -16,9 +16,11 @@ class ViewingATagTaggings
       title = 'People' if title == 'Users'
       output << "<section data-purpose='#{ title.downcase }-taggings'>"
       output << "<h1>#{ title }</h1>"
+      output << "<div class='panel'>"
       taggings.group_by(&:context).map do |tag_field, taggings|
         output << TaggingsPresenter.new(taggings, tag_field, view_context).to_html(viewed_from: :tag)
       end
+      output << "</div>"
       output << "</section>"
     end
     "<section>#{ output.join }</section>".html_safe

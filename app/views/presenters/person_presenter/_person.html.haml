@@ -1,19 +1,28 @@
 .col-md-12
-  %h1= person.name
+  %h1
+    = person.name
+    %small (#{ person.first_name } #{ person.last_name })
 
-.col-md-8
-  = best_in_place person, :description, type: :textarea, path: "/people/#{person.id}", nil: '…'
-  = memberships
-  = skills_list
-  = motivations_list
+  .panel
+    %table.details
+      %tr
+        %th Description
+        %td= best_in_place person, :description, type: :textarea, path: "/people/#{person.id}", nil: '…'
+      %tr
+        %th Email
+        %td= person.email
+
+  .panel
+    = memberships
+    = new_membership_form
+
+  .panel
+    = skills_list
+    = skills_adder
+
+  .panel
+    = motivations_list
+    = motivations_adder
 
 
-%aside.col-md-4
-  %table
-    %tr
-      %th Email
-      %td= person.email
 
-  %p= new_membership_form
-  %p= skills_adder
-  %p= motivations_adder

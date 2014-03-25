@@ -2,7 +2,7 @@
   %h1= project.name
 
 .col-md-8
-  = best_in_place project, :description, type: :textarea
+  = best_in_place project, :description, type: :textarea, nil: '…'
   = memberships
   = skills_list
 

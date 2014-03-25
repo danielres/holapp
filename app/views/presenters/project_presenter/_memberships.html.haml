@@ -1,6 +1,7 @@
 %table{ data: { purpose: 'memberships-list'}}
-  %caption People
+  %caption Members
   - memberships.each do |m|
     %tr[m]
-      %td= link_to m.user.name, m.user
-      %td= best_in_place m, :description, type: :textarea
+      %td.name= link_to m.user.name, m.user
+      %td.description= best_in_place m, :description, type: :textarea, nil: '…'
+

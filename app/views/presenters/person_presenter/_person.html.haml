@@ -2,7 +2,7 @@
   %h1= person.name
 
 .col-md-8
-  = best_in_place person, :description, type: :textarea, path: "/people/#{person.id}"
+  = best_in_place person, :description, type: :textarea, path: "/people/#{person.id}", nil: '…'
   = memberships
   = skills_list
   = motivations_list

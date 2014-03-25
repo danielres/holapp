@@ -42,6 +42,15 @@ describe User do
         expect( user.name ).to eq 'Tonton'
       end
     end
+    context 'when display_name is blank' do
+      it 'returns the value of first_name' do
+        user = User.create!(name: 'Jean de Dupont', email: 'anything@anything.com', password: 'anything')
+        user.display_name = ''
+        expect( user.name ).to eq 'Jean'
+        user.display_name = nil
+        expect( user.name ).to eq 'Jean'
+      end
+    end
   end
 
   describe 'validations' do

@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   end
 
   def name
-    self.display_name || first_name
+    self.display_name.presence || first_name
   end
 
 

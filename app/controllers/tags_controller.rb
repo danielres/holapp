@@ -1,6 +1,11 @@
 class TagsController < ApplicationController
   before_filter :authenticate_user!
 
+  def index
+    tags = Tag.all
+    render inline: TagsPresenter.new(current_user, tags, view_context).to_html, layout: true
+  end
+
   def show
     tag = Tag.find(params[:id])
     render inline: TagPresenter.new(current_user, tag, view_context).to_html, layout: true

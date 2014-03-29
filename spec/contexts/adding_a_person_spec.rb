@@ -25,7 +25,7 @@ describe AddingAPerson do
 
     describe 'performing' do
       let(:perform){ ->{ subject.add(added_person_attrs) } }
-      include_examples 'a controller commander'
+      include_examples 'a controller commander', :create_success, :create_failure
     end
 
   end

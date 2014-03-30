@@ -13,10 +13,10 @@ class CreatingTaggings
     @taggable.instance_variable_set(:@tag_field, @tag_field)
   end
 
-  def tag
+  def execute
     @tagger.add_tags( @taggable, @tag_list, @tag_field,
-                      failure: ->{ @controller && @controller.failure },
-                      success: ->{ @controller && @controller.success }, )
+                      failure: ->{ @controller.try(:failure) },
+                      success: ->{ @controller.try(:success) }, )
   end
 
   def expose_form(view_context)

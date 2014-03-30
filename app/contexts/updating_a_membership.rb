@@ -9,10 +9,10 @@ class UpdatingAMembership
     @membership.extend UpdatableMembership
   end
 
-  def update(attributes)
+  def execute(attributes)
     @updater.update_membership_with(@membership, attributes,
-                      failure: ->{ @controller && @controller.update_failure(@membership) },
-                      success: ->{ @controller && @controller.update_success(@membership) }, )
+                      failure: ->{ @controller.try(:update_failure, @membership) },
+                      success: ->{ @controller.try(:update_success, @membership) }, )
   end
 
   def command(controller)

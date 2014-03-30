@@ -9,10 +9,10 @@ class UpdatingAPerson
     @person.extend UpdatablePerson
   end
 
-  def update(attributes)
+  def execute(attributes)
     @updater.update_person_with(@person, attributes,
-                      failure: ->{ @controller && @controller.update_failure(@person) },
-                      success: ->{ @controller && @controller.update_success(@person) }, )
+                      failure: ->{ @controller.try(:update_failure, @person) },
+                      success: ->{ @controller.try(:update_success, @person) }, )
   end
 
   def command(controller)

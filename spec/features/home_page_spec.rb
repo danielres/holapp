@@ -7,7 +7,7 @@ require 'purpose_selector_spec_helper'
 describe 'Homepage' do
 
   context 'when authenticated' do
-    let(:user){ create(:no_roles_user) }
+    let(:user){ create(:super_user) }
 
     before(:each) do
       login_as(user, scope: :user)

@@ -1,45 +1,53 @@
 require 'spec_helper'
 require 'factories_spec_helper'
+require_relative 'shared_examples_for_authorization_requirers'
+require_relative 'shared_context_by_an_authorized_user'
 
-describe ViewingATagTaggings do
-
-  let(:user){ build(:no_roles_user) }
-  subject{ described_class.new(user, tag)  }
-
-  describe 'viewing taggables from a tag' do
-    let(:tag){ create(:tag, name: 'my_tag') }
-    let(:person1){ create(:person) }
-    let(:project1){ create(:project) }
-    let(:project2){ create(:project) }
+describe ViewingATagTaggings, '- viewing taggings from the tag side' do
+    subject{ described_class.new(user, tag)  }
+    let(:tag){ build(:tag) }
     let(:view_context){ double('view_context') }
+    let(:execution){ ->{ subject.expose_taggings_by_taggable_types(view_context) } }
 
-    context 'for guest users' do
-      let(:user){ build(:no_roles_user) }
-      it 'is forbidden' do
-        expect( view_context ).not_to receive(:render)
-        expect{ subject.expose_grouped_lists(view_context) }.to raise_error
-      end
-    end
+    describe 'execution' do
+      include_examples 'an authorization requirer'
 
-    context 'for super users' do
-      let!(:tagging1){ Tagging.create!( tag_id: tag.id, taggable_type: person1.class.name, taggable_id: person1.id, context: :skills ) }
-      let!(:tagging2){ Tagging.create!( tag_id: tag.id, taggable_type: project1.class.name, taggable_id: project1.id, context: :needs ) }
-      let!(:tagging3){ Tagging.create!( tag_id: tag.id, taggable_type: project2.class.name, taggable_id: project2.id, context: :needs ) }
-      let(:user){ create(:super_user) }
-      it 'invokes rendering of taggings, grouped by their taggable types' do
-        allow( view_context ).to receive(:render)
-        expect( view_context ).to receive(:render) do |options|
-          if options[:locals][:type] == 'User'
-            expect( options[:locals][:taggings] ).to match_array [ tagging1 ]
-          end
-          if options[:locals][:type] == 'Project'
-            expect( options[:locals][:taggings] ).to match_array [ tagging2, tagging3 ]
-          end
+      context 'by an authorized user' do
+        include_context 'by an authorized user'
+
+        let(:taggings){ [tagging_on_person, tagging_on_project1, tagging_on_project2] }
+        let(:tagging_on_person  ){ mock_model( 'Tagging', taggable_type: 'Person',  context: :skills ) }
+        let(:tagging_on_project1){ mock_model( 'Tagging', taggable_type: 'Project', context: :needs  ) }
+        let(:tagging_on_project2){ mock_model( 'Tagging', taggable_type: 'Project', context: :needs  ) }
+
+        let(:presenter){ double('presenter').as_null_object }
+
+        before(:each) do
+          expect(tag).to respond_to(:taggings)
+          allow(tag).to receive(:taggings){ taggings }
         end
-        subject.expose_taggings_by_taggable_types(view_context)
+
+        it 'passes the taggings to a presenter, grouped by taggable type and by tag fields' do
+          expect( TaggingsPresenter )
+            .to receive(:new)
+            .with( [tagging_on_person], :skills, anything )
+            .and_return{ presenter }
+
+          expect( TaggingsPresenter )
+            .to receive(:new)
+            .with( [tagging_on_project1, tagging_on_project2], :needs, anything)
+            .and_return{ presenter }
+
+          expect( presenter )
+            .to receive(:to_html).twice
+            .with(viewed_from: :tag)
+
+          execution.call
+        end
+
       end
+
     end
 
   end
 
-end

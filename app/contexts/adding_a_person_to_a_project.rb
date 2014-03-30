@@ -11,7 +11,7 @@ class AddingAPersonToAProject
     @person.extend IsMemberOfProject
   end
 
-  def add
+  def execute
     @adder.add_person_to_project( @person, @project,
                        failure: ->(membership){ @controller.try(:failure, membership) },
                        success: ->(membership){ @controller.try(:success, membership) }, )

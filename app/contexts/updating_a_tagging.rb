@@ -9,10 +9,10 @@ class UpdatingATagging
     @tagging.extend UpdatableTagging
   end
 
-  def update(attributes)
+  def execute(attributes)
     @updater.update_tagging_with(@tagging, attributes,
-                      failure: ->{ @controller && @controller.update_failure(@tagging) },
-                      success: ->{ @controller && @controller.update_success(@tagging) }, )
+                      failure: ->{ @controller.try(:update_failure, @tagging) },
+                      success: ->{ @controller.try(:update_success, @tagging) }, )
   end
 
   def command(controller)

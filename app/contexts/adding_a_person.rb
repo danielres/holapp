@@ -7,7 +7,7 @@ class AddingAPerson
     @adder.extend Adder
   end
 
-  def add(attributes)
+  def execute(attributes)
     person = User.new(random_attributes.merge(attributes).symbolize_keys)
     @adder.add_person( person,
                        create_failure: ->{ @controller.try(:create_failure, person) },

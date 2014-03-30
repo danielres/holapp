@@ -1,3 +1,5 @@
+class ActionForbiddenError < StandardError; end
+
 class ViewingATagTaggings
 
   def initialize(viewer, tag)
@@ -9,7 +11,7 @@ class ViewingATagTaggings
   end
 
   def expose_taggings_by_taggable_types(view_context)
-    raise 'Access forbidden' unless @viewer.can_view_taggables? @tag
+    raise ActionForbiddenError unless @viewer.can_view_taggables? @tag
     output = []
     taggings.group_by(&:taggable_type).map do |type, taggings|
       title = type.pluralize

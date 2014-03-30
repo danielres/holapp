@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
   def create
     adding_a_project = AddingAProject.new(current_user)
     adding_a_project.command(self)
-    adding_a_project.add(project_params)
+    adding_a_project.execute(project_params)
   end
   def failure(project)
     redirect_to :back, alert: render_to_string(partial: 'shared/errors', locals: { object: project }).html_safe
@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
     project = Project.find(params[:id])
     updating_a_project = UpdatingAProject.new(current_user, project)
     updating_a_project.command(self)
-    updating_a_project.update(project_params)
+    updating_a_project.execute(project_params)
   end
   def update_failure(project)
     respond_to do |format|

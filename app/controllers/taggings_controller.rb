@@ -10,7 +10,7 @@ class TaggingsController < ApplicationController
     taggable      = taggable_type.constantize.find(taggable_id)
     create_taggings = CreatingTaggings.new(tagger, taggable, tag_list, tag_field)
     create_taggings.command(self)
-    create_taggings.tag
+    create_taggings.execute
   end
   def failure
     redirect_to :back, alert: 'Could not apply tags'
@@ -24,7 +24,7 @@ class TaggingsController < ApplicationController
     tagging = Tagging.find(params[:id])
     updating_a_tagging = UpdatingATagging.new(current_user, tagging)
     updating_a_tagging.command(self)
-    updating_a_tagging.update(tagging_params)
+    updating_a_tagging.execute(tagging_params)
   end
   def update_failure(tagging)
     respond_to do |format|

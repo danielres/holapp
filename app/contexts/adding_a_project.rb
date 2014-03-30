@@ -7,7 +7,7 @@ class AddingAProject
     @adder.extend Adder
   end
 
-  def add(attributes)
+  def execute(attributes)
     project = Project.new(random_attributes.merge(attributes))
     @adder.add_project( project,
                        failure: ->{ @controller.try(:failure, project) },

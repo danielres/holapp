@@ -6,7 +6,7 @@ class MembershipsController < ApplicationController
     project = Project.find params[:membership][:project_id]
     adding_a_person_to_a_project = AddingAPersonToAProject.new(current_user, person, project)
     adding_a_person_to_a_project.command(self)
-    adding_a_person_to_a_project.add
+    adding_a_person_to_a_project.execute
   end
   def failure(membership)
     redirect_to :back, alert: render_to_string(partial: 'shared/errors', locals: { object: membership }).html_safe
@@ -20,7 +20,7 @@ class MembershipsController < ApplicationController
     membership = Membership.find(params[:id])
     updating_a_membership = UpdatingAMembership.new(current_user, membership)
     updating_a_membership.command(self)
-    updating_a_membership.update(membership_params)
+    updating_a_membership.execute(membership_params)
   end
   def update_failure(membership)
     respond_to do |format|

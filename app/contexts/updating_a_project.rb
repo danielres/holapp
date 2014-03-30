@@ -9,10 +9,10 @@ class UpdatingAProject
     @project.extend UpdatableProject
   end
 
-  def update(attributes)
+  def execute(attributes)
     @updater.update_project_with(@project, attributes,
-                      failure: ->{ @controller && @controller.update_failure(@project) },
-                      success: ->{ @controller && @controller.update_success(@project) }, )
+                      failure: ->{ @controller.try(:update_failure, @project) },
+                      success: ->{ @controller.try(:update_success, @project) }, )
   end
 
   def command(controller)

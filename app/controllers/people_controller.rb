@@ -10,7 +10,7 @@ class PeopleController < ApplicationController
   def create
     adding_a_person = AddingAPerson.new(current_user)
     adding_a_person.command(self)
-    adding_a_person.add(user_params)
+    adding_a_person.execute(user_params)
   end
   def create_failure(person)
     redirect_to :back, alert: render_to_string(partial: 'shared/errors', locals: { object: person }).html_safe
@@ -24,7 +24,7 @@ class PeopleController < ApplicationController
     person = User.find(params[:id])
     updating_a_person = UpdatingAPerson.new(current_user, person)
     updating_a_person.command(self)
-    updating_a_person.update(user_params)
+    updating_a_person.execute(user_params)
   end
   def update_failure(person)
     respond_to do |format|

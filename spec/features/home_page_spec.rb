@@ -4,7 +4,7 @@ require 'factories_spec_helper'
 require 'purpose_selector_spec_helper'
 
 
-describe 'Homepage' do
+describe 'Homepage', :slow do
 
   context 'when authenticated' do
     let(:user){ create(:super_user) }

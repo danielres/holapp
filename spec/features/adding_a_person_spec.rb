@@ -3,7 +3,7 @@ require 'fast_authentication_spec_helper'
 require 'purpose_selector_spec_helper'
 require 'factories_spec_helper'
 
-describe 'Adding a person' do
+describe 'Adding a person', :slow do
   let(:super_user){ create(:super_user) }
 
   context 'as superuser' do

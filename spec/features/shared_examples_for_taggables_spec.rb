@@ -1,6 +1,6 @@
 shared_examples 'a taggable' do
 
-    describe 'tagging' do
+    describe 'tagging', :slow do
       describe 'adding skills' do
         before(:each) do
           visit url_for(taggable)

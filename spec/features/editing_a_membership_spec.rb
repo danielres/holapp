@@ -4,7 +4,7 @@ require 'purpose_selector_spec_helper'
 require 'factories_spec_helper'
 require 'best_in_place_spec_helper'
 
-describe 'Editing a membership' do
+describe 'Editing a membership', :slow do
 
   context 'as a superuser' do
     let(:super_user){ create(:super_user) }

@@ -6,7 +6,7 @@ require 'best_in_place_spec_helper'
 
 
 
-describe 'Editing a tagging' do
+describe 'Editing a tagging', :slow do
 
   context 'as a superuser' do
     let(:super_user){ create(:super_user) }

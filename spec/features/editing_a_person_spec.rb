@@ -5,7 +5,7 @@ require 'factories_spec_helper'
 require 'best_in_place_spec_helper'
 require_relative 'shared_examples_for_taggables_spec'
 
-describe 'Editing a person' do
+describe 'Editing a person', :slow do
   let!(:person){ create(:person) }
 
   context 'as a superuser' do

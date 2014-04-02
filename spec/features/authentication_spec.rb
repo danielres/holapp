@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'factories_spec_helper'
 
-describe 'Authentication' do
+describe 'Authentication', :slow do
 
   describe 'Logging in' do
 

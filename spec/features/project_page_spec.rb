@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'fast_authentication_spec_helper'
 require 'factories_spec_helper'
 
-describe 'Project page' do
+describe 'Project page', :slow do
   let(:project){ create(:project) }
   context 'as a superuser' do
     let(:user){ create(:super_user) }

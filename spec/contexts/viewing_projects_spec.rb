@@ -1,18 +1,21 @@
 require 'spec_helper'
 require 'factories_spec_helper'
 require_relative 'shared_examples_for_authorization_requirers'
-require_relative 'shared_context_by_an_authorized_user'
 
 describe ViewingProjects do
   subject{ described_class.new(user) }
+  let(:user){ build(:no_roles_user) }
   let(:view_context){ double('view_context') }
   let(:execution){ ->{ subject.expose_list(view_context) } }
+  let(:authorization){ ->{ allow(user).to receive( :can_view_projects? ){ true } } }
 
    describe 'execution' do
     include_examples 'an authorization requirer'
 
     context 'by an authorized user' do
-      include_context 'by an authorized user'
+      before(:each) do
+        authorization.call
+      end
 
       let(:projects){ [project1, project2] }
       let(:project1){ build(:project) }

@@ -4,7 +4,6 @@ shared_examples 'a form provider' do
     let(:view_context){ double('view_context') }
 
     context 'with a basic user' do
-      let(:user){ build(:no_roles_user) }
       it 'is not exposed' do
         expect( view_context ).not_to receive(:render)
         subject.expose_form(view_context)
@@ -12,7 +11,9 @@ shared_examples 'a form provider' do
     end
 
     context 'with an authorized user' do
-      let(:user){ create(:super_user) }
+      before(:each) do
+        authorization.call
+      end
       it 'is exposed' do
         expect( view_context ).to receive(:render)
         subject.expose_form(view_context)

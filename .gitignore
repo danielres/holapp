@@ -90,3 +90,4 @@ doc/
 .tags_sorted_by_file
 *.sublime-workspace
 *.sublime-project
+deploy

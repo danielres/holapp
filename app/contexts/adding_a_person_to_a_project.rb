@@ -1,5 +1,3 @@
-class ActionForbiddenError < StandardError; end
-
 class AddingAPersonToAProject
 
   def initialize(adder, person, project)

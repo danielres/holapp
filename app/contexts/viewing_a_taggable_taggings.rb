@@ -1,5 +1,3 @@
-class ActionForbiddenError < StandardError; end
-
 class ViewingATaggableTaggings
 
   def initialize(viewer, taggable)

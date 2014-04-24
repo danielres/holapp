@@ -1,5 +1,3 @@
-class ActionForbiddenError < StandardError; end
-
 class UpdatingAProject
 
   def initialize(user, project)

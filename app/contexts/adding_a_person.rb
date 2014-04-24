@@ -1,5 +1,3 @@
-class ActionForbiddenError < StandardError; end
-
 class AddingAPerson
 
   def initialize(adder)

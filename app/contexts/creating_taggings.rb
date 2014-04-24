@@ -1,5 +1,3 @@
-class ActionForbiddenError < StandardError; end
-
 class CreatingTaggings
 
   def initialize(tagger, taggable, tag_list, tag_field)

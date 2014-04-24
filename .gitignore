@@ -91,3 +91,5 @@ doc/
 *.sublime-workspace
 *.sublime-project
 deploy
+db/*.dump
+db/*.backup

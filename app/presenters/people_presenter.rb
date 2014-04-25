@@ -1,7 +1,7 @@
 class PeoplePresenter
 
   def initialize(person_or_people, view_context)
-    @people = Array(person_or_people)
+    @people = Array(person_or_people).sort{ |x,y| x.name <=> y.name }
     @view_context = view_context
   end
 

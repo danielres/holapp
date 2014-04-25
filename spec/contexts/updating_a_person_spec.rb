@@ -10,7 +10,7 @@ describe UpdatingAPerson do
     let(:user){ build(:no_roles_user) }
     let(:person){ build(:person, first_name: 'initial_firstname', last_name: 'initial_lastname', description: 'initial_description') }
     let(:execution){ ->{ subject.execute(desired_attributes) } }
-    let(:authorization){ ->{ allow(user).to receive( :can_update_person? ){ true } } }
+    let(:authorization){ ->{ allow(user).to receive( :can_update_resource? ){ true } } }
 
     describe 'execution' do
       let(:desired_attributes) { { first_name: 'desired_firstname', last_name: 'desired_lastname', description: 'desired_description' } }

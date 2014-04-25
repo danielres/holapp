@@ -10,7 +10,7 @@ describe UpdatingAMembership do
     let(:user){ build(:no_roles_user) }
     let(:membership){ Membership.new( description: 'initial_description') }
     let(:execution){ ->{ subject.execute(desired_attributes) } }
-    let(:authorization){ ->{ allow(user).to receive( :can_update_membership? ){ true } } }
+    let(:authorization){ ->{ allow(user).to receive( :can_update_resource? ){ true } } }
 
     describe 'execution' do
       let(:desired_attributes) { { description: 'desired_description' } }

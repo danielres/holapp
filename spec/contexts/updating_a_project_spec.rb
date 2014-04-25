@@ -10,7 +10,7 @@ describe UpdatingAProject do
     let(:user){ build(:no_roles_user) }
     let(:project){ build(:project, name: 'initial_name', description: 'initial_description') }
     let(:execution){ ->{ subject.execute(desired_attributes) } }
-    let(:authorization){ ->{ allow(user).to receive( :can_update_project? ){ true } } }
+    let(:authorization){ ->{ allow(user).to receive( :can_update_resource? ){ true } } }
 
     describe 'execution' do
       let(:desired_attributes) { { name: 'desired_name', description: 'desired_description' } }

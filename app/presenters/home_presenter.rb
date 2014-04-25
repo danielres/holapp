@@ -7,8 +7,8 @@ class HomePresenter
     @view_context.render partial: 'presenters/home_presenter',
                           locals: {
                                  global_view: HavingAGlobalView.new(@viewer).view(@view_context),
-                             adding_a_person: AddingAPerson.new(@viewer).expose_form(@view_context),
-                            adding_a_project: AddingAProject.new(@viewer).expose_form(@view_context),
+                             adding_a_person: AddingAPerson.new(@viewer).gather_user_input(@view_context),
+                            adding_a_project: AddingAProject.new(@viewer).gather_user_input(@view_context),
                           }
 
   end

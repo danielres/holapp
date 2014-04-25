@@ -9,7 +9,7 @@ describe AddingAProject do
   let(:user){ build(:no_roles_user) }
   let(:desired_project_attributes){ { name: 'My project'} }
   let(:execution){ ->{ subject.execute(desired_project_attributes) } }
-  let(:authorization){ ->{ allow(user).to receive( :can_add_project? ){ true } } }
+  let(:authorization){ ->{ allow(user).to receive( :can_add_resource? ){ true } } }
 
   describe 'execution' do
     include_examples 'an authorization requirer'
@@ -26,6 +26,6 @@ describe AddingAProject do
   end
 
   include_examples 'a form provider'
-  include_examples 'a controller commander'
+  include_examples 'a controller commander', :create_success, :create_failure
 
 end

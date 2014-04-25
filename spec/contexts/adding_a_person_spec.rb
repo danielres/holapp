@@ -9,7 +9,7 @@ describe AddingAPerson do
   let(:user){ build(:no_roles_user) }
   let(:execution){ ->{ subject.execute(added_person_attrs) } }
   let(:added_person_attrs){ { name: 'Alfred Hitchie'} }
-  let(:authorization){ ->{ allow(user).to receive( :can_add_person? ){ true } } }
+  let(:authorization){ ->{ allow(user).to receive( :can_add_resource? ){ true } } }
 
   describe 'execution' do
     include_examples 'an authorization requirer'

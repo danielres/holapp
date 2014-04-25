@@ -29,7 +29,7 @@ class PersonPresenter
     end
 
     def new_membership_form_html
-      AddingAPersonToAProject.new(@viewer, @person, nil).expose_form(@view_context)
+      AddingAMembership.new(@viewer, @person, nil).gather_user_input(@view_context)
     end
 
     def skills_list_html
@@ -37,7 +37,7 @@ class PersonPresenter
     end
 
     def skills_adder_html
-      CreatingTaggings.new(@viewer, @person, nil, :skills).expose_form(@view_context)
+      CreatingTaggings.new(@viewer, @person, nil, :skills).gather_user_input(@view_context)
     end
 
     def motivations_list_html
@@ -45,7 +45,7 @@ class PersonPresenter
     end
 
     def motivations_adder_html
-      CreatingTaggings.new(@viewer, @person, nil, :motivations).expose_form(@view_context)
+      CreatingTaggings.new(@viewer, @person, nil, :motivations).gather_user_input(@view_context)
     end
 
 end

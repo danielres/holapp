@@ -12,10 +12,10 @@ class ProjectsController < ApplicationController
     adding_a_project.command(self)
     adding_a_project.execute(project_params)
   end
-  def failure(project)
+  def create_failure(project)
     redirect_to :back, alert: render_to_string(partial: 'shared/errors', locals: { object: project }).html_safe
   end
-  def success(project)
+  def create_success(project)
     redirect_to :back, notice: %Q[project "#{project.name}" has been added successfully]
   end
 

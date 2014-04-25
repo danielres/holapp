@@ -4,14 +4,14 @@ class MembershipsController < ApplicationController
   def create
     person = User.find params[:membership][:user_id]
     project = Project.find params[:membership][:project_id]
-    adding_a_person_to_a_project = AddingAPersonToAProject.new(current_user, person, project)
-    adding_a_person_to_a_project.command(self)
-    adding_a_person_to_a_project.execute
+    adding_a_membership = AddingAMembership.new(current_user, person, project)
+    adding_a_membership.command(self)
+    adding_a_membership.execute
   end
-  def failure(membership)
+  def create_failure(membership)
     redirect_to :back, alert: render_to_string(partial: 'shared/errors', locals: { object: membership }).html_safe
   end
-  def success(membership)
+  def create_success(membership)
     redirect_to :back, notice: %Q[#{membership.user} has been successfully added as a member of #{membership.project}]
   end
 

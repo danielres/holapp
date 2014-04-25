@@ -4,13 +4,13 @@ require_relative 'shared_examples_for_authorization_requirers'
 require_relative 'shared_examples_for_form_providers'
 require_relative 'shared_examples_for_controller_commanders'
 
-describe AddingAPersonToAProject do
+describe AddingAMembership do
   subject{ described_class.new(user, person, project)  }
   let(:user){ build(:no_roles_user) }
   let(:person){ build(:person) }
   let(:project){ build(:project) }
   let(:execution){ ->{ subject.execute } }
-  let(:authorization){ ->{ allow(user).to receive( :can_manage_memberships? ){ true } } }
+  let(:authorization){ ->{ allow(user).to receive( :can_add_resource? ){ true } } }
 
   describe 'execution' do
     include_examples 'an authorization requirer'
@@ -27,7 +27,7 @@ describe AddingAPersonToAProject do
   end
 
   include_examples 'a form provider'
-  include_examples 'a controller commander'
+  include_examples 'a controller commander', :create_success, :create_failure
 
 end
 

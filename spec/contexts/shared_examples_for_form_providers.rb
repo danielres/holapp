@@ -6,7 +6,7 @@ shared_examples 'a form provider' do
     context 'with a basic user' do
       it 'is not exposed' do
         expect( view_context ).not_to receive(:render)
-        subject.expose_form(view_context)
+        subject.gather_user_input(view_context)
       end
     end
 
@@ -16,7 +16,7 @@ shared_examples 'a form provider' do
       end
       it 'is exposed' do
         expect( view_context ).to receive(:render)
-        subject.expose_form(view_context)
+        subject.gather_user_input(view_context)
       end
     end
 

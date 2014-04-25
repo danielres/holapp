@@ -17,7 +17,7 @@ class CreatingTaggings
                       success: ->{ @controller.try(:success) }, )
   end
 
-  def expose_form(view_context)
+  def gather_user_input(view_context)
     return unless @tagger.can_add_tags?(@taggable)
     view_context.render partial: 'contexts/creating_taggings/form',
                          locals: { taggable: @taggable, tag_field: @tag_field }

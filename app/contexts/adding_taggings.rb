@@ -1,4 +1,4 @@
-class CreatingTaggings
+class AddingTaggings
 
   def initialize(tagger, taggable, tag_list, tag_field)
     @tagger = tagger

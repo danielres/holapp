@@ -4,7 +4,7 @@ require_relative 'shared_examples_for_authorization_requirers'
 require_relative 'shared_examples_for_form_providers'
 require_relative 'shared_examples_for_controller_commanders'
 
-describe CreatingTaggings do
+describe AddingTaggings do
   subject{ described_class.new(user, taggable, tag_list, tag_field)  }
   let(:user){ build(:no_roles_user) }
   let(:taggable){ create(:person) }

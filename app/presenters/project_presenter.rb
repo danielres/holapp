@@ -36,7 +36,7 @@ class ProjectPresenter
     end
 
     def skills_adder_html
-      CreatingTaggings.new(@viewer, @project, nil, :skills).gather_user_input(@view_context)
+      AddingTaggings.new(@viewer, @project, nil, :skills).gather_user_input(@view_context)
     end
 
 

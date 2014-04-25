@@ -8,7 +8,7 @@ class TaggingsController < ApplicationController
     tag_field     = params[:tagging][:tag_field]
     tagger        = current_user
     taggable      = taggable_type.constantize.find(taggable_id)
-    create_taggings = CreatingTaggings.new(tagger, taggable, tag_list, tag_field)
+    create_taggings = AddingTaggings.new(tagger, taggable, tag_list, tag_field)
     create_taggings.command(self)
     create_taggings.execute
   end

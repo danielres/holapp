@@ -37,7 +37,7 @@ class PersonPresenter
     end
 
     def skills_adder_html
-      CreatingTaggings.new(@viewer, @person, nil, :skills).gather_user_input(@view_context)
+      AddingTaggings.new(@viewer, @person, nil, :skills).gather_user_input(@view_context)
     end
 
     def motivations_list_html
@@ -45,7 +45,7 @@ class PersonPresenter
     end
 
     def motivations_adder_html
-      CreatingTaggings.new(@viewer, @person, nil, :motivations).gather_user_input(@view_context)
+      AddingTaggings.new(@viewer, @person, nil, :motivations).gather_user_input(@view_context)
     end
 
 end

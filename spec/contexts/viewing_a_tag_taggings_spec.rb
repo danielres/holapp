@@ -26,6 +26,7 @@ describe ViewingATagTaggings, '- viewing taggings from the tag side' do
         let(:presenter){ double('presenter').as_null_object }
 
         before(:each) do
+          subject
           expect(tag).to respond_to(:taggings)
           allow(tag).to receive(:taggings){ taggings }
         end

@@ -2,8 +2,8 @@ class TagsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    tags = Tag.all
-    render inline: TagsPresenter.new(current_user, tags, view_context).to_html, layout: true
+    render layout: true,
+             text: ViewingTags.new(current_user).expose_list(view_context)
   end
 
   def show

@@ -1,5 +1,7 @@
 class TagsPresenter
-  def initialize(user, tag_or_tags, view_context)
+
+  def initialize(tag_or_tags, view_context)
+    @tags = Array(tag_or_tags)
     @tags = Array(tag_or_tags)
     @view_context = view_context
   end

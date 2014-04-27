@@ -8,6 +8,8 @@ class GlobalViewPresenter
                          locals: {
                                  projects: ViewingProjects.new(@user).expose_list(@view_context),
                                    people: ViewingPeople.new(@user).expose_list(@view_context),
+                             adding_a_person: AddingAPerson.new(@user).gather_user_input(@view_context),
+                            adding_a_project: AddingAProject.new(@user).gather_user_input(@view_context),
                           top_motivations: '<p data-purpose="top-motivations">[TODO: top motivations]</p>'.html_safe,
                                top_skills: '<p data-purpose="top-skills">[TODO: top skills]</p>'.html_safe,
                         }

@@ -37,6 +37,23 @@ class PeopleController < ApplicationController
     end
   end
 
+  def destroy
+    person = User.find(params[:id])
+    destroying_a_person = DestroyingAPerson.new(current_user, person)
+    destroying_a_person.command(self)
+    destroying_a_person.execute
+  end
+  def destroy_failure(person)
+    respond_to do |format|
+      format.html { redirect_to :back }
+    end
+  end
+  def destroy_success(person)
+    respond_to do |format|
+      format.html { redirect_to root_path }
+    end
+  end
+
 
 
   private

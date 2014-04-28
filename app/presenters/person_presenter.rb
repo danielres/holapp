@@ -9,6 +9,7 @@ class PersonPresenter
   def to_html
     h.render(partial: 'presenters/person_presenter/person', locals: {
                    person: @person,
+             actions_menu: actions_menu_html,
               memberships: memberships_html,
       new_membership_form: new_membership_form_html,
               skills_list: skills_list_html,
@@ -22,6 +23,10 @@ class PersonPresenter
 
     def h
       @view_context
+    end
+
+    def actions_menu_html
+      h.render( partial: 'presenters/person_presenter/actions_menu', locals: { person: @person })
     end
 
     def memberships_html

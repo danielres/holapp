@@ -7,6 +7,6 @@ Marketplace::Application.routes.draw do
   resources :projects
   resources :memberships
   resources :taggings, only: [ :create, :update, :destroy ]
-  resources :tags, only: [ :index, :show, :update ]
+  resources :tags, only: [ :index, :show, :update, :destroy ]
   get "/tags/autocomplete/results.json", to: "tags#autocomplete"
 end

@@ -30,6 +30,24 @@ class TagsController < ApplicationController
     end
   end
 
+  def destroy
+    tag = Tag.find(params[:id])
+    destroying_a_tag = DestroyingATag.new(current_user, tag)
+    destroying_a_tag.command(self)
+    destroying_a_tag.execute
+  end
+  def destroy_failure(tag)
+    respond_to do |format|
+      format.html { redirect_to :back }
+    end
+  end
+  def destroy_success(tag)
+    respond_to do |format|
+      format.html { redirect_to tags_path }
+    end
+  end
+
+
   private
 
     def tag_params

@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'fast_authentication_spec_helper'
 require 'purpose_selector_spec_helper'
 require 'factories_spec_helper'
-require_relative 'shared_examples_for_taggables_spec'
 
 describe 'Deleting a project', :slow do
   let!(:project){ create(:project) }

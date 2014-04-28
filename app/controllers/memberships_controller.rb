@@ -33,6 +33,25 @@ class MembershipsController < ApplicationController
     end
   end
 
+
+  def destroy
+    membership = Membership.find(params[:id])
+    destroying_a_membership = DestroyingAMembership.new(current_user, membership)
+    destroying_a_membership.command(self)
+    destroying_a_membership.execute
+  end
+  def destroy_failure(membership)
+    respond_to do |format|
+      format.html { redirect_to :back }
+    end
+  end
+  def destroy_success(membership)
+    respond_to do |format|
+      format.html { redirect_to :back }
+    end
+  end
+
+
   private
 
     def membership_params

@@ -4,4 +4,7 @@
     %tr[m]
       %td.name= link_to m.project.name, m.project
       %td.description= best_in_place m, :description, type: :textarea, nil: '…'
+      %td.actions
+        %ul
+          %li= link_to 'delete', m, method: :delete, data: { purpose: 'delete_action', confirm: 'Are you sure ?' }
 

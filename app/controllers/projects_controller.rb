@@ -37,6 +37,24 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def destroy
+    project = Project.find(params[:id])
+    destroying_a_project = DestroyingAProject.new(current_user, project)
+    destroying_a_project.command(self)
+    destroying_a_project.execute
+  end
+  def destroy_failure(project)
+    respond_to do |format|
+      format.html { redirect_to :back }
+    end
+  end
+  def destroy_success(project)
+    respond_to do |format|
+      format.html { redirect_to root_path }
+    end
+  end
+
+
 
 
   private

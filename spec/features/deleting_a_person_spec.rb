@@ -20,8 +20,8 @@ describe 'Deleting a person', :slow do
       end
       it 'deletes the person' do
         expect( User.count ).to eq 2
-        within the 'actions_menu' do
-          find( the 'delete_action').click
+        within the 'actions-menu' do
+          find( the 'delete-action').click
         end
         visit root_path
         expect( User.count ).to eq 1

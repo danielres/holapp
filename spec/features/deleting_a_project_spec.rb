@@ -20,8 +20,8 @@ describe 'Deleting a project', :slow do
       end
       it 'deletes the project' do
         expect( Project.count ).to eq 1
-        within the 'actions_menu' do
-          find( the 'delete_action').click
+        within the 'actions-menu' do
+          find( the 'delete-action').click
         end
         visit root_path
         expect( Project.count ).to eq 0

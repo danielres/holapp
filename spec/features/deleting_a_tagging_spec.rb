@@ -24,7 +24,7 @@ describe 'Deleting a tagging', :slow do
       it 'deletes the tagging' do
         expect( Tagging.count ).to eq 1
         within the 'skills-list' do
-          find( the 'delete_action').click
+          find( the 'delete-action').click
         end
         visit root_path
         expect( Tagging.count ).to eq 0

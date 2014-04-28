@@ -23,7 +23,7 @@ describe 'Deleting a membership', :slow do
       it 'deletes the membership' do
         expect( Membership.count ).to eq 1
         within the 'memberships-list' do
-          find( the 'delete_action').click
+          find( the 'delete-action').click
         end
         visit root_path
         expect( Membership.count ).to eq 0

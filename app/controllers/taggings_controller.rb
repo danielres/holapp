@@ -37,6 +37,23 @@ class TaggingsController < ApplicationController
     end
   end
 
+  def destroy
+    tagging = Tagging.find(params[:id])
+    destroying_a_tagging = DestroyingATagging.new(current_user, tagging)
+    destroying_a_tagging.command(self)
+    destroying_a_tagging.execute
+  end
+  def destroy_failure(tagging)
+    respond_to do |format|
+      format.html { redirect_to :back }
+    end
+  end
+  def destroy_success(tagging)
+    respond_to do |format|
+      format.html { redirect_to :back }
+    end
+  end
+
   private
 
     def tagging_params

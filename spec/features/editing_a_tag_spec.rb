@@ -15,15 +15,20 @@ describe 'Editing a tag', :slow do
       login_as(super_user, scope: :user)
     end
 
-    describe 'updating the tag description', js: true do
+    describe 'updating the tag details', js: true do
       before(:each) do
-        tag.update(description: 'description')
+        tag.update(
+          description: 'initial_description',
+                 name: 'initial_name',
+        )
         visit tag_path(tag)
       end
-      it 'updates the description on the tag page' do
-        edit_in_place_textarea(tag, :description, 'updated description')
+      it "supports updating 'description' and 'name'on the tag's page" do
+        edit_in_place_textarea(tag, :description, 'updated_description')
+        edit_in_place_text(tag, :name  , 'updated_name')
         visit tag_path(tag)
-        expect( page ).to have_content('updated description')
+        expect( page ).to have_content('updated_description')
+        expect( page ).to have_content('updated_name')
       end
     end
 

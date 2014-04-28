@@ -13,7 +13,9 @@ class User < ActiveRecord::Base
   devise :invitable, :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :memberships
+  has_many :memberships, dependent: :destroy
+  has_many :taggings, as: :taggable, dependent: :destroy
+
   has_many :projects, through: :memberships
 
   def initialize(options={})

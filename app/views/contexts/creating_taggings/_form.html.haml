@@ -7,31 +7,33 @@
   = f.button :submit, value: 'Add'
 
 :javascript
-  $("#tagging_tag_list#{ random_value }").select2({
-    tags: true,
-    multiple: true,
-    placeholder: "Add #{ tag_field }",
-    minimumInputLength: 2,
-    width: 'resolve' ,
-    ajax: {
-      url: "/tags/autocomplete/results.json",
-      dataType: 'json',
-      data: function (term, page) {
-        return {
-          q: term,
-          page_limit: 10,
-        };
-      },
-      results: function(data, page) {
-        return {
-          results: $.map( data, function(tag, i) {
-            return { id: tag.id, text: tag.name }
-          } )
-        }
-      }
+
+  // TAGSMANAGER
+  var tagApi#{ random_value } = jQuery("#tagging_tag_list#{ random_value }").tagsManager({
+    delimiters: [13, 44], // enter, comma
+    hiddenTagListName: 'tagging[tag_list]'
+  });
+
+  // BLOODHOUND
+  var engine = new Bloodhound({
+    remote: '/tags/autocomplete/results.json?q=%QUERY',
+    datumTokenizer: function(d) {
+      return Bloodhound.tokenizers.whitespace(d.val);
     },
-    createSearchChoice: function (term) {
-        var text = term;
-        return { id: term, text: text };
+    queryTokenizer: Bloodhound.tokenizers.whitespace
+  });
+
+  engine.initialize();
+
+  // TYPEAHEAD
+  $("#tagging_tag_list#{ random_value }").typeahead({
+      hint: false,
+      highlight: true,
+      minLength: 1
     },
-  }) ;
+    {
+      displayKey: 'val',
+      source: engine.ttAdapter()
+    }).on('typeahead:selected', function (e, d) {
+      tagApi#{ random_value }.tagsManager("pushTag", d.value);
+  });

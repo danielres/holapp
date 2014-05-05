@@ -30,8 +30,15 @@ class TagsController < ApplicationController
     string = params[:q]
     tags = Tag.where("name LIKE ?", "%#{ string }%").select("name")
     respond_to do |format|
-      format.json { render inline: tags.to_json }
+      format.json do
+        datums = tags.map{|t| to_datum(t) }.join(', ')
+        render text: "[#{ datums }]"
+      end
     end
+  end
+
+  def to_datum tag
+    %Q| { "val":"#{ tag.name }" } |
   end
 
   def destroy

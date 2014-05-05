@@ -15,7 +15,8 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require best_in_place
-//= require select2
+//= require typeahead.bundle
+//= require tagmanager
 //= require_tree .
 
 

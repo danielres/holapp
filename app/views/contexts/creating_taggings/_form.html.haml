@@ -1,12 +1,13 @@
+- random_value = (rand * 10000).to_i
 = simple_form_for(Tagging.new, html: { id: "add_#{ tag_field }", data: { purpose: "#{tag_field}-adder" } }) do |f|
   = f.hidden_field :taggable_id, value: taggable.id
   = f.hidden_field :taggable_type, value: taggable.class
   = f.hidden_field :tag_field, value: tag_field
-  = f.input_field 'tagging[tag_list]', label: tag_field.capitalize, as: :fake
+  = f.input_field 'tagging[tag_list]', label: tag_field.capitalize, as: :fake, id: "tagging_tag_list#{ random_value }"
   = f.button :submit, value: 'Add'
 
 :javascript
-  $("form#add_#{ tag_field } input[type=text]").select2({
+  $("#tagging_tag_list#{ random_value }").select2({
     tags: true,
     multiple: true,
     placeholder: "Add #{ tag_field }",

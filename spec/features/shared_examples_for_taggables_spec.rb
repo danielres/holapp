@@ -7,7 +7,7 @@ shared_examples 'a taggable' do
         end
         it 'adds the skills to the taggable page' do
           within the("#{ tag_field }-adder") do
-            fill_in :tagging_tag_list, with: 'tag1, tag2'
+            fill_in 'tagging[tag_list]', with: 'tag1, tag2'
             first('[type=submit]').click
           end
           visit url_for(taggable)

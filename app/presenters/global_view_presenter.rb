@@ -11,7 +11,9 @@ class GlobalViewPresenter
                              adding_a_person: AddingAPerson.new(@user).gather_user_input(@view_context),
                             adding_a_project: AddingAProject.new(@user).gather_user_input(@view_context),
                           top_motivations: '<p data-purpose="top-motivations">[TODO: top motivations]</p>'.html_safe,
-                               top_skills: '<p data-purpose="top-skills">[TODO: top skills]</p>'.html_safe,
+                               top_taggings: ViewingTopTaggings.new(@user).expose_lists(@view_context)
                         }
   end
+
+
 end

@@ -4,8 +4,6 @@ class ViewingATagTaggings
     @viewer = viewer
     @tag = tag
     @viewer.extend Viewer
-    @tag.extend Tag
-    setup_taggings_associations
   end
 
   def expose_taggings_by_taggable_types(view_context)
@@ -26,13 +24,6 @@ class ViewingATagTaggings
     "<section>#{ output.join }</section>".html_safe
   end
 
-  def setup_taggings_associations
-    Tagging.class_eval do
-        belongs_to :tag
-        belongs_to :taggable, polymorphic: true
-      end
-  end
-
   private
 
     def taggings
@@ -42,14 +33,6 @@ class ViewingATagTaggings
     module Viewer
       def can_view_taggables? tag
         Ability.new(self).can? :read, tag
-      end
-    end
-
-    module Tag
-      def self.extended(object)
-        object.class.class_eval do
-          has_many :taggings
-        end
       end
     end
 

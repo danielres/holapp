@@ -5,7 +5,6 @@ class ViewingATaggableTaggings
     @taggable = taggable
     @viewer.extend Viewer
     @taggable.extend Taggable
-    setup_taggings_associations
   end
 
   def expose_list(tag_field, view_context)
@@ -16,13 +15,6 @@ class ViewingATaggableTaggings
 
 
   private
-
-    def setup_taggings_associations
-      Tagging.class_eval do
-          belongs_to :tag
-          belongs_to :taggable, polymorphic: true
-        end
-    end
 
     module Viewer
       def can_view_taggings? taggable

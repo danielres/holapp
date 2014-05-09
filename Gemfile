@@ -21,6 +21,8 @@ gem 'thin'
 gem 'acts-as-taggable-on'
 gem 'best_in_place', github: 'bernat/best_in_place'
 gem 'select2-rails'
+gem 'erector'
+
 group :production do
   gem 'rails_12factor'
 end

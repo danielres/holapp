@@ -92,6 +92,8 @@ GEM
     email_spec (1.5.0)
       launchy (~> 2.1)
       mail (~> 2.2)
+    erector (0.10.0)
+      treetop (>= 1.2.3)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.0.2)
@@ -306,6 +308,7 @@ DEPENDENCIES
   devise
   devise_invitable
   email_spec
+  erector
   factory_girl_rails
   figaro
   guard-bundler

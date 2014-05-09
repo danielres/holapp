@@ -1,19 +1,20 @@
-class PeoplePresenter
+class PeoplePresenter < Erector::Widget
 
-  def initialize(person_or_people, view_context)
-    @people = Array(person_or_people).sort{ |x,y| x.name <=> y.name }
-    @view_context = view_context
-  end
+  needs :people, :view_context
 
-  def to_html
-    h.render partial: 'presenters/people_presenter',
-              locals: { people: @people }
-  end
+  include Support::PresenterHelpers
 
-  private
-
-    def h
-      @view_context
+  def content
+    table the('people-list') do
+      caption 'People'
+      @people.sort{ |x,y| x.name <=> y.name }.each do |p|
+        tr do
+          td.name{ text @view_context.link_to p.name, p }
+          td.description{ text p.description }
+        end
+      end
     end
+
+  end
 
 end

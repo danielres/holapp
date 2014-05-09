@@ -7,7 +7,7 @@ require 'purpose_selector_spec_helper'
 describe PeoplePresenter do
 
   describe 'rendering to html' do
-    subject{ described_class.new(people, view_context) }
+    subject{ described_class.new(people: people, view_context: view_context) }
     let(:person1){ build(:person, first_name: 'person1') }
     let(:person2){ build(:person, first_name: 'person2') }
     let(:people){ [ person1, person2 ] }

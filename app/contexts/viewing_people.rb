@@ -7,7 +7,7 @@ class ViewingPeople
 
   def expose_list(view_context)
     raise ActionForbiddenError unless @viewer.can_view_people?
-    PeoplePresenter.new(@viewer.available_people, view_context).to_html
+    PeoplePresenter.new(people: @viewer.available_people, view_context: view_context).to_html
   end
 
   private

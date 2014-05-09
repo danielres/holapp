@@ -28,7 +28,7 @@ describe ViewingTags do
       it 'passes the tags to a presenter' do
         expect( TagsPresenter )
           .to receive(:new).once
-          .with( tags, view_context )
+          .with( tags: tags, view_context: view_context )
           .and_return{ presenter }
 
         expect( presenter )

@@ -9,7 +9,7 @@ describe TagPresenter do
   describe 'rendering to html' do
 
     context 'for a superuser' do
-      subject{ described_class.new(viewer, tag, view_context) }
+      subject{ described_class.new(viewer: viewer, tag: tag, view_context: view_context) }
       let(:viewer){ create(:super_user) }
       let(:tag){ build(:tag, name: 'skill1') }
       let(:view_context){ view }

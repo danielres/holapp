@@ -8,7 +8,11 @@ class TagsController < ApplicationController
 
   def show
     tag = Tag.find(params[:id])
-    render inline: TagPresenter.new(current_user, tag, view_context).to_html, layout: true
+    render inline:  TagPresenter.new(
+                            viewer: current_user,
+                               tag: tag,
+                      view_context: view_context,
+                    ).to_html, layout: true
   end
 
   def update

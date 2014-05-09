@@ -28,7 +28,7 @@ describe ViewingPeople do
       it 'passes the people a presenter' do
         expect( PeoplePresenter )
           .to receive(:new).once
-          .with( people, view_context )
+          .with( {people: people, view_context: view_context} )
           .and_return{ presenter }
 
         expect( presenter )

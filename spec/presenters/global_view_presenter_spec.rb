@@ -4,8 +4,8 @@ require 'view_context_spec_helper'
 require 'html_fragment_spec_helper'
 require 'purpose_selector_spec_helper'
 
-describe HomePresenter do
-  subject{ described_class.new(viewer, view_context) }
+describe GlobalViewPresenter do
+  subject{ described_class.new(viewer: viewer, view_context: view_context) }
   let(:view_context){ view }
 
   context 'for a superuser' do

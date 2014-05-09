@@ -2,8 +2,11 @@ class HomeController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    render layout: true,
-             text: HomePresenter.new(current_user, view_context).to_html
+    render text: GlobalViewPresenter.new(
+                          viewer: current_user,
+                    view_context: view_context,
+                  ).to_html,
+                  layout: true
   end
 
 end

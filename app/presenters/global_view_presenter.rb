@@ -1,24 +1,33 @@
-class GlobalViewPresenter
-  def initialize viewer, view_context
-    @user = viewer
-    @view_context = view_context
-  end
-  def as_html
-    @view_context.render partial: 'presenters/global_view_presenter',
-                         locals: {
-                                 projects: ViewingProjects.new(@user).expose_list(@view_context),
-                                   people: ViewingPeople.new(@user).expose_list(@view_context),
-                          adding_a_person: AddingAPerson.new(@user).gather_user_input(@view_context),
-                         adding_a_project: AddingAProject.new(@user).gather_user_input(@view_context),
-                             top_taggings: top_taggings
-                        }
-  end
+class GlobalViewPresenter < Erector::Widget
 
-  def top_taggings
-    [
-      TopsByTagFieldPresenter.new(tag_field: :skills,      min_level: 4, view_context: @view_context).to_html,
-      TopsByTagFieldPresenter.new(tag_field: :motivations, min_level: 4, view_context: @view_context).to_html,
-    ]
+  needs :viewer, :view_context
+
+  include Support::PresenterHelpers
+
+  def content
+    row do
+      col(6) do
+        panel do
+          text ViewingPeople.new(@viewer).expose_list(@view_context)
+          text AddingAPerson.new(@viewer).gather_user_input(@view_context)
+        end
+      end
+      col(6) do
+        panel do
+          text ViewingProjects.new(@viewer).expose_list(@view_context)
+          text AddingAProject.new(@viewer).gather_user_input(@view_context)
+        end
+      end
+    end
+
+    panel do
+      text TopsByTagFieldPresenter.new(tag_field: :skills,      min_level: 4, view_context: @view_context).to_html
+    end
+
+    panel do
+      text TopsByTagFieldPresenter.new(tag_field: :motivations, min_level: 4, view_context: @view_context).to_html
+    end
+
   end
 
 end

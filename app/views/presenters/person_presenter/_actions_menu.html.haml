@@ -1,3 +1,0 @@
-%ul{ data: { purpose: 'actions-menu' } }
-  - confirm_message = Rails.env == 'test' ? false : 'Are you sure ?'
-  %li= link_to 'delete', "/people/#{ person.id }", method: :delete, data: { purpose: 'delete-action', confirm: confirm_message }

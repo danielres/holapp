@@ -3,7 +3,7 @@ class PeopleController < ApplicationController
 
   def show
     person = User.find(params[:id])
-    render inline: PersonPresenter.new(current_user, person, view_context).to_html, layout: true
+    render inline: PersonPresenter.new(viewer: current_user, person: person, view_context: view_context).to_html, layout: true
   end
 
 

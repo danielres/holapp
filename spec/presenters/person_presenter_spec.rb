@@ -9,7 +9,7 @@ describe PersonPresenter do
   describe 'rendering to html' do
 
     context 'for a superuser' do
-      subject{ described_class.new(viewer, person, view_context) }
+      subject{ described_class.new(viewer: viewer, person: person, view_context: view_context) }
       let(:viewer){ create(:super_user) }
       let(:person){ build(:person, first_name: 'Firstname', last_name: 'Lastname') }
       let(:view_context){ view }

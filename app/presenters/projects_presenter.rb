@@ -1,18 +1,25 @@
-class ProjectsPresenter
-  def initialize(project_or_projects, view_context)
-    @projects = Array(project_or_projects)
-    @view_context = view_context
-  end
+class ProjectsPresenter < Erector::Widget
 
-  def to_html
-    h.render partial: 'presenters/projects_presenter',
-              locals: { projects: @projects }
-  end
+  needs :projects, :view_context
 
-  private
+  include Support::PresenterHelpers
 
-    def h
-      @view_context
+  def content
+    table the('projects-list') do
+      caption 'Projects'
+
+      @projects.each do |p|
+        tr do
+          td.name do
+            text @view_context.link_to p.name, p
+          end
+          td.description do
+            text p.description
+          end
+        end
+      end
+
     end
+  end
 
 end

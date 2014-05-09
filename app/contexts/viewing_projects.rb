@@ -7,7 +7,10 @@ class ViewingProjects
 
   def expose_list(view_context)
     raise ActionForbiddenError unless @viewer.can_view_projects?
-    ProjectsPresenter.new(@viewer.available_projects, view_context).to_html
+    ProjectsPresenter.new(
+          projects: @viewer.available_projects,
+      view_context: view_context
+    ).to_html
   end
 
   private

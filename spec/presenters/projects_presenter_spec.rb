@@ -7,7 +7,7 @@ require 'purpose_selector_spec_helper'
 describe ProjectsPresenter do
 
   describe 'rendering to html' do
-    subject{ described_class.new(projects, view_context) }
+    subject{ described_class.new(projects: projects, view_context: view_context) }
     let(:project1){ build(:project, name: 'project1') }
     let(:project2){ build(:project, name: 'project2') }
     let(:projects){ [ project1, project2 ] }

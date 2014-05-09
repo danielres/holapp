@@ -29,7 +29,7 @@ describe ViewingProjects do
       it 'passes the projects a presenter' do
         expect( ProjectsPresenter )
           .to receive(:new).once
-          .with( projects, view_context )
+          .with( projects: projects, view_context: view_context )
           .and_return{ presenter }
 
         expect( presenter )

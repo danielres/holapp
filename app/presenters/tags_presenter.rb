@@ -1,20 +1,25 @@
-class TagsPresenter
+class TagsPresenter < Erector::Widget
 
-  def initialize(tag_or_tags, view_context)
-    @tags = Array(tag_or_tags)
-    @tags = Array(tag_or_tags)
-    @view_context = view_context
-  end
+  needs :tags, :view_context
 
-  def to_html
-    h.render partial: 'presenters/tags_presenter',
-              locals: { tags: @tags }
-  end
+  include Support::PresenterHelpers
 
-  private
-
-    def h
-      @view_context
+  def content
+    panel do
+      table the('tags-list') do
+        caption 'Tags'
+        @tags.each do |t|
+          tr do
+            td.name do
+              text @view_context.link_to t.name, t
+            end
+            td.description do
+              text t.description
+            end
+          end
+        end
+      end
     end
+  end
 
 end

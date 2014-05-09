@@ -7,7 +7,10 @@ class ViewingTags
 
   def expose_list(view_context)
     raise ActionForbiddenError unless @viewer.can_view_tags?
-    TagsPresenter.new(@viewer.available_tags, view_context).to_html
+    TagsPresenter.new(
+              tags: @viewer.available_tags,
+      view_context: view_context,
+    ).to_html
   end
 
   private

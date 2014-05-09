@@ -7,7 +7,7 @@ require 'purpose_selector_spec_helper'
 describe ProjectPresenter do
 
   describe 'rendering to html' do
-    subject{ described_class.new(viewer, project, view_context) }
+    subject{ described_class.new(viewer: viewer, project: project, view_context: view_context) }
     let(:viewer){ create(:super_user) }
     let(:project){ build(:project, name: 'My project', description: 'Project description') }
     let(:view_context){ view }

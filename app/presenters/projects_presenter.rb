@@ -11,7 +11,7 @@ class ProjectsPresenter < Erector::Widget
       @projects.each do |p|
         tr do
           td.name do
-            text @view_context.link_to p.name, p
+            text link_to p.name, p
           end
           td.description do
             text p.description

@@ -27,6 +27,9 @@ module Support
     def best_in_place *args
       @view_context.best_in_place *args
     end
+    def link_to *args
+      @view_context.link_to *args
+    end
 
   end
 end

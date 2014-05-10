@@ -32,8 +32,10 @@ class TopsByTagFieldPresenter < Erector::Widget
           .sort{ |a,b| b[1].count <=> a[1].count }
           .each do |tag, taggings|
             tr do
-              td @view_context.link_to(tag.name, tag)
-              td{ taggings_taggables(taggings) }
+              td.name link_to(tag.name, tag)
+              td do
+                taggings_taggables(taggings)
+              end
             end
           end
       end
@@ -43,7 +45,7 @@ class TopsByTagFieldPresenter < Erector::Widget
       taggings
         .sort{ |a,b| b.quantifier <=> a.quantifier }
         .each do |t|
-          text @view_context.link_to(t.taggable.name, t.taggable)
+          text link_to(t.taggable.name, t.taggable)
           small " (#{t.quantifier}) "
         end
     end

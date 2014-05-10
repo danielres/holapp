@@ -45,7 +45,7 @@ class ProjectPresenter < Erector::Widget
         caption 'Members'
         @project.memberships.each do |m|
           tr do
-            td.name @view_context.link_to m.user.name, m.user
+            td.name link_to m.user.name, m.user
             td.description best_in_place m, :description, type: :textarea, nil: '…'
           end
         end

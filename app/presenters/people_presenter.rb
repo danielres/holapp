@@ -9,8 +9,8 @@ class PeoplePresenter < Erector::Widget
       caption 'People'
       @people.sort{ |x,y| x.name <=> y.name }.each do |p|
         tr do
-          td.name{ text @view_context.link_to p.name, p }
-          td.description{ text p.description }
+          td.name link_to p.name, p
+          td.description p.description
         end
       end
     end

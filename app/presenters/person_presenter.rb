@@ -79,8 +79,8 @@ class PersonPresenter < Erector::Widget
         caption 'Member of projects'
         @person.memberships.each do |m|
           tr do
-            td.name         @view_context.link_to(m.project.name, m.project)
-            td.description  @view_context.best_in_place(m, :description, type: :textarea, nil: '…')
+            td.name         link_to(m.project.name, m.project)
+            td.description  best_in_place(m, :description, type: :textarea, nil: '…')
             td.actions do
               ul do
                 li delete_resource_link(m)

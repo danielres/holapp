@@ -15,12 +15,12 @@ class TaggingsPresenter < Erector::Widget
           end
           unless @viewed_from == :tag
             td.name do
-              text @view_context.link_to(tagging.tag.name, tagging.tag)
+              text link_to(tagging.tag.name, tagging.tag)
             end
           end
           unless @viewed_from == :taggable
             td.name do
-              text  @view_context.link_to(tagging.taggable.name, tagging.taggable)
+              text  link_to(tagging.taggable.name, tagging.taggable)
             end
           end
           td.description do
@@ -28,7 +28,7 @@ class TaggingsPresenter < Erector::Widget
           end
           td.actions do
             li do
-              text @view_context.link_to 'delete', tagging, method: :delete, data: { purpose: 'delete-action', confirm: 'Are you sure ?' }
+              text link_to 'delete', tagging, method: :delete, data: { purpose: 'delete-action', confirm: 'Are you sure ?' }
             end
           end
         end

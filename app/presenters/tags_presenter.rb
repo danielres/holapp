@@ -10,12 +10,8 @@ class TagsPresenter < Erector::Widget
         caption 'Tags'
         @tags.each do |t|
           tr do
-            td.name do
-              text @view_context.link_to t.name, t
-            end
-            td.description do
-              text t.description
-            end
+            td.name        link_to t.name, t
+            td.description t.description
           end
         end
       end

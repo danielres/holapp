@@ -16,7 +16,7 @@ class ViewingATagTaggings
       output << "<h1>#{ title }</h1>"
       taggings.group_by(&:context).map do |tag_field, taggings|
         output << "<div class='panel'>"
-        output << TaggingsPresenter.new(taggings, tag_field, view_context).to_html(viewed_from: :tag)
+        output << TaggingsPresenter.new(taggings: taggings, tag_field: tag_field, view_context: view_context).to_html(viewed_from: :tag)
         output << "</div>"
       end
       output << "</section>"

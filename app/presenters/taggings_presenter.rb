@@ -1,34 +1,44 @@
-class TaggingsPresenter
-  def initialize(tagging_or_taggings, tag_field, view_context)
-    @taggings = Array(tagging_or_taggings)
-    @view_context = view_context
-    @tag_field = tag_field
-  end
+class TaggingsPresenter < Erector::Widget
 
-  def to_html(options={})
+  needs :taggings, :tag_field, :view_context
+
+  include Support::PresenterHelpers
+
+  def content(options={})
     @viewed_from = options[:viewed_from]
-    @view_context.render(
-      partial: 'presenters/shared/table',
-      locals: { purpose: "#{ @tag_field }-list",
-                 header: @tag_field.capitalize,
-                  items: taggings_html,
-              }
-    )
-  end
+    table the("#{ @tag_field }-list") do
+      caption @tag_field.capitalize
+      @taggings.each do |tagging|
+        tr do
+          td.quantifier do
+            text best_in_place tagging, :quantifier, collection: quantifier_values, type: :select
+          end
+          unless @viewed_from == :tag
+            td.name do
+              text @view_context.link_to(tagging.tag.name, tagging.tag)
+            end
+          end
+          unless @viewed_from == :taggable
+            td.name do
+              text  @view_context.link_to(tagging.taggable.name, tagging.taggable)
+            end
+          end
+          td.description do
+            text best_in_place tagging, :description, type: :textarea, nil: '…'
+          end
+          td.actions do
+            li do
+              text @view_context.link_to 'delete', tagging, method: :delete, data: { purpose: 'delete-action', confirm: 'Are you sure ?' }
+            end
+          end
+        end
+      end
 
+    end
+
+  end
 
   private
-
-    def taggings_html
-      @view_context.render(
-        collection: @taggings,
-           partial: 'presenters/taggings_presenter/tagging',
-            locals: {
-              quantifier_values: quantifier_values,
-              viewed_from: @viewed_from,
-            },
-      )
-    end
 
     def quantifier_values
       [ [ 0, '—'], [1, '▮▯▯▯▯'], [2, '▮▮▯▯▯'], [3, '▮▮▮▯▯'], [4, '▮▮▮▮▯'], [5, '▮▮▮▮▮'] ]

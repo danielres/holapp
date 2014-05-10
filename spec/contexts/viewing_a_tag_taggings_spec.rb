@@ -34,12 +34,12 @@ describe ViewingATagTaggings, '- viewing taggings from the tag side' do
         it 'passes the taggings to a presenter, grouped by taggable type and by tag fields' do
           expect( TaggingsPresenter )
             .to receive(:new)
-            .with( [tagging_on_person], :skills, anything )
+            .with( taggings: [tagging_on_person], tag_field: :skills, view_context: anything )
             .and_return{ presenter }
 
           expect( TaggingsPresenter )
             .to receive(:new)
-            .with( [tagging_on_project1, tagging_on_project2], :needs, anything)
+            .with( taggings: [tagging_on_project1, tagging_on_project2], tag_field: :needs, view_context: anything)
             .and_return{ presenter }
 
           expect( presenter )

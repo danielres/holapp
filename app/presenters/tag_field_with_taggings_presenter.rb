@@ -1,4 +1,4 @@
-class TaggingsPresenter < Erector::Widget
+class TagFieldWithTaggingsPresenter < Erector::Widget
 
   needs :taggings, :tag_field, :view_context
 

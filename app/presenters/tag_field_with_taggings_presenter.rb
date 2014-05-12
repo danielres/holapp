@@ -8,7 +8,7 @@ class TagFieldWithTaggingsPresenter < Erector::Widget
     @viewed_from = options[:viewed_from]
     table the("#{ @tag_field }-list") do
       caption @tag_field.capitalize
-      @taggings.each do |tagging|
+      taggings.each do |tagging|
         tr do
           td.quantifier do
             text best_in_place tagging, :quantifier, collection: quantifier_values, type: :select
@@ -39,6 +39,10 @@ class TagFieldWithTaggingsPresenter < Erector::Widget
   end
 
   private
+
+    def taggings
+      @taggings.sort{ |a,b| b.quantifier.to_i <=> a.quantifier.to_i }
+    end
 
     def quantifier_values
       [ [ 0, '—'], [1, '▮▯▯▯▯'], [2, '▮▮▯▯▯'], [3, '▮▮▮▯▯'], [4, '▮▮▮▮▯'], [5, '▮▮▮▮▮'] ]

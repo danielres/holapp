@@ -2,6 +2,8 @@ class Project < ActiveRecord::Base
 
   self.inheritance_column = "disabled"
 
+  default_scope order('name')
+
   validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: false }
 

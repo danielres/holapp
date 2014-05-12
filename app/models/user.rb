@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
 
   attr_accessor :name
 
+  default_scope order('first_name', 'last_name')
+
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

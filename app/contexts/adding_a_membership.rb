@@ -27,7 +27,8 @@ class AddingAMembership < AddingAResource
 
     def render_form_attributes
       if @person
-        { partial: 'contexts/adding_a_membership/form_from_person',  locals: { person: @person } }
+        projects = ( Project.all - @person.projects )
+        { partial: 'contexts/adding_a_membership/form_from_person',  locals: { person: @person, projects: projects } }
       else
         { partial: 'contexts/adding_a_membership/form_from_project', locals: { project: @project } }
       end

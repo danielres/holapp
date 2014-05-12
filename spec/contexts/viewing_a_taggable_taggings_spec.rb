@@ -30,13 +30,12 @@ describe ViewingATaggableTaggings, '- viewing taggings from the taggable side' d
 
       it 'passes the taggings, tag_field and view_context to a presenter' do
         expect( TagFieldWithTaggingsPresenter )
-          .to receive(:new).once
-          .with( tag_field: :skills, taggings: [tagging1, tagging2], view_context: view_context )
+          .to receive(:new)
+          .with( tag_field: :skills, taggings: [tagging1, tagging2], viewed_from: :taggable, view_context: view_context )
           .and_return{ presenter }
 
         expect( presenter )
-          .to receive(:to_html).once
-          .with(viewed_from: :taggable)
+          .to receive(:to_html)
 
         execution.call
       end

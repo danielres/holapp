@@ -23,8 +23,6 @@ describe ViewingATagTaggings, '- viewing taggings from the tag side' do
         let(:tagging_on_project1){ mock_model( 'Tagging', taggable_type: 'Project', context: :needs  ) }
         let(:tagging_on_project2){ mock_model( 'Tagging', taggable_type: 'Project', context: :needs  ) }
 
-        let(:presenter){ double('presenter').as_null_object }
-
         before(:each) do
           subject
           expect(tag).to respond_to(:taggings)
@@ -34,17 +32,13 @@ describe ViewingATagTaggings, '- viewing taggings from the tag side' do
         it 'passes the taggings to a presenter, grouped by taggable type and by tag fields' do
           expect( TagFieldWithTaggingsPresenter )
             .to receive(:new)
-            .with( tag_field: :skills, taggings: [tagging_on_person],  view_context: anything )
-            .and_return{ presenter }
+            .with( tag_field: :skills, taggings: [tagging_on_person], viewed_from: anything, view_context: anything )
+            .and_return{ double.as_null_object }
 
           expect( TagFieldWithTaggingsPresenter )
             .to receive(:new)
-            .with( tag_field: :needs, taggings: [tagging_on_project1, tagging_on_project2], view_context: anything)
-            .and_return{ presenter }
-
-          expect( presenter )
-            .to receive(:to_html).twice
-            .with(viewed_from: :tag)
+            .with( tag_field: :needs, taggings: [tagging_on_project1, tagging_on_project2], viewed_from: anything, view_context: anything)
+            .and_return{ double.as_null_object }
 
           execution.call
         end

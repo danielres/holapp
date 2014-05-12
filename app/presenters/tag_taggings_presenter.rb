@@ -14,8 +14,9 @@ class TagTaggingsPresenter < Erector::Widget
             text TagFieldWithTaggingsPresenter
                    .new( tag_field: tag_field,
                           taggings: taggings,
+                       viewed_from: :tag,
                       view_context: @view_context )
-                   .to_html(viewed_from: :tag)
+                   .to_html
           end
         end
       end

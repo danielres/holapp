@@ -20,6 +20,7 @@ describe TagTaggingsPresenter do
         .with(
              tag_field: 'skills',
               taggings: [tagging1, tagging2],
+           viewed_from: :tag,
           view_context: view_context,
         ).and_return( double.as_null_object )
       subject.to_html

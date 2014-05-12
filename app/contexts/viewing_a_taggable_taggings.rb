@@ -10,7 +10,7 @@ class ViewingATaggableTaggings
   def expose_list(tag_field, view_context)
     raise ActionForbiddenError unless @viewer.can_view_taggings?(@taggable)
     taggings = @viewer.available_taggings(@taggable,tag_field)
-    TagFieldWithTaggingsPresenter.new(tag_field: tag_field, taggings: taggings, view_context: view_context).to_html(viewed_from: :taggable)
+    TagFieldWithTaggingsPresenter.new(tag_field: tag_field, taggings: taggings, viewed_from: :taggable, view_context: view_context).to_html
   end
 
 

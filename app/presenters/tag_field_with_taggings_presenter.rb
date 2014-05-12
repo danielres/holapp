@@ -1,11 +1,10 @@
 class TagFieldWithTaggingsPresenter < Erector::Widget
 
-  needs :taggings, :tag_field, :view_context
+  needs :taggings, :tag_field, :viewed_from, :view_context
 
   include Support::PresenterHelpers
 
   def content(options={})
-    @viewed_from = options[:viewed_from]
     table the("#{ @tag_field }-list") do
       caption @tag_field.capitalize
       taggings.each do |tagging|

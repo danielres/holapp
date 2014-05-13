@@ -12,4 +12,9 @@ describe Tag do
     expect_it { to validate_uniqueness_of(:name).case_insensitive }
   end
 
+  describe 'associations' do
+    expect_it { to have_many(:taggings).dependent(:destroy) }
+    expect_it { to have_many(:taggings_as_taggable).dependent(:destroy) }
+  end
+
 end

@@ -36,6 +36,15 @@ describe DestroyingATag do
                 .to(0)
             end
           end
+          context "with parent tags" do
+            before{ Tagging.create(taggable_id: tag.id, taggable_type: 'Tag')  }
+            it 'destroys related taggings' do
+              expect{ execution.call }
+                .to change{ Tagging.count }
+                .from(1)
+                .to(0)
+            end
+          end
         end
       end
 

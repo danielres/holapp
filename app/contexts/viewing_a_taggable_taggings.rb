@@ -4,7 +4,6 @@ class ViewingATaggableTaggings
     @viewer = viewer
     @taggable = taggable
     @viewer.extend Viewer
-    @taggable.extend Taggable
   end
 
   def expose_list(tag_field, view_context)
@@ -25,14 +24,6 @@ class ViewingATaggableTaggings
         nonull   = taggings.where("quantifier is not null").order(quantifier: :desc)
         yesnull  = taggings.where("quantifier is null")
         nonull + yesnull
-      end
-    end
-
-    module Taggable
-      def self.extended(object)
-        object.class.class_eval do
-          acts_as_taggable_on
-        end
       end
     end
 

@@ -6,11 +6,13 @@ class TagFieldWithTaggingsPresenter < Erector::Widget
 
   def content(options={})
     table the("#{ @tag_field }-list") do
-      caption @tag_field.capitalize
+      caption caption_text
       taggings.each do |tagging|
         tr do
-          td.quantifier do
-            text best_in_place tagging, :quantifier, collection: quantifier_values, type: :select
+          if show_quantifier?(tagging)
+            td.quantifier do
+              text best_in_place tagging, :quantifier, collection: quantifier_values, type: :select
+            end
           end
           unless @viewed_from == :tag
             td.name do
@@ -38,6 +40,17 @@ class TagFieldWithTaggingsPresenter < Erector::Widget
   end
 
   private
+
+    def show_quantifier?(tagging)
+      true unless tagging.taggable_type == 'Tag'
+    end
+
+    def caption_text
+      case @viewed_from
+      when :tag      then @tag_field.to_s.gsub('parents', 'children')
+      when :taggable then @tag_field
+      end.capitalize
+    end
 
     def taggings
       @taggings.sort{ |a,b| b.quantifier.to_i <=> a.quantifier.to_i }

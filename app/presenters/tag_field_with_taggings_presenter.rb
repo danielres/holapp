@@ -48,8 +48,8 @@ class TagFieldWithTaggingsPresenter < Erector::Widget
     def caption_text
       case @viewed_from
       when :tag      then @tag_field.to_s.gsub('parents', 'children')
-      when :taggable then @tag_field
-      end.capitalize
+      when :taggable then @tag_field.to_s
+      end.humanize
     end
 
     def taggings

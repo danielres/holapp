@@ -32,6 +32,8 @@ class TagPresenter < Erector::Widget
 
       panel do
         text ViewingATaggableTaggings.new(@viewer, @tag).expose_list(:parents, @view_context)
+        text AddingTaggings.new(@viewer, @tag, nil, :parents).gather_user_input(@view_context)
+
       end
 
     end

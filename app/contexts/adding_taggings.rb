@@ -43,14 +43,12 @@ class AddingTaggings
     end
 
     module Taggable
-      def self.extended(object)
-        object.class.class_eval do
-          acts_as_taggable_on
-        end
-      end
       def add_tags(tag_list)
-        tag_list_on(@tag_field).add(tag_list, parse: true)
-        save!
+        tag_list.split(',').each{ |tag_name|
+          tag_name = tag_name.strip
+          tag = Tag.where(name: tag_name).first_or_create
+          Tagging.where(tag: tag, taggable: self, context: @tag_field).first_or_create
+        }
       end
     end
 

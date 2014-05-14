@@ -22,9 +22,9 @@ describe AddingTaggings do
       end
       it 'works given  a comma-separated list of tags' do
         execution.call
-        expect( taggable.tags_on(:skills).count ).to eq 2
-        expect( taggable.tag_list_on :skills ).to include 'tag1'
-        expect( taggable.tag_list_on :skills ).to include 'tag2'
+        taggings  = Tagging.where( taggable: taggable, context: 'skills')
+        tag_names = taggings.map{ |t| t.tag.name }
+        expect( tag_names ).to match_array %w( tag1 tag2 )
       end
     end
 

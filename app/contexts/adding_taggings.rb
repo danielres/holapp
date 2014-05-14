@@ -45,8 +45,9 @@ class AddingTaggings
     module Taggable
       def add_tags(tag_list)
         tag_list.split(',').each{ |tag_name|
-          tag_name = tag_name.strip
-          tag = Tag.where(name: tag_name).first_or_create
+          tag_name.strip!
+          tag = Tag.where( "lower(name) = ?", tag_name.downcase).first
+          tag ||= Tag.create(name: tag_name)
           Tagging.where(tag: tag, taggable: self, context: @tag_field).first_or_create
         }
       end

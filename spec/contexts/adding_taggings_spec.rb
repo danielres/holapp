@@ -26,6 +26,20 @@ describe AddingTaggings do
         tag_names = taggings.map{ |t| t.tag.name }
         expect( tag_names ).to match_array %w( tag1 tag2 )
       end
+      describe 'handling case variations' do
+        it 'reuses existing tags when only case differs' do
+          described_class.new(user, taggable, 'tag1, tag2', tag_field).execute
+          taggings  = Tagging.where( taggable: taggable, context: 'skills')
+          tag_names = taggings.map{ |t| t.tag.name }
+          expect( tag_names ).to match_array %w( tag1 tag2 )
+
+          described_class.new(user, taggable, 'TAG2, TAG3', tag_field).execute
+          taggings  = Tagging.where( taggable: taggable, context: 'skills')
+          tag_names = taggings.map{ |t| t.tag.name }
+          expect( tag_names ).to match_array %w( tag1 tag2 TAG3 )
+        end
+
+      end
     end
 
   end

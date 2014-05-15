@@ -24,13 +24,6 @@ describe Tag do
     before(:each) do
       Tagging.create( tag: java, taggable: jee, context: 'parents' )
     end
-    describe 'scopes' do
-      describe 'Tag#poles' do
-        it 'returns tags that have children but no parents' do
-          expect( Tag.poles ).to match_array [ java ]
-        end
-      end
-    end
     describe '#pole?' do
       it 'returns true when tag is a pole, false if not' do
         expect(java.pole?).to be_true

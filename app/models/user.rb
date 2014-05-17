@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   validates :first_name, uniqueness: { scope: :last_name, case_sensitive: false }
 
   devise :invitable, :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
   has_many :memberships, dependent: :destroy
   has_many :taggings, as: :taggable, dependent: :destroy

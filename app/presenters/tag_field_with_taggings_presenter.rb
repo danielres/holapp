@@ -13,7 +13,7 @@ class TagFieldWithTaggingsPresenter < Erector::Widget
           th 'Level' if show_quantifier?(tagging)
           th [ to_header_text(@tag_field), 'name' ].join(' ') unless @viewed_from == :tag
           th domain_language(tagging.taggable_type)           unless @viewed_from == :taggable
-          th [ to_header_text(@tag_field), 'description for this', domain_language(tagging.taggable_type).downcase ].join(' ')
+          th [ to_header_text(@tag_field), 'description for this', domain_language(tagging.taggable_type).to_s.downcase ].join(' ')
           th 'Actions'
         end
       end

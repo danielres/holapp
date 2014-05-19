@@ -7,6 +7,17 @@ class TagFieldWithTaggingsPresenter < Erector::Widget
   def content(options={})
     table the("#{ @tag_field }-list") do
       caption caption_text
+
+      if tagging = taggings.first
+        tr do
+          th 'Level' if show_quantifier?(tagging)
+          th [ to_header_text(@tag_field), 'name' ].join(' ') unless @viewed_from == :tag
+          th domain_language(tagging.taggable_type)           unless @viewed_from == :taggable
+          th [ to_header_text(@tag_field), 'description for this', domain_language(tagging.taggable_type).downcase ].join(' ')
+          th 'Actions'
+        end
+      end
+
       taggings.each do |tagging|
         tr do
           if show_quantifier?(tagging)
@@ -40,6 +51,10 @@ class TagFieldWithTaggingsPresenter < Erector::Widget
   end
 
   private
+
+    def to_header_text(str)
+      str.to_s.singularize.humanize.capitalize
+    end
 
     def show_quantifier?(tagging)
       true unless tagging.taggable_type == 'Tag'

@@ -14,10 +14,10 @@ describe 'Homepage', :slow do
       visit '/'
     end
     it 'displays a people section' do
-      expect( page ).to have_content 'People'
+      expect( page ).to have_the 'people-list'
     end
     it 'displays a projects section' do
-      expect( page ).to have_content 'Projects'
+      expect( page ).to have_the 'projects-list'
     end
     it 'displays a top skills section' do
       expect( page ).to have_the 'top-skills'

@@ -44,10 +44,28 @@ class TopsByTagFieldPresenter < Erector::Widget
     def taggings_taggables(taggings)
       taggings
         .sort{ |a,b| b.quantifier <=> a.quantifier }
-        .each do |t|
-          text link_to(t.taggable.name, t.taggable)
-          small " (#{t.quantifier}) "
-        end
+        .group_by(&:quantifier)
+        .each do |quantifier, taggings|
+          dl.inline do
+            dt pretty_quantifier(quantifier)
+            dd rawtext taggings.map{ |t|
+              link_to(t.taggable.name, t.taggable)
+              }.join(', ')
+          end
+      end
+    end
+
+    def pretty_quantifier value
+      representations = {
+        0 => '—'    ,
+        1 => '▮▯▯▯▯',
+        2 => '▮▮▯▯▯',
+        3 => '▮▮▮▯▯',
+        4 => '▮▮▮▮▯',
+        5 => '▮▮▮▮▮',
+      }
+      representations.fetch(value)
     end
 
 end
+

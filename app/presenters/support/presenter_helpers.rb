@@ -30,6 +30,16 @@ module Support
     def link_to *args
       @view_context.link_to *args
     end
-
+    def pretty_quantifier(value)
+      representations = {
+        0 => '—'    ,
+        1 => '▮▯▯▯▯',
+        2 => '▮▮▯▯▯',
+        3 => '▮▮▮▯▯',
+        4 => '▮▮▮▮▯',
+        5 => '▮▮▮▮▮',
+      }
+      representations.fetch(value)
+    end
   end
 end

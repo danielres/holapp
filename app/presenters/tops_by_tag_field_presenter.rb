@@ -55,17 +55,5 @@ class TopsByTagFieldPresenter < Erector::Widget
       end
     end
 
-    def pretty_quantifier value
-      representations = {
-        0 => '—'    ,
-        1 => '▮▯▯▯▯',
-        2 => '▮▮▯▯▯',
-        3 => '▮▮▮▯▯',
-        4 => '▮▮▮▮▯',
-        5 => '▮▮▮▮▮',
-      }
-      representations.fetch(value)
-    end
-
 end
 

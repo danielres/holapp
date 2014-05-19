@@ -72,7 +72,14 @@ class TagFieldWithTaggingsPresenter < Erector::Widget
     end
 
     def quantifier_values
-      [ [ 0, '—'], [1, '▮▯▯▯▯'], [2, '▮▮▯▯▯'], [3, '▮▮▮▯▯'], [4, '▮▮▮▮▯'], [5, '▮▮▮▮▮'] ]
+      [
+        [ 0, pretty_quantifier(0) ],
+        [ 1, pretty_quantifier(1) ],
+        [ 2, pretty_quantifier(2) ],
+        [ 3, pretty_quantifier(3) ],
+        [ 4, pretty_quantifier(4) ],
+        [ 5, pretty_quantifier(5) ],
+      ]
     end
 
 end

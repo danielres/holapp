@@ -21,6 +21,14 @@ class ProjectPresenter < Erector::Widget
             th 'Description'
             td best_in_place @project, :description, type: :textarea, nil: '…'
           end
+          tr do
+            th 'Start'
+            td best_in_place @project, :starts_at, type: :date, display_with: ->(d){ pretty_date(d) }
+          end
+          tr do
+            th 'End'
+            td best_in_place @project, :ends_at, type: :date, display_with: ->(d){ pretty_date(d) }
+          end
         end
       end
 

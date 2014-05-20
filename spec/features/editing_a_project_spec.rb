@@ -43,6 +43,32 @@ describe 'Editing a project', :slow do
       end
     end
 
+    describe 'updating the project start time', js: true do
+      before(:each) do
+        project.update(starts_at: '01/01/2011')
+        visit project_path(project)
+      end
+      it 'updates the start time on the project page' do
+        expect( page ).to have_content('01/01/2011')
+        edit_in_place_date(project, :starts_at, '02/02/2099')
+        visit project_path(project)
+        expect( page ).to have_content('02/02/2099')
+      end
+    end
+
+    describe 'updating the project end time', js: true do
+      before(:each) do
+        project.update(ends_at: '01/01/2011')
+        visit project_path(project)
+      end
+      it 'updates the start time on the project page' do
+        expect( page ).to have_content('01/01/2011')
+        edit_in_place_date(project, :ends_at, '02/02/2099')
+        visit project_path(project)
+        expect( page ).to have_content('02/02/2099')
+      end
+    end
+
     describe 'tagging' do
       let(:taggable){ project }
       let(:tag_field){ :skills }

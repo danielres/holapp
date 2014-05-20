@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.ui.datepicker
 //= require jquery_ujs
 //= require bootstrap
 //= require best_in_place
@@ -19,5 +20,14 @@
 
 
 $(document).ready(function() {
-  jQuery(".best_in_place").best_in_place()
+  jQuery(".best_in_place").best_in_place();
+});
+
+jQuery(function($){
+  $.datepicker.regional['fr'] = {
+    dateFormat: 'dd/mm/yy',
+    firstDay: 1,
+    showMonthAfterYear: true
+  };
+  $.datepicker.setDefaults($.datepicker.regional['fr']);
 });

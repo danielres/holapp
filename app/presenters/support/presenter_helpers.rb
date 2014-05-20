@@ -41,5 +41,8 @@ module Support
       }
       representations.fetch(value)
     end
+    def pretty_date date
+      @view_context.localize(date, format: :simple) rescue ''
+    end
   end
 end

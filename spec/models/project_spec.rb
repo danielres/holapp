@@ -25,6 +25,32 @@ describe Project do
     expect_it { to validate_uniqueness_of(:name).case_insensitive }
   end
 
+  # describe 'scopes' do
+  #   let!(:past_project1   ){ FactoryGirl.create(:project, starts_at: nil             , ends_at: Time.new('2000')) }
+  #   let!(:past_project2   ){ FactoryGirl.create(:project, starts_at: Time.new('1999'), ends_at: Time.new('2000')) }
+  #   let!(:current_project1){ FactoryGirl.create(:project, starts_at: Time.new('2000'), ends_at: Time.new('3000')) }
+  #   let!(:current_project2){ FactoryGirl.create(:project, starts_at: Time.new('2000'), ends_at: nil             ) }
+  #   let!(:future_project1 ){ FactoryGirl.create(:project, starts_at: Time.new('3000'), ends_at: Time.new('4000')) }
+  #   let!(:future_project2 ){ FactoryGirl.create(:project, starts_at: nil             , ends_at: Time.new('4000')) }
+  #   let!(:future_project3 ){ FactoryGirl.create(:project, starts_at: Time.new('3000'), ends_at: nil             ) }
+  #   let!(:future_project4 ){ FactoryGirl.create(:project, starts_at: nil             , ends_at: nil             ) }
+  #   describe '#past' do
+  #     it 'returns finished projects' do
+  #       expect( Project.past ).to match_array [ past_project1, past_project2 ]
+  #     end
+  #   end
+  #   describe '#current' do
+  #     it 'returns current projects' do
+  #       expect( Project.current ).to match_array [ current_project1, current_project2 ]
+  #     end
+  #   end
+  #   describe '#future' do
+  #     it 'returns future projects' do
+  #       expect( Project.future ).to match_array [ future_project1, future_project2, future_project3, future_project4 ]
+  #     end
+  #   end
+  # end
+
   describe 'type' do
     let(:project){ Project.new }
     it 'is nil by default' do

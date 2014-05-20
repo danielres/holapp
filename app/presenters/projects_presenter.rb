@@ -5,21 +5,44 @@ class ProjectsPresenter < Erector::Widget
   include Support::PresenterHelpers
 
   def content
-    table the('projects-list') do
-      caption 'Projects'
+    div the('projects-list') do
+      projects_table( current_projects, 'Current projects')
+      projects_table( future_projects , 'Opportunities'   )
+      projects_table( past_projects   , 'Past projects'   )
+    end
+  end
 
-      @projects.each do |p|
-        tr do
-          td.name do
-            text link_to p.name, p
-          end
-          td.description do
-            text @view_context.truncate(p.description, length: 320, separator: ' ')
+
+  private
+
+    def past_projects
+      @projects.select{ |p| p.ends_at && p.ends_at < Time.zone.now }
+    end
+
+    def current_projects
+      @projects.select{ |p| p.starts_at && p.starts_at < Time.zone.now } - past_projects
+    end
+
+    def future_projects
+      @projects - past_projects - current_projects
+    end
+
+    def projects_table collection, caption_text
+      table do
+        caption caption_text
+        collection.each do |p|
+          tr do
+            td.name do
+              text link_to p.name, p
+            end
+            td.description do
+              text @view_context.truncate(p.description, length: 320, separator: ' ')
+            end
           end
         end
       end
 
     end
-  end
+
 
 end

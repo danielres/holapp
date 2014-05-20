@@ -20,13 +20,19 @@ class GlobalViewPresenter < Erector::Widget
       end
     end
 
-    panel do
-      text TopsByTagFieldPresenter.new(tag_field: :skills,      min_level: 3, view_context: @view_context).to_html
+    row do
+      col(6) do
+        panel do
+          text TopsByTagFieldPresenter.new(tag_field: :motivations, min_level: 3, view_context: @view_context).to_html
+        end
+      end
+      col(6) do
+        panel do
+          text TopsByTagFieldPresenter.new(tag_field: :skills,      min_level: 3, view_context: @view_context).to_html
+        end
+      end
     end
 
-    panel do
-      text TopsByTagFieldPresenter.new(tag_field: :motivations, min_level: 3, view_context: @view_context).to_html
-    end
 
   end
 

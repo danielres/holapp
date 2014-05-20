@@ -73,12 +73,16 @@ table
 
 
 dl.inline
+  $padding: 3.5em
   display: block
-  margin-bottom: 0.5em
+  margin-bottom: 0.25em
+  padding-left: $padding
   dt, dd
     display: inline-block
   dt
-    margin-right: 1.5em
+    position: absolute
+    margin-left: -$padding
+
 
 .ui-datepicker
   background: white

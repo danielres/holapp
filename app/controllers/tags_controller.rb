@@ -27,8 +27,8 @@ class TagsController < ApplicationController
   end
 
   def autocomplete
-    string = params[:q]
-    tags = Tag.where("name LIKE ?", "%#{ string }%").select("name")
+    string = params[:q].downcase
+    tags = Tag.where("lower(name)  LIKE ?", "%#{ string }%").select("name")
     respond_to do |format|
       format.json do
         datums = tags.map{|t| to_datum(t) }.join(', ')

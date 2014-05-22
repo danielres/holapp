@@ -7,8 +7,8 @@ class ProjectPresenter < Erector::Widget
   def content
     col(12) do
 
-      menu do
-        ul the('actions-menu') do
+      actions_menu do
+        ul do
           li delete_resource_link("/projects/#{@project.to_param}")
         end
       end

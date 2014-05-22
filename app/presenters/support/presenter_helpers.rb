@@ -15,10 +15,10 @@ module Support
     def row
       div(class: "row"){ yield }
     end
-    def menu
-      rawtext "<menu>"
-      yield
-      rawtext "</menu>"
+    def actions_menu
+      element(:menu, the('actions-menu') ).actions_menu do
+        yield
+      end
     end
     def delete_resource_link(resource)
       confirm_message = Rails.env == 'test' ? false : 'Are you sure ?'

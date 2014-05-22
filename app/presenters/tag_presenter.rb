@@ -9,8 +9,8 @@ class TagPresenter < Erector::Widget
 
       col(12) do
         h1 @tag.name
-        menu do
-          ul the('actions-menu') do
+        actions_menu do
+          ul do
             li delete_resource_link(@tag)
           end
         end

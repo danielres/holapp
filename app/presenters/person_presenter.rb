@@ -6,8 +6,8 @@ class PersonPresenter < Erector::Widget
 
   def content
     col(12) do
-      menu do
-        ul the('actions-menu') do
+      actions_menu do
+        ul do
           li delete_resource_link("/people/#{@person.to_param}")
         end
       end

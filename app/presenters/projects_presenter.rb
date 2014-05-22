@@ -6,8 +6,8 @@ class ProjectsPresenter < Erector::Widget
 
   def content
     div the('projects-list') do
-      projects_table( current_projects, 'Current projects')
       projects_table( future_projects , 'Opportunities'   )
+      projects_table( current_projects, 'Current projects')
       projects_table( past_projects   , 'Past projects'   )
     end
   end

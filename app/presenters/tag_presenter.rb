@@ -5,35 +5,42 @@ class TagPresenter < Erector::Widget
   include Support::PresenterHelpers
 
   def content
-    col(12) do
+    row do
 
-      menu do
-        ul the('actions-menu') do
-          li delete_resource_link(@tag)
-        end
-      end
-
-      h1 @tag.name
-
-      panel do
-        table.details do
-          tr do
-            th 'Name'
-            td best_in_place @tag, :name,  path: "/tags/#{ @tag.id }", nil: '…'
-          end
-          tr do
-            th 'Description'
-            td best_in_place @tag, :description, type: :textarea, path: "/tags/#{ @tag.id }", nil: '…'
+      col(12) do
+        h1 @tag.name
+        menu do
+          ul the('actions-menu') do
+            li delete_resource_link(@tag)
           end
         end
       end
 
-      text ViewingATagTaggings.new(@viewer, @tag).expose_taggings_by_taggable_types(@view_context)
+      col(8) do
+        panel do
+          table.details do
+            tr do
+              th 'Name'
+              td best_in_place @tag, :name,  path: "/tags/#{ @tag.id }", nil: '…'
+            end
+            tr do
+              th 'Description'
+              td best_in_place @tag, :description, type: :textarea, path: "/tags/#{ @tag.id }", nil: '…'
+            end
+          end
+        end
+      end
 
-      panel do
-        text ViewingATaggableTaggings.new(@viewer, @tag).expose_list(:tag_parents, @view_context)
-        text AddingTaggings.new(@viewer, @tag, nil, :tag_parents).gather_user_input(@view_context)
+      col(4) do
+        text TagTreesPresenter.new(tag: @tag, view_context: @view_context).to_html
+      end
 
+      col(12) do
+        text ViewingATagTaggings.new(@viewer, @tag).expose_taggings_by_taggable_types(@view_context)
+        panel do
+          text ViewingATaggableTaggings.new(@viewer, @tag).expose_list(:tag_parents, @view_context)
+          text AddingTaggings.new(@viewer, @tag, nil, :tag_parents).gather_user_input(@view_context)
+        end
       end
 
     end

@@ -15,7 +15,6 @@ class PersonPresenter < Erector::Widget
         text @person.name
         small " (#{ @person.first_name } #{ @person.last_name })"
       end
-      p @person.email
       panel do
         row do
           col(4){ details_table1 }
@@ -46,6 +45,12 @@ class PersonPresenter < Erector::Widget
 
     def details_table1
       table.details do
+        tr do
+          th 'Email'
+          td do
+            a @person.email, href: "mailto:#{@person.email}"
+          end
+        end
         tr do
           th 'Firstname'
           td best_in_place @person, :first_name,  path: "/people/#{@person.to_param}", nil: '…'

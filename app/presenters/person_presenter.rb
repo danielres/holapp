@@ -76,7 +76,7 @@ class PersonPresenter < Erector::Widget
           td do
             - random_val = (rand * 1000).to_i
             small{ a 'edit', id: "#{ random_val }", style: 'float: right' }
-            text best_in_place @person, :cv_url, activator: "##{ random_val }", display_with: ->(cv_url){ link_to @person.cv_url, cv_url }
+            text best_in_place @person, :cv_url,  path: "/people/#{@person.to_param}", nil: '…', activator: "##{ random_val }", display_with: ->(cv_url){ link_to cv_url, cv_url }
           end
         end
       end

@@ -67,6 +67,10 @@ class PersonPresenter < Erector::Widget
           th 'Trigram'
           td best_in_place @person, :trigram,  path: "/people/#{@person.to_param}", nil: '…'
         end
+        tr do
+          th 'Mobile'
+          td best_in_place @person, :mobile,  path: "/people/#{@person.to_param}", nil: '…'
+        end
       end
     end
 

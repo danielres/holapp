@@ -70,6 +70,7 @@ class PeopleController < ApplicationController
           :display_name,
           :trigram,
           :mobile,
+          :cv_url,
         )
     end
 

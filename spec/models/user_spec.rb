@@ -19,6 +19,7 @@ describe User do
     expect_it { to have_attribute('description') }
     expect_it { to have_attribute('trigram') }
     expect_it { to have_attribute('mobile') }
+    expect_it { to have_attribute('cv_url') }
   end
 
   describe 'quick creation' do

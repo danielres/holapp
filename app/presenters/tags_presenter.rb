@@ -29,7 +29,7 @@ class TagsPresenter < Erector::Widget
   private
 
     def all_tags
-      @tags.sort{ |a,b| b.taggings.count <=> a.taggings.count }
+      @tags.sort{ |a,b| a.name <=> b.name }
     end
 
     def yes_poles

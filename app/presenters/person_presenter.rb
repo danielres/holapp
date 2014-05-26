@@ -75,7 +75,8 @@ class PersonPresenter < Erector::Widget
           th 'CV url'
           td do
             - random_val = (rand * 1000).to_i
-            small{ a 'edit', id: "#{ random_val }", style: 'float: right' }
+            params = { id: "#{ random_val }", style: 'float: right' }.merge the('cv_url_edit_action')
+            small(params){ a 'edit' }
             text best_in_place @person, :cv_url,  path: "/people/#{@person.to_param}", nil: '…', activator: "##{ random_val }", display_with: ->(cv_url){ link_to cv_url, cv_url }
           end
         end

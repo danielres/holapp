@@ -5,6 +5,12 @@ module BestInPlace
         bip_text *args
         sleep 0.1
       end
+      def edit_in_place_text_with_activator(resource, field, content, activator)
+        page.execute_script <<-JS
+          $('[data-purpose=#{ activator }]').click()
+        JS
+        edit_in_place_text(resource, field, content)
+      end
       def edit_in_place_textarea *args
         bip_area *args
         sleep 0.1

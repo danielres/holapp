@@ -50,7 +50,7 @@ describe 'Editing a person', :slow do
         edit_in_place_text(person, :display_name, 'updated_display_name')
         edit_in_place_text(person, :trigram     , 'updated_trigram')
         edit_in_place_text(person, :mobile     , '0032123456')
-        # edit_in_place_text(person, :cv_url     , 'http://cv_url')
+        edit_in_place_text_with_activator(person, :cv_url, 'http://cv_url', 'cv_url_edit_action')
 
         visit person_path(person)
 
@@ -60,7 +60,7 @@ describe 'Editing a person', :slow do
         expect( page ).to have_content('updated_display_name')
         expect( page ).to have_content('updated_trigram')
         expect( page ).to have_content('0032123456')
-        # expect( page ).to have_content('http://cv_url')
+        expect( page ).to have_content('http://cv_url')
       end
     end
 

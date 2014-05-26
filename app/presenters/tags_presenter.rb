@@ -7,14 +7,18 @@ class TagsPresenter < Erector::Widget
   def content
     h2 'Tags'
     row do
-      col(6) do
-        yes_poles.each do |pole|
-          panel do
-            tags_table pole.children, link_to(pole.name, pole)
+      col(9) do
+        row do
+          yes_poles.each do |pole|
+            col(4) do
+              panel do
+                text TagTreesPresenter.new(tag: pole, view_context: @view_context).to_html
+              end
+            end
           end
         end
       end
-      col(6) do
+      col(3) do
         panel do
           tags_table free_tags, 'Orphan tags'
         end

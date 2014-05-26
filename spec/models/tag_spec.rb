@@ -22,7 +22,7 @@ describe Tag do
     let(:jee){ FactoryGirl.create(:tag, name: 'jee') }
     let(:css){ FactoryGirl.create(:tag, name: 'css') }
     before(:each) do
-      Tagging.create( tag: java, taggable: jee, context: 'parents' )
+      Tagging.create( tag: java, taggable: jee, context: 'tag_parents' )
     end
     describe '#pole?' do
       it 'returns true when tag is a pole, false if not' do
@@ -43,6 +43,17 @@ describe Tag do
         expect(java.parents).to match_array []
         expect(jee.parents).to  match_array [ java ]
         expect(css.parents).to  match_array []
+      end
+    end
+    describe '#ancestors' do
+      let(:jsf) { FactoryGirl.create(:tag, name: 'jsf') }
+      let(:html) { FactoryGirl.create(:tag, name: 'html') }
+      before(:each) do
+        Tagging.create( tag: html, taggable: jsf, context: 'tag_parents' )
+        Tagging.create( tag: jee, taggable: jsf, context: 'tag_parents')
+      end
+      it 'returns the ancestors of a tag' do
+        expect(jsf.ancestors).to match_array [ java, jee, html ]
       end
     end
   end

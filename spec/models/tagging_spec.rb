@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe Tagging do
 
   describe 'attributes' do
@@ -9,4 +11,16 @@ describe Tagging do
     expect_it { to have_attribute('quantifier') }
   end
 
+  describe 'validation' do
+    let!(:java){ FactoryGirl.create(:tag, name: 'java') }
+    let!(:jee){ FactoryGirl.create(:tag, name: 'jee') }
+    before(:each) do
+      Tagging.create( { tag: java, taggable: jee, context: 'tag parents' } )
+    end
+    it 'mark a circular tagging as invalid' do
+      tagging = Tagging.new( tag: jee, taggable: java, context: 'tag parents')
+      expect(tagging.valid?).to be_false
+      expect{tagging.save!}.to raise_exception
+    end
+  end
 end

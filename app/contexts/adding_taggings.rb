@@ -48,7 +48,10 @@ class AddingTaggings
           tag_name.strip!
           tag = Tag.where( "lower(name) = ?", tag_name.downcase).first
           tag ||= Tag.create(name: tag_name)
-          Tagging.where(tag: tag, taggable: self, context: @tag_field).first_or_create
+          tagging = Tagging.where(tag: tag, taggable: self, context: @tag_field).first_or_initialize
+          unless tagging.persisted?
+            tagging.save
+          end
         }
       end
     end

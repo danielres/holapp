@@ -32,7 +32,7 @@ class TagFieldWithTaggingsPresenter < Erector::Widget
           end
           unless @viewed_from == :taggable
             td.name do
-              text  link_to(tagging.taggable.name, tagging.taggable)
+              text  link_to(tagging.taggable_name, tagging.taggable)
             end
           end
           td.description do

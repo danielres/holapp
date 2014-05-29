@@ -8,5 +8,6 @@ Marketplace::Application.routes.draw do
   resources :memberships
   resources :taggings, only: [ :create, :update, :destroy ]
   resources :tags, only: [ :index, :show, :update, :destroy ]
+  post "/tags/merge_tags", to: "tags#merge_tags", as: 'merge_tags'
   get "/tags/autocomplete/results.json", to: "tags#autocomplete"
 end

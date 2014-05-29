@@ -8,6 +8,7 @@ class TagPresenter < Erector::Widget
     row do
 
       col(12) do
+        text MergingTags.new(@viewer,nil, nil).gather_user_input(@view_context)
         h1 @tag.name
         actions_menu do
           ul do

@@ -58,6 +58,23 @@ class TagsController < ApplicationController
     end
   end
 
+  def merge_tags
+    master_tag = Tag.find(params[:tag][:id])
+    slave_tag = Tag.find(params[:slave_tag])
+    merging_tags = MergingTags.new(current_user, master_tag, slave_tag)
+    merging_tags.command(self)
+    merging_tags.execute
+  end
+  def merge_tags_success(master_tag, slave_tag)
+    respond_to do |format|
+      format.html { redirect_to :back }
+    end
+  end
+  def merge_tags_failure(master_tag, slave_tag)
+    respond_to do |format|
+      format.html { redirect_to :back }
+    end
+  end
 
   private
 

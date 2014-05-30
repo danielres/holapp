@@ -8,13 +8,7 @@ class TagPresenter < Erector::Widget
     row do
 
       col(12) do
-        text MergingTags.new(@viewer,nil, nil).gather_user_input(@view_context)
         h1 @tag.name
-        actions_menu do
-          ul do
-            li delete_resource_link(@tag)
-          end
-        end
       end
 
       col(8) do
@@ -41,6 +35,30 @@ class TagPresenter < Erector::Widget
         panel do
           text ViewingATaggableTaggings.new(@viewer, @tag).expose_list(:tag_parents, @view_context)
           text AddingTaggings.new(@viewer, @tag, nil, :tag_parents).gather_user_input(@view_context)
+        end
+      end
+
+      col(6) do
+        h3 'Dangerous actions'
+
+        row do
+
+          col(6) do
+            panel do
+              text MergingTags.new(@viewer,nil, nil).gather_user_input(@view_context)
+            end
+          end
+
+          col(6) do
+            panel do
+              actions_menu do
+                ul do
+                  li delete_resource_link(@tag)
+                end
+              end
+            end
+          end
+
         end
       end
 

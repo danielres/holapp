@@ -96,3 +96,4 @@ db/*.backup
 
 heroku_dump
 push_db_to_heroku
+s/

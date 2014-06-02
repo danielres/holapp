@@ -30,7 +30,8 @@ class MergingTags
     end
 
     def render_form_attributes
-      { partial: "contexts/#{ context_name }/form" }
+      mergable_tags = ( Tag.all - [@master_tag] ).sort_by(&:name)
+      { partial: "contexts/#{ context_name }/form", locals: {mergable_tags: mergable_tags } }
     end
 
     module Merger

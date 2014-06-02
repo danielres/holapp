@@ -45,7 +45,7 @@ class TagPresenter < Erector::Widget
 
           col(6) do
             panel do
-              text MergingTags.new(@viewer,nil, nil).gather_user_input(@view_context)
+              text MergingTags.new(@viewer, @tag, nil).gather_user_input(@view_context)
             end
           end
 

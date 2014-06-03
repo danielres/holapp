@@ -5,12 +5,8 @@ class PersonPresenter < Erector::Widget
   include Support::PresenterHelpers
 
   def content
+
     col(12) do
-      actions_menu do
-        ul do
-          li delete_resource_link("/people/#{@person.to_param}")
-        end
-      end
       row do
         col(1){ text @view_context.image_tag(@person.image_url) } if @person.image_url.present?
         col(11) do
@@ -40,6 +36,15 @@ class PersonPresenter < Erector::Widget
       panel do
         text ViewingATaggableTaggings.new(@viewer, @person).expose_list(:motivations, @view_context)
         text AddingTaggings.new(@viewer, @person, nil, :motivations).gather_user_input(@view_context)
+      end
+
+      panel do
+        h3 'Dangerous actions'
+        actions_menu do
+          ul do
+            li delete_resource_link("/people/#{@person.to_param}")
+          end
+        end
       end
 
     end

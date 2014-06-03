@@ -11,9 +11,14 @@ class PersonPresenter < Erector::Widget
           li delete_resource_link("/people/#{@person.to_param}")
         end
       end
-      h1 do
-        text @person.name
-        small " (#{ @person.first_name } #{ @person.last_name })"
+      row do
+        col(1){ text @view_context.image_tag(@person.image_url) } if @person.image_url.present?
+        col(11) do
+          h1 do
+            text @person.name
+            small " (#{ @person.first_name } #{ @person.last_name })"
+          end
+        end
       end
       panel do
         row do

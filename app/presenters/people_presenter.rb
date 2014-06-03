@@ -9,6 +9,7 @@ class PeoplePresenter < Erector::Widget
       caption 'People'
       @people.sort{ |x,y| x.name <=> y.name }.each do |p|
         tr do
+          td.image @view_context.image_tag(p.image_url, width: 64)
           td.name link_to p.name, p
           td.description p.description
         end

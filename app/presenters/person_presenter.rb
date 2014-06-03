@@ -8,7 +8,7 @@ class PersonPresenter < Erector::Widget
 
     col(12) do
       row do
-        col(1){ text @view_context.image_tag(@person.image_url) } if @person.image_url.present?
+        col(1){ text @view_context.image_tag(@person.image_url, width: 192) } if @person.image_url.present?
         col(11) do
           h1 do
             text @person.name

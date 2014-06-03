@@ -12,9 +12,9 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true
   validates :first_name, uniqueness: { scope: :last_name, case_sensitive: false }
 
-  devise :invitable, :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable, :timeoutable,
-         :omniauthable#, :omniauth_providers => [:google]
+  devise :database_authenticatable, :registerable, :confirmable,
+         :trackable, :validatable, :timeoutable,
+         :omniauthable
 
   has_many :memberships, dependent: :destroy
   has_many :taggings, as: :taggable, dependent: :destroy

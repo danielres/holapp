@@ -7,12 +7,6 @@ class ProjectPresenter < Erector::Widget
   def content
     col(12) do
 
-      actions_menu do
-        ul do
-          li delete_resource_link("/projects/#{@project.to_param}")
-        end
-      end
-
       h1 @project.name
 
       panel do
@@ -41,6 +35,16 @@ class ProjectPresenter < Erector::Widget
         text ViewingATaggableTaggings.new(@viewer, @project).expose_list(:skills, @view_context)
         text AddingTaggings.new(@viewer, @project, nil, :skills).gather_user_input(@view_context)
       end
+
+      panel do
+        h3 'Dangerous actions'
+        actions_menu do
+          ul do
+            li delete_resource_link("/projects/#{@project.to_param}")
+          end
+        end
+      end
+
 
     end
 

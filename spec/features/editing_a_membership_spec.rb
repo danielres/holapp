@@ -62,6 +62,30 @@ describe 'Editing a membership', :slow do
       end
     end
 
+
+
+    describe 'specifying the membership durations', js: true do
+
+      describe 'adding a membership duration' do
+        before(:each) do
+          visit person_path(person)
+          within the('memberships-list') do
+            find( the('add-duration-action') ).click
+          end
+        end
+        it 'should add a new duration to the membership' do
+          visit person_path(person)
+          within the('memberships-list') do
+            within the('durations-list') do
+              expect( page ).to have_css( '.duration', count: 1 )
+            end
+          end
+        end
+      end
+
+    end
+
+
   end
 
 end

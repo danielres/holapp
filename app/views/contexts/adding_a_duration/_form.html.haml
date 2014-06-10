@@ -1,0 +1,4 @@
+= simple_form_for Duration.new do |f|
+  = f.hidden_field :durable_id, value: durable.id
+  = f.hidden_field :durable_type, value: durable.class.name.to_s
+  = f.button :button, 'Add duration', data: { purpose: 'add-duration-action' }, class: 'btn-xs'

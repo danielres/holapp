@@ -109,11 +109,30 @@ class PersonPresenter < Erector::Widget
           tr do
             td.name         link_to(m.project.name, m.project)
             td.description  best_in_place(m, :description, type: :textarea, nil: '…')
+            td.durations do
+              membership_durations(m)
+              text AddingADuration.new(@viewer, m).gather_user_input(@view_context)
+            end
             td.actions do
               ul do
                 li delete_resource_link(m)
               end
             end
+          end
+        end
+      end
+    end
+
+    def membership_durations(membership)
+      durations = Duration.where(durable_id: membership.id, durable_type: 'Membership')
+      div( 'data-purpose' => 'durations-list' ) do
+        durations.each do |d|
+          div.duration do
+            small 'from'
+            text best_in_place d, :starts_at, type: :date, display_with: ->(d){ pretty_date(d) }
+            small 'to'
+            text best_in_place d, :ends_at  , type: :date, display_with: ->(d){ pretty_date(d) }
+            hr
           end
         end
       end

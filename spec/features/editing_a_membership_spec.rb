@@ -66,7 +66,7 @@ describe 'Editing a membership', :slow do
 
     describe 'specifying the membership durations', js: true do
 
-      describe 'adding a membership duration' do
+      describe 'adding a blank membership duration' do
         before(:each) do
           visit person_path(person)
           within the('memberships-list') do
@@ -83,8 +83,32 @@ describe 'Editing a membership', :slow do
         end
       end
 
-    end
+      describe 'setting the start date for a duration ' do
+        before(:each) do
+          visit person_path(person)
+          within the('memberships-list') do
+            find( the('add-duration-action') ).click
+            within the('durations-list') do
+              duration = Duration.last
+              edit_in_place_date(duration, :starts_at, '01/01/2001')
+              visit person_path(person)
+              edit_in_place_date(duration, :ends_at, '02/02/2002')
+            end
+          end
+        end
+        it 'updates the date on the page' do
+          visit person_path(person)
+          within the('memberships-list') do
+            within the('durations-list') do
+              expect( page.body ).to have_content '01/01/2001'
+              expect( page.body ).to have_content '02/02/2002'
+            end
+          end
+        end
 
+      end
+
+    end
 
   end
 

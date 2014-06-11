@@ -44,5 +44,21 @@ module Support
     def pretty_date date
       @view_context.localize(date, format: :simple) rescue ''
     end
+    def render_description(markdown_input)
+      markdown_filter(markdown_input)
+    end
+    def render_excerpt(markdown_input)
+      smart_truncate(render_description(markdown_input))
+    end
+
+    private
+
+      def markdown_filter(markdown_input)
+        HTML::Pipeline::MarkdownFilter.new(markdown_input).call.html_safe
+      end
+      def smart_truncate(html)
+        @view_context.truncate_html(html, length: 180, omission: '…')
+      end
+
   end
 end

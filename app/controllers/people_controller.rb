@@ -33,7 +33,7 @@ class PeopleController < ApplicationController
   end
   def update_success(person)
     respond_to do |format|
-      format.json { head :ok }
+      format.json { respond_with_bip(person) }
     end
   end
 

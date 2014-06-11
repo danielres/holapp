@@ -11,7 +11,7 @@ class PeoplePresenter < Erector::Widget
         tr do
           td.image @view_context.image_tag(p.image_url, width: 64)
           td.name link_to p.name, p
-          td.description p.description
+          td.description render_excerpt(p.description)
         end
       end
     end

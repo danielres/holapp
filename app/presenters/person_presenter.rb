@@ -97,7 +97,11 @@ class PersonPresenter < Erector::Widget
       table.details do
         tr do
           th 'Description'
-          td best_in_place @person, :description, type: :textarea, path: "/people/#{@person.to_param}", nil: '…'
+          td best_in_place @person, :description,
+                    type: :textarea,
+                    path: "/people/#{@person.to_param}",
+                     nil: '…',
+            display_with: ->(txt){ render_description(txt) }
         end
       end
     end

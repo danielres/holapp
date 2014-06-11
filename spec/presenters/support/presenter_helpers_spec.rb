@@ -17,6 +17,18 @@ describe Support::PresenterHelpers do
       expect( pretty_quantifier(5) ).to eq '▮▮▮▮▮'
     end
   end
+  describe '#render_description' do
+    it 'transforms description as markdown into html' do
+      expect( render_description('hello **bold**') ).to eq '<p>hello <strong>bold</strong></p>'
+    end
+  end
+  describe '#render_excerpt' do
+    it 'transforms description as markdown into truncated html' do
+      long_description = "hello **#{ 'verylongstring' * 100 }**"
+      expect( render_description( long_description) ).to start_with '<p>hello <strong>verylongstring'
+      expect( render_description( long_description) ).to end_with '</strong></p>'
+    end
+  end
 
 end
 

@@ -24,6 +24,9 @@ gem 'best_in_place', github: 'bernat/best_in_place'
 gem 'select2-rails'
 gem 'erector'
 gem 'omniauth-google-oauth2'
+gem 'html-pipeline'
+gem 'github-markdown'
+gem 'truncate_html'
 
 
 group :production do

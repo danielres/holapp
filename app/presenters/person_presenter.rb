@@ -97,11 +97,18 @@ class PersonPresenter < Erector::Widget
       table.details do
         tr do
           th 'Description'
-          td best_in_place @person, :description,
+          td do
+            random_val = (rand * 1000).to_i
+            params = { id: "#{ random_val }", style: 'float: right' }.merge the('description_edit_action')
+            small(params){ a 'edit' }
+            text best_in_place @person, :description,
                     type: :textarea,
                     path: "/people/#{@person.to_param}",
                      nil: '…',
-            display_with: ->(txt){ render_description(txt) }
+            display_with: ->(txt){ render_description(txt) },
+               activator: "##{ random_val }"
+          end
+
         end
       end
     end

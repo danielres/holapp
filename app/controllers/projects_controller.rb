@@ -33,7 +33,7 @@ class ProjectsController < ApplicationController
   end
   def update_success(project)
     respond_to do |format|
-      format.json { head :ok }
+      format.json { respond_with_bip(project) }
     end
   end
 

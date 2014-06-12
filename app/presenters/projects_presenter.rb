@@ -35,9 +35,7 @@ class ProjectsPresenter < Erector::Widget
             td.name do
               text link_to p.name, p
             end
-            td.description do
-              text @view_context.truncate(p.description, length: 120, separator: ' ')
-            end
+            td.description render_excerpt(p.description)
           end
         end
       end

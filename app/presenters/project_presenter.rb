@@ -35,7 +35,12 @@ class ProjectPresenter < Erector::Widget
       end
 
       panel do
-        text memberships_table
+        text MembershipsPresenter.new(
+                    viewer: @viewer,
+             source_object: @project,
+              caption_text: 'Members',
+              view_context: @view_context,
+            ).to_html
         text AddingAMembership.new(@viewer, nil, @project).gather_user_input(@view_context)
       end
 
@@ -58,19 +63,6 @@ class ProjectPresenter < Erector::Widget
 
   end
 
-  private
-
-    def memberships_table
-      table the('memberships-list') do
-        caption 'Members'
-        @project.memberships.each do |m|
-          tr do
-            td.name link_to m.user.name, m.user
-            td.description best_in_place m, :description, type: :textarea, nil: '…'
-          end
-        end
-      end
-    end
 
 
 end

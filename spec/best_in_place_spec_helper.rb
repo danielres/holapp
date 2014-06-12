@@ -15,6 +15,12 @@ module BestInPlace
         bip_area *args
         sleep 0.1
       end
+      def edit_in_place_textarea_with_activator(resource, field, content, activator)
+        page.execute_script <<-JS
+          $('[data-purpose=#{ activator }]').click()
+        JS
+        edit_in_place_textarea(resource, field, content)
+      end
       def edit_in_place_select *args
         bip_select *args
         sleep 0.1

@@ -24,7 +24,7 @@ describe 'Editing a tag', :slow do
         visit tag_path(tag)
       end
       it "supports updating 'description' and 'name'on the tag's page" do
-        edit_in_place_textarea(tag, :description, 'updated_description')
+        edit_in_place_textarea_with_activator(tag, :description, 'updated_description', 'description_edit_action')
         edit_in_place_text(tag, :name  , 'updated_name')
         visit tag_path(tag)
         expect( page ).to have_content('updated_description')

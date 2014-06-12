@@ -44,7 +44,7 @@ describe 'Editing a person', :slow do
         visit person_path(person)
       end
       it "supports updating 'description', 'firstname', 'last name', 'display name' and 'trigram' on the person's page" do
-        edit_in_place_textarea(person, :description, 'updated_description')
+        edit_in_place_textarea_with_activator(person, :description, 'updated_description', 'description_edit_action')
         edit_in_place_text(person, :first_name  , 'updated_first_name')
         edit_in_place_text(person, :last_name   , 'updated_last_name')
         edit_in_place_text(person, :display_name, 'updated_display_name')

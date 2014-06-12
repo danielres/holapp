@@ -37,7 +37,7 @@ describe 'Editing a project', :slow do
         visit project_path(project)
       end
       it 'updates the description on the project page' do
-        edit_in_place_textarea(project, :description, 'updated description')
+        edit_in_place_textarea_with_activator(project, :description, 'updated description', 'description_edit_action')
         visit project_path(project)
         expect( page ).to have_content('updated description')
       end

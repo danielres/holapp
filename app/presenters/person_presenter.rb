@@ -85,9 +85,12 @@ class PersonPresenter < Erector::Widget
           th 'CV url'
           td do
             random_val = (rand * 1000).to_i
-            params = { id: "#{ random_val }", style: 'float: right' }.merge the('cv_url_edit_action')
-            small(params){ a 'edit' }
-            text best_in_place @person, :cv_url,  path: "/people/#{@person.to_param}", nil: '…', activator: "##{ random_val }", display_with: ->(cv_url){ link_to cv_url, cv_url }
+            best_in_place_activator(random_val, :cv_url)
+            text best_in_place @person, :cv_url,
+                    path: "/people/#{@person.to_param}",
+                     nil: '…',
+            display_with: ->(cv_url){ link_to cv_url, cv_url },
+               activator: "##{ random_val }"
           end
         end
       end
@@ -99,8 +102,7 @@ class PersonPresenter < Erector::Widget
           th 'Description'
           td do
             random_val = (rand * 1000).to_i
-            params = { id: "#{ random_val }", style: 'float: right' }.merge the('description_edit_action')
-            small(params){ a 'edit' }
+            best_in_place_activator(random_val, :description)
             text best_in_place @person, :description,
                     type: :textarea,
                     path: "/people/#{@person.to_param}",

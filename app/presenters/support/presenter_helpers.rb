@@ -50,6 +50,10 @@ module Support
     def render_excerpt(markdown_input)
       smart_truncate(render_description(markdown_input))
     end
+    def best_in_place_activator(id, field_name)
+      params = { id: id.to_s, style: 'float: right' }.merge the("#{ field_name }_edit_action")
+      small(params){ a 'edit' }
+    end
 
     private
 

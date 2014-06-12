@@ -47,7 +47,7 @@ class TagsPresenter < Erector::Widget
           .each do |t|
           tr do
             td.name        link_to t.name, t
-            td.description t.description
+            td.description render_excerpt(t.description)
           end
         end
       end

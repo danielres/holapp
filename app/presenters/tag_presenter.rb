@@ -20,7 +20,16 @@ class TagPresenter < Erector::Widget
             end
             tr do
               th 'Description'
-              td best_in_place @tag, :description, type: :textarea, path: "/tags/#{ @tag.id }", nil: '…'
+              td do
+                random_val = (rand * 1000).to_i
+                best_in_place_activator(random_val, :description)
+                text best_in_place @tag, :description,
+                        path: "/tags/#{ @tag.id }",
+                        type: :textarea,
+                         nil: '…',
+                display_with: ->(txt){ render_description(txt) },
+                   activator: "##{ random_val }"
+              end
             end
           end
         end

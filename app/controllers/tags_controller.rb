@@ -19,7 +19,7 @@ class TagsController < ApplicationController
     tag = Tag.find(params[:id])
     respond_to do |format|
       if tag.update_attributes(tag_params)
-        format.json { head :ok }
+        format.json { respond_with_bip(tag) }
       else
         format.json { respond_with_bip(tag) }
       end

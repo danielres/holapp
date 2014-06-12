@@ -42,8 +42,14 @@ table
     padding: 5px
     &.name
       width: 10em
+      padding-right: 2em
     &.quantifier
       width: 6em
+    &.durations
+      width: 10em
+      padding-right: 2em
+    &.actions
+      width: 10em
     &.description
       width: auto
   &.details
@@ -71,6 +77,23 @@ table
     background: $color
     outline: 4px solid $color
 
+.durations
+  .best_in_place
+    @extend .small
+  table
+    margin-bottom: 5px
+    tr
+      border-bottom: 1px dashed #eee
+    td
+      padding-right: 1em
+  form
+    margin: 0
+
+.actions
+  ul
+    list-style: none
+  li
+    margin-bottom: 2px
 
 dl.inline
   $padding: 3.5em

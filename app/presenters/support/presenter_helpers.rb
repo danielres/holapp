@@ -22,7 +22,7 @@ module Support
     end
     def delete_resource_link(resource)
       confirm_message = Rails.env == 'test' ? false : 'Are you sure ?'
-      @view_context.link_to('delete', resource, method: :delete, data: { purpose: 'delete-action', confirm: confirm_message })
+      @view_context.link_to("delete", resource, method: :delete, data: { purpose: 'delete-action', confirm: confirm_message }, class: 'btn btn-default btn-xs')
     end
     def best_in_place *args
       @view_context.best_in_place *args

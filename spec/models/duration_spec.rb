@@ -7,6 +7,7 @@ describe Duration do
     expect_it { to have_attribute('durable_type') }
     expect_it { to have_attribute('starts_at') }
     expect_it { to have_attribute('ends_at') }
+    expect_it { to have_attribute('quantifier') }
   end
 
 end

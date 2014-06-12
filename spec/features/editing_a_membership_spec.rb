@@ -105,7 +105,27 @@ describe 'Editing a membership', :slow do
             end
           end
         end
+      end
 
+      describe 'updating the occupation value for a duration', js: true, driver: :selenium do
+        before(:each) do
+          visit person_path(person)
+          within the('memberships-list') do
+            find( the('add-duration-action') ).click
+            within the('durations-list') do
+              duration = Duration.last
+              edit_in_place_select(duration, :quantifier, '▮▮▮▮▯')
+            end
+          end
+        end
+        it 'mentions the updated quantifier on the person page' do
+          visit person_path(person)
+          within the('memberships-list') do
+            within the('durations-list') do
+              expect( page ).to have_content '▮▮▮▮▯'
+            end
+          end
+        end
       end
 
     end

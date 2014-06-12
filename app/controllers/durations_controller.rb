@@ -38,7 +38,7 @@ class DurationsController < ApplicationController
   private
 
     def duration_params
-      params.require(:duration).permit(:starts_at, :ends_at)
+      params.require(:duration).permit(:starts_at, :ends_at, :quantifier)
     end
 
 

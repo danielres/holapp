@@ -28,12 +28,28 @@ class ProjectsPresenter < Erector::Widget
     end
 
     def projects_table collection, caption_text
-      table do
+      table(class: 'projects-list') do
         caption caption_text
         collection.each do |p|
           tr do
             td.name do
               text link_to p.name, p
+            end
+            td.time do
+              table do
+                if p.starts_at
+                  tr do
+                    th 'from'
+                    td pretty_date(p.starts_at) if p.starts_at
+                  end
+                end
+                if p.ends_at
+                  tr do
+                    th 'to'
+                    td pretty_date(p.ends_at) if p.ends_at
+                  end
+                end
+              end
             end
             td.description render_excerpt(p.description)
           end

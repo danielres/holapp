@@ -11,6 +11,9 @@ class Tagging < ActiveRecord::Base
   belongs_to :taggable, polymorphic: true
   validates_with EvilCycleValidator, on: :create
 
+  PROJECTS_TAG_FIELDS = [ :skills ]
+  PEOPLE_TAG_FIELDS   = [ :skills, :motivations ]
+
   def taggable_name
     taggable.try(:name) || 'undefined'
   end

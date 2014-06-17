@@ -7,8 +7,23 @@ class TagPresenter < Erector::Widget
   def content
     row do
 
-      col(12) do
+      col(8) do
         h1 @tag.name
+      end
+
+      col(4) do
+        panel do
+          ul.menu do
+            Tagging::PEOPLE_TAG_FIELDS.each do |tag_field|
+              li TaggingAResource
+                  .new(@viewer, @tag, tag_field, @viewer)
+                  .gather_user_input(
+                    @view_context,
+                    text: "Add to my #{ tag_field }"
+                  )
+            end
+          end
+        end
       end
 
       col(8) do

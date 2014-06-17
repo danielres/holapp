@@ -35,6 +35,24 @@ class DurationsController < ApplicationController
     end
   end
 
+  def destroy
+    duration = Duration.find(params[:id])
+    destroying_a_duration = DestroyingADuration.new(current_user, duration)
+    destroying_a_duration.command(self)
+    destroying_a_duration.execute
+  end
+  def destroy_failure(duration)
+    respond_to do |format|
+      format.html { redirect_to :back }
+    end
+  end
+  def destroy_success(duration)
+    respond_to do |format|
+      format.html { redirect_to :back }
+    end
+  end
+
+
   private
 
     def duration_params

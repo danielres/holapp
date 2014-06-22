@@ -1,58 +1,46 @@
 class TaggingAResource
 
-  def initialize(tagger, tag, tag_field, resource)
-    @tagger    = tagger
+  include IsAnAdvancedCallable
+  include SetsAViewContext
+  include PresentsAForm
+
+  def initialize(user, tag, tag_field, resource)
+    @user      = user
     @tag       = tag
     @tag_field = tag_field
     @resource  = resource
-    @tagger.extend Tagger
-    @resource.extend Taggable
   end
 
-  def command(controller)
-    @controller = controller
+  def get_user_input(options={})
+    present_form(
+      resource:  @resource,
+      tag:       @tag,
+      tag_field: @tag_field,
+      text:      options[:text],
+    )
   end
-
-  def execute
-    @tagger.add_tag_to_resource( @tag, @tag_field, @resource,
-                      failure: ->{ @controller.try(:failure) },
-                      success: ->{ @controller.try(:success) }, )
-  end
-
-  def gather_user_input(view_context, options={})
-    return unless @tagger.can_add_tag_to_resource?(@tag, @tag_field, @resource)
-    view_context.render partial: 'contexts/tagging_a_resource/form',
-                         locals: {
-                          resource: @resource,
-                          tag: @tag,
-                          tag_field: @tag_field,
-                          text: options[:text],
-                        }
-  end
-
 
   private
 
-    module Tagger
-      def add_tag_to_resource(tag, tag_field, resource, callbacks = {})
-        raise ActionForbiddenError unless can_add_tag_to_resource?(tag, tag_field, resource)
-        success?(tag, tag_field, resource) ? callbacks[:success].call : callbacks[:failure].call
-      end
-      def success?(tag, tag_field, resource)
-        resource.add_tag(tag, tag_field)
-      end
-      def can_add_tag_to_resource?(tag, tag_field, resource)
-        Ability.new(self).can? :manage, resource
-      end
+    def authorized?
+      Ability.new(@user).can? :manage, @resource
     end
 
-    module Taggable
-      def add_tag(tag, tag_field)
-        tagging = Tagging.where(tag: tag, taggable: self, context: tag_field).first_or_initialize
-        unless tagging.persisted?
-          tagging.save!
-        end
-      end
+    def execution
+      tagging = Tagging
+                  .where(tag: @tag, taggable: @resource, context: @tag_field )
+                  .first_or_initialize
+      tagging.save! unless tagging.persisted?
+    end
+
+    def journal_event
+      {
+        context:   self,
+        user:      @user,
+        resource:  @resource,
+        tag:       @tag,
+        tag_field: @tag_field,
+      }
     end
 
 end

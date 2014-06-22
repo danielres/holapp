@@ -1,3 +1,0 @@
-class UpdatingAMembership < UpdatingAResource
-
-end

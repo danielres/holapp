@@ -41,12 +41,18 @@ class ProjectPresenter < Erector::Widget
               caption_text: 'Members',
               view_context: @view_context,
             ).to_html
-        text AddingAMembership.new(@viewer, nil, @project).gather_user_input(@view_context)
+        text AddingAMembershipFromProject
+              .new(@viewer, Membership.new(project: @project))
+              .view_context(@view_context)
+              .get_user_input
       end
 
       panel do
-        text ViewingATaggableTaggings.new(@viewer, @project).expose_list(:skills, @view_context)
-        text AddingTaggings.new(@viewer, @project, nil, :skills).gather_user_input(@view_context)
+        text ViewingATaggableTaggings.new(@viewer, @project, :skills).view_context(@view_context).call
+        text AddingTaggings
+              .new(@viewer, @project, nil, :skills)
+              .view_context(@view_context)
+              .get_user_input
       end
 
       panel do

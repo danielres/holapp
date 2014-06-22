@@ -30,17 +30,26 @@ class PersonPresenter < Erector::Widget
             caption_text: 'Member of projects',
             view_context: @view_context,
             ).to_html
-        text AddingAMembership.new(@viewer, @person, nil).gather_user_input(@view_context)
+        text AddingAMembershipFromPerson
+              .new(@viewer, Membership.new(person: @person))
+              .view_context(@view_context)
+              .get_user_input
       end
 
       panel do
-        text ViewingATaggableTaggings.new(@viewer, @person).expose_list(:skills, @view_context)
-        text AddingTaggings.new(@viewer, @person, nil, :skills).gather_user_input(@view_context)
+        text ViewingATaggableTaggings.new(@viewer, @person, :skills).view_context(@view_context).call
+        text AddingTaggings
+              .new(@viewer, @person, nil, :skills)
+              .view_context(@view_context)
+              .get_user_input
       end
 
       panel do
-        text ViewingATaggableTaggings.new(@viewer, @person).expose_list(:motivations, @view_context)
-        text AddingTaggings.new(@viewer, @person, nil, :motivations).gather_user_input(@view_context)
+        text ViewingATaggableTaggings.new(@viewer, @person, :motivations).view_context(@view_context).call
+        text AddingTaggings
+              .new(@viewer, @person, nil, :motivations)
+              .view_context(@view_context)
+              .get_user_input
       end
 
       panel do

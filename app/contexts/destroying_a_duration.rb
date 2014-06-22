@@ -1,3 +1,0 @@
-class DestroyingADuration < DestroyingAResource
-
-end

@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :name
 
-  default_scope order('first_name', 'last_name')
+  default_scope { order('first_name', 'last_name') }
 
   rolify
   # Include default devise modules. Others available are:
@@ -32,6 +32,10 @@ class User < ActiveRecord::Base
 
   def name
     self.display_name.presence || first_name
+  end
+
+  def to_s
+    name
   end
 
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)

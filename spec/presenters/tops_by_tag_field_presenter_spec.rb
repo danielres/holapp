@@ -15,17 +15,13 @@ describe TopsByTagFieldPresenter do
     let(:user){ build(:no_roles_user) }
     let(:taggable){ create(:person, first_name: 'person_name') }
     let(:execution){ ->{ subject.execute } }
-    let(:authorization){ ->{ allow(user).to receive( :can_add_tags? ){ true } } }
 
     before(:each) do
-      authorization.call
-    end
-    before(:each) do
-      AddingTaggings.new(user, taggable, 'tag1', tag_field).execute
+      TagRepository.apply_tag_list_on('tag1', taggable, tag_field)
       Tagging.last.update_attributes(quantifier: 3)
     end
     before(:each) do
-      AddingTaggings.new(user, taggable, 'tag2', tag_field).execute
+      TagRepository.apply_tag_list_on('tag2', taggable, tag_field)
       Tagging.last.update_attributes(quantifier: 2)
     end
     it 'presents only the top taggings' do

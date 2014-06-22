@@ -18,7 +18,6 @@ describe 'Tags page', :slow do
         tag.update_attributes(name: 'tag_name')
         visit tags_path
       end
-      subject{ page }
       it 'displays the tags' do
         expect( page ).to have_content 'tag_name'
       end

@@ -7,8 +7,8 @@ require 'purpose_selector_spec_helper'
 describe TagTaggingsPresenter do
 
   describe 'rendering to html' do
-    subject{ described_class.new(taggings: taggings, view_context: view_context) }
-    let(:taggings){ [ tagging1, tagging2] }
+    subject{ described_class.new(collection: collection, view_context: view_context) }
+    let(:collection){ [ tagging1, tagging2] }
     let(:tagging1){ mock_model(Tagging, taggable_type: 'Project', context: 'skills', tag: tag1, taggable: taggable) }
     let(:tagging2){ mock_model(Tagging, taggable_type: 'Project', context: 'skills', tag: tag2, taggable: taggable) }
     let(:tag1){ mock_model(Tag) }

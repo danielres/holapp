@@ -8,10 +8,10 @@ describe TagsPresenter do
 
   describe 'rendering to html' do
     let(:user){ double 'user' }
-    subject{ described_class.new(tags: tags, view_context: view_context) }
+    subject{ described_class.new(collection: collection, view_context: view_context) }
     let(:tag1){ build(:tag, name: 'tag1') }
     let(:tag2){ build(:tag, name: 'tag2') }
-    let(:tags){ [ tag1, tag2 ] }
+    let(:collection){ [ tag1, tag2 ] }
     let(:view_context){ view }
     it 'presents the tags' do
       expect( fragment(subject.to_html) ).to have_the 'tags-list'

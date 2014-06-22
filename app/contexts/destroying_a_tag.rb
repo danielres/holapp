@@ -1,4 +1,0 @@
-class DestroyingATag < DestroyingAResource
-
-end
-

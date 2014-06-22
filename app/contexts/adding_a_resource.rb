@@ -1,57 +1,35 @@
 class AddingAResource
 
-  def initialize(adder)
-    @adder = adder
-    @adder.extend Adder
+  include IsAnAdvancedCallable
+  include SetsAViewContext
+  include PresentsAForm
+
+  def initialize(user, resource = nil)
+    @user     = user
+    @resource = resource
   end
 
-  def command(controller)
-    @controller = controller
+  def get_user_input
+    present_form
   end
-
-  def gather_user_input(view_context)
-    return unless @adder.can_add_resource?(new_resource)
-    view_context.render( render_form_attributes )
-  end
-
-  def execute(attributes)
-    resource = new_resource(attributes)
-    @adder.add_resource( resource,
-                       create_failure: ->{ @controller.try(:create_failure, resource) },
-                       create_success: ->{ @controller.try(:create_success, resource) }, )
-  end
-
 
   private
 
-    def context_name
-      raise NotImplementedError
+    def authorized?
+      Ability.new(@user).can? :create, @resource
     end
 
-    def new_resource
-      raise NotImplementedError
+    def execution
+      @resource.save
     end
 
-    def render_form_attributes
-      { partial: "contexts/#{ context_name }/form" }
+    def journal_event
+      {
+        context:   self,
+        user:      @user,
+        resource:  @resource,
+      }
     end
 
-    def random_val
-      (rand * 10000).to_i
-    end
-
-    module Adder
-      def add_resource(resource, callbacks = {})
-        raise ActionForbiddenError unless can_add_resource?(resource)
-        success?(resource) ? callbacks[:create_success].call : callbacks[:create_failure].call
-      end
-      def success?(resource)
-        resource.save
-      end
-      def can_add_resource?(resource)
-        Ability.new(self).can? :create, resource.class.name
-      end
-    end
 
 end
-

@@ -1,4 +1,0 @@
-class DestroyingAPerson < DestroyingAResource
-
-end
-

@@ -8,51 +8,36 @@ class TaggingsController < ApplicationController
     tag_field     = params[:tagging][:tag_field]
     tagger        = current_user
     taggable      = taggable_type.constantize.find(taggable_id)
-    create_taggings = AddingTaggings.new(tagger, taggable, tag_list, tag_field)
-    create_taggings.command(self)
-    create_taggings.execute
-  end
-  def failure
-    redirect_to :back, alert: 'Could not apply tags'
-  end
-  def success
-    redirect_to :back, notice: 'Tags applied successfully'
+    AddingTaggings
+      .new(tagger, taggable, tag_list, tag_field)
+      .call(
+        success: ->{ redirect_to :back, notice: 'Tags applied successfully' },
+        failure: ->{ redirect_to :back, alert:  'Could not apply tags'      },
+      )
   end
 
 
   def update
     tagging = Tagging.find(params[:id])
-    updating_a_tagging = UpdatingATagging.new(current_user, tagging)
-    updating_a_tagging.command(self)
-    updating_a_tagging.execute(tagging_params)
-  end
-  def update_failure(tagging)
-    respond_to do |format|
-      format.json { respond_with_bip(tagging) }
-    end
-  end
-  def update_success(tagging)
-    respond_to do |format|
-      format.json { head :ok }
-    end
+    UpdatingAResource
+      .new(current_user, tagging)
+      .with(tagging_params)
+      .call(
+        success: ->{ respond_to { |format| format.json { head :ok                  } } },
+        failure: ->{ respond_to { |format| format.json { respond_with_bip(tagging) } } },
+      )
   end
 
   def destroy
-    tagging = Tagging.find(params[:id])
-    destroying_a_tagging = DestroyingATagging.new(current_user, tagging)
-    destroying_a_tagging.command(self)
-    destroying_a_tagging.execute
+    resource = Tagging.find(params[:id])
+    DestroyingAResource
+      .new(current_user, resource)
+      .call(
+        success: ->{ respond_to { |format| format.html { redirect_to :back } } },
+        failure: ->{ respond_to { |format| format.html { redirect_to :back } } },
+      )
   end
-  def destroy_failure(tagging)
-    respond_to do |format|
-      format.html { redirect_to :back }
-    end
-  end
-  def destroy_success(tagging)
-    respond_to do |format|
-      format.html { redirect_to :back }
-    end
-  end
+
 
   private
 

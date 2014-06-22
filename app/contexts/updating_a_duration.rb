@@ -1,3 +1,0 @@
-class UpdatingADuration < UpdatingAResource
-
-end

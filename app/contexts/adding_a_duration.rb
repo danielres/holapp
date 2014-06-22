@@ -1,31 +1,13 @@
 class AddingADuration < AddingAResource
 
- def initialize(adder, durable)
-    @adder = adder
-    @durable = durable
-    @adder.extend AddingAResource::Adder
+ def initialize(user, durable)
+    @user     = user
+    @durable  = durable
+    @resource = Duration.new(durable_id: @durable.id, durable_type: @durable.class.name.to_s)
   end
 
-  def execute
-    resource = new_resource(durable_id: @durable.id, durable_type: @durable.class.name.to_s)
-    @adder.add_resource( resource,
-                       create_failure: ->{ @controller.try(:create_failure) },
-                       create_success: ->{ @controller.try(:create_success) }, )
+  def get_user_input
+    present_form(durable: @durable)
   end
-
-
-  private
-
-    def context_name
-      'adding_a_duration'
-    end
-
-    def new_resource(attributes={})
-      Duration.new(attributes)
-    end
-
-    def render_form_attributes
-      { partial: 'contexts/adding_a_duration/form', locals: { durable: @durable } }
-    end
 
 end

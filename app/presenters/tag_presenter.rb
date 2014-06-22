@@ -17,8 +17,8 @@ class TagPresenter < Erector::Widget
             Tagging::PEOPLE_TAG_FIELDS.each do |tag_field|
               li TaggingAResource
                   .new(@viewer, @tag, tag_field, @viewer)
-                  .gather_user_input(
-                    @view_context,
+                  .view_context(@view_context)
+                  .get_user_input(
                     text: "Add to my #{ tag_field }"
                   )
             end
@@ -55,10 +55,13 @@ class TagPresenter < Erector::Widget
       end
 
       col(12) do
-        text ViewingATagTaggings.new(@viewer, @tag).expose_taggings_by_taggable_types(@view_context)
+        text ViewingATagTaggings.new(@viewer, @tag).view_context(@view_context).call
         panel do
-          text ViewingATaggableTaggings.new(@viewer, @tag).expose_list(:tag_parents, @view_context)
-          text AddingTaggings.new(@viewer, @tag, nil, :tag_parents).gather_user_input(@view_context)
+          text ViewingATaggableTaggings.new(@viewer, @tag, :tag_parents).view_context(@view_context).call
+          text AddingTaggings
+                .new(@viewer, @tag, nil, :tag_parents)
+                .view_context(@view_context)
+                .get_user_input
         end
       end
 
@@ -69,7 +72,7 @@ class TagPresenter < Erector::Widget
 
           col(6) do
             panel do
-              text MergingTags.new(@viewer, @tag, nil).gather_user_input(@view_context)
+              text MergingTags.new(@viewer, @tag, nil).view_context(@view_context).get_user_input
             end
           end
 

@@ -1,31 +1,22 @@
 require 'spec_helper'
 require 'factories_spec_helper'
-require_relative 'shared_examples_for_authorization_requirers'
-require_relative 'shared_examples_for_form_providers'
-require_relative 'shared_examples_for_controller_commanders'
+require_relative 'shared_examples/contexts'
+require_relative 'shared_examples/form_providers'
 
 describe AddingAProject do
-  subject{ described_class.new(user)  }
+  subject{ described_class.new(user, Project.new(name: 'My project') ) }
   let(:user){ build(:no_roles_user) }
-  let(:desired_project_attributes){ { name: 'My project'} }
-  let(:execution){ ->{ subject.execute(desired_project_attributes) } }
-  let(:authorization){ ->{ allow(user).to receive( :can_add_resource? ){ true } } }
 
-  describe 'execution' do
-    include_examples 'an authorization requirer'
+  include_examples 'a context'
+  include_examples 'a form provider'
 
-    context 'by an authorized user' do
-      before(:each) do
-        authorization.call
-      end
-      it 'works given a name as unique parameter' do
-        execution.call
-        expect( Project.last.name ).to eq desired_project_attributes[:name]
-      end
+  context 'when authorized' do
+    before{ authorization.call }
+    it 'works' do
+      subject.call
+      expect( Project.last.name ).to eq 'My project'
     end
   end
 
-  include_examples 'a form provider'
-  include_examples 'a controller commander', :create_success, :create_failure
-
 end
+

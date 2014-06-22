@@ -1,22 +1,34 @@
 class ViewingATagTaggings
 
-  def initialize(viewer, tag)
-    @viewer = viewer
-    @tag = tag
-    @viewer.extend Viewer
-  end
+  include IsAnAdvancedCallable
+  include SetsAViewContext
+  include UsesAPresenter
 
-  def expose_taggings_by_taggable_types(view_context)
-    raise ActionForbiddenError unless @viewer.can_view_taggables? @tag
-    TagTaggingsPresenter.new(taggings: @tag.taggings, view_context: view_context).to_html #todo: pass the tag, not the taggings
+  attr_writer :collection
+
+  def initialize(user, tag)
+    @user       = user
+    @tag        = tag
   end
 
   private
 
-    module Viewer
-      def can_view_taggables? tag
-        Ability.new(self).can? :read, tag
-      end
+    def authorized?
+      Ability.new(@user).can? :read, @tag
+    end
+
+    def presenter
+      @collection ||= @tag.taggings.accessible_by(Ability.new(@user), :read)
+      ->{ TagTaggingsPresenter.new(collection: @collection, view_context: @view_context).to_html }
+    end
+
+    def journal_event
+      {
+        context:    self,
+        user:       @user,
+        resource:   @resource,
+        collection: @collection,
+      }
     end
 
 end

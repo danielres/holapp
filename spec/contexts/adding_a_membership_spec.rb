@@ -1,33 +1,31 @@
 require 'spec_helper'
 require 'factories_spec_helper'
-require_relative 'shared_examples_for_authorization_requirers'
-require_relative 'shared_examples_for_form_providers'
-require_relative 'shared_examples_for_controller_commanders'
+require_relative 'shared_examples/contexts'
+require_relative 'shared_examples/form_providers'
 
-describe AddingAMembership do
-  subject{ described_class.new(user, person, project)  }
-  let(:user){ build(:no_roles_user) }
-  let(:person){ build(:person) }
-  let(:project){ build(:project) }
-  let(:execution){ ->{ subject.execute } }
-  let(:authorization){ ->{ allow(user).to receive( :can_add_resource? ){ true } } }
+[
+  AddingAMembershipFromPerson,
+  AddingAMembershipFromProject,
+].each do |variant|
 
-  describe 'execution' do
-    include_examples 'an authorization requirer'
+  describe variant do
+    subject{ described_class.new(user, Membership.new(person: person, project: project))  }
+    let(:user){ build(:no_roles_user) }
+    let(:person){ build(:person) }
+    let(:project){ build(:project) }
 
-    context 'by an authorized user' do
-      before(:each) do
-        authorization.call
-      end
+    include_examples 'a context'
+    include_examples 'a form provider'
+
+    context 'when authorized' do
+      before{ authorization.call }
       it 'works' do
-        execution.call
+        subject.call
         expect( project.members ).to match_array [person]
       end
     end
-  end
 
-  include_examples 'a form provider'
-  include_examples 'a controller commander', :create_success, :create_failure
+  end
 
 end
 

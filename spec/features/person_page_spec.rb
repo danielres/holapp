@@ -30,7 +30,7 @@ describe 'Person page', :slow do
 
     describe 'presenting the skills' do
       before(:each) do
-        AddingTaggings.new(user, person, 'skill1, skill2', :skills).execute
+        AddingTaggings.new(user, person, 'skill1, skill2', :skills).call
         visit person_path(person)
       end
       it 'presents the skills list' do

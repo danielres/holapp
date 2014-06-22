@@ -1,4 +1,0 @@
-class DestroyingATagging < DestroyingAResource
-
-end
-

@@ -1,4 +1,0 @@
-class DestroyingAProject < DestroyingAResource
-
-end
-

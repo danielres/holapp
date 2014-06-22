@@ -1,11 +1,11 @@
 class TagTaggingsPresenter < Erector::Widget
 
-  needs :taggings, :view_context
+  needs :collection, :view_context
 
   include Support::PresenterHelpers
 
   def content
-    @taggings.group_by(&:taggable_type).map do |type, taggings|
+    @collection.group_by(&:taggable_type).map do |type, taggings|
       title = domain_language(type).pluralize
       section the( "#{ title.downcase }-taggings" ) do
         h1 title

@@ -2,7 +2,7 @@ class Project < ActiveRecord::Base
 
   self.inheritance_column = "disabled"
 
-  default_scope order('name')
+  default_scope { order('name') }
 
   validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: false }
@@ -11,6 +11,10 @@ class Project < ActiveRecord::Base
   has_many :taggings, as: :taggable, dependent: :destroy
 
   has_many :members, through: :memberships, source: :user
+
+  def to_s
+    name
+  end
 
   def type
     case self[:type]

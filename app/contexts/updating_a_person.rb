@@ -1,3 +1,0 @@
-class UpdatingAPerson < UpdatingAResource
-
-end

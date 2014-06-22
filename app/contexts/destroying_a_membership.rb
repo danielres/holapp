@@ -1,4 +1,0 @@
-class DestroyingAMembership < DestroyingAResource
-
-end
-

@@ -4,52 +4,35 @@ class DurationsController < ApplicationController
   def create
     durable_id   = params[:duration][:durable_id]
     durable_type = params[:duration][:durable_type]
-    adder        = current_user
     durable      = durable_type.constantize.find(durable_id)
-    create_duration = AddingADuration.new(adder, durable)
-    create_duration.command(self)
-    create_duration.execute
-  end
-  def create_failure
-    redirect_to :back, alert: 'Could not add duration'
-  end
-  def create_success
-    redirect_to :back, notice: 'Duration added successfully'
-  end
+    AddingADuration
+      .new(current_user, durable)
+      .call(
+        success: ->{ redirect_to :back, notice: 'Duration added successfully' },
+        failure: ->{ redirect_to :back, alert: 'Could not add duration' },
+      )
 
+  end
 
   def update
     duration = Duration.find(params[:id])
-    updating_a_duration = UpdatingADuration.new(current_user, duration)
-    updating_a_duration.command(self)
-    updating_a_duration.execute(duration_params)
-  end
-  def update_failure(duration)
-    respond_to do |format|
-      format.json { respond_with_bip(duration) }
-    end
-  end
-  def update_success(duration)
-    respond_to do |format|
-      format.json { head :ok }
-    end
+    UpdatingAResource
+      .new(current_user, duration)
+      .with(duration_params)
+      .call(
+        success: ->{ respond_to { |format| format.json { head :ok                   } } },
+        failure: ->{ respond_to { |format| format.json { respond_with_bip(duration) } } },
+      )
   end
 
   def destroy
-    duration = Duration.find(params[:id])
-    destroying_a_duration = DestroyingADuration.new(current_user, duration)
-    destroying_a_duration.command(self)
-    destroying_a_duration.execute
-  end
-  def destroy_failure(duration)
-    respond_to do |format|
-      format.html { redirect_to :back }
-    end
-  end
-  def destroy_success(duration)
-    respond_to do |format|
-      format.html { redirect_to :back }
-    end
+    resource = Duration.find(params[:id])
+    DestroyingAResource
+      .new(current_user, resource)
+      .call(
+        success: ->{ respond_to { |format| format.html { redirect_to :back } } },
+        failure: ->{ respond_to { |format| format.html { redirect_to :back } } },
+      )
   end
 
 
@@ -58,6 +41,5 @@ class DurationsController < ApplicationController
     def duration_params
       params.require(:duration).permit(:starts_at, :ends_at, :quantifier)
     end
-
 
 end

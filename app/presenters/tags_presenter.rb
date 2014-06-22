@@ -1,6 +1,6 @@
 class TagsPresenter < Erector::Widget
 
-  needs :tags, :view_context
+  needs :collection, :view_context
 
   include Support::PresenterHelpers
 
@@ -29,7 +29,7 @@ class TagsPresenter < Erector::Widget
   private
 
     def all_tags
-      @tags.sort{ |a,b| a.name <=> b.name }
+      @collection.sort{ |a,b| a.name <=> b.name }
     end
 
     def yes_poles

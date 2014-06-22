@@ -18,9 +18,9 @@ describe 'Viewing tops', :slow do
       let(:javamaster){ create(:person, display_name: 'javamaster') }
       let(:javajunior){ create(:person, display_name: 'javajunior') }
       before(:each) do
-        AddingTaggings.new(user, javamaster, 'java', 'skills').execute
+        AddingTaggings.new(user, javamaster, 'java', 'skills').call
         Tagging.last.tap{ |t| t.quantifier = 5; t.save! }
-        AddingTaggings.new(user, javajunior, 'java', 'skills').execute
+        AddingTaggings.new(user, javajunior, 'java', 'skills').call
         Tagging.last.tap{ |t| t.quantifier = 2; t.save! }
       end
       it 'lists the top skills, whith a list of the skilled people for each one' do

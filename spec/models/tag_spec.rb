@@ -17,6 +17,18 @@ describe Tag do
     expect_it { to have_many(:taggings_as_taggable).dependent(:destroy) }
   end
 
+  describe 'handling case variations' do
+    it 'reuses existing tags when only case differs' do
+      Tag.create(name: 'tag1')
+      Tag.create(name: 'tag2')
+      expect( Tag.all.map(&:name) ).to match_array %w( tag1 tag2 )
+
+      Tag.create(name: 'TAG2')
+      Tag.create(name: 'TAG3')
+      expect( Tag.all.map(&:name) ).to match_array %w( tag1 tag2 TAG3 )
+    end
+  end
+
   describe 'hierarchy' do
     let(:java){ FactoryGirl.create(:tag, name: 'java') }
     let(:jee){ FactoryGirl.create(:tag, name: 'jee') }

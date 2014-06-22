@@ -1,32 +1,22 @@
 require 'spec_helper'
 require 'factories_spec_helper'
-require_relative 'shared_examples_for_authorization_requirers'
-require_relative 'shared_examples_for_form_providers'
-require_relative 'shared_examples_for_controller_commanders'
+require_relative 'shared_examples/contexts'
+require_relative 'shared_examples/form_providers'
 
 describe AddingAPerson do
-  subject{ described_class.new(user) }
+  subject{ described_class.new(user, User.new(name: 'Alfred Hitchie') ) }
   let(:user){ build(:no_roles_user) }
-  let(:execution){ ->{ subject.execute(added_person_attrs) } }
-  let(:added_person_attrs){ { name: 'Alfred Hitchie'} }
-  let(:authorization){ ->{ allow(user).to receive( :can_add_resource? ){ true } } }
 
-  describe 'execution' do
-    include_examples 'an authorization requirer'
+  include_examples 'a context'
+  include_examples 'a form provider'
 
-    context 'by an authorized user' do
-      before(:each) do
-        authorization.call
-      end
-      it 'works given a firstname and lastname as unique parameter' do
-        execution.call
-        expect( User.last.first_name ).to eq 'Alfred'
-        expect( User.last.last_name ).to eq 'Hitchie'
-      end
+  context 'when authorized' do
+    before{ authorization.call }
+    it 'works' do
+      subject.call
+      expect( User.last.first_name ).to eq 'Alfred'
+      expect( User.last.last_name ).to eq 'Hitchie'
     end
   end
-
-  include_examples 'a form provider'
-  include_examples 'a controller commander', :create_success, :create_failure
 
 end

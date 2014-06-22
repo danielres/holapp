@@ -1,25 +1,32 @@
 class ViewingPeople
 
-  def initialize(viewer)
-    @viewer = viewer
-    @viewer.extend Viewer
-  end
+  include IsAnAdvancedCallable
+  include SetsAViewContext
+  include UsesAPresenter
 
-  def expose_list(view_context)
-    raise ActionForbiddenError unless @viewer.can_view_people?
-    PeoplePresenter.new(people: @viewer.available_people, view_context: view_context).to_html
+  attr_writer :collection
+
+  def initialize(user)
+    @user       = user
+    @collection = User.accessible_by(Ability.new(@user), :read)
   end
 
   private
 
-    module Viewer
-      def can_view_people?
-        Ability.new(self).can? :read, User
-      end
-      def available_people
-        User.accessible_by(Ability.new(self), :read).to_a
-      end
+    def authorized?
+      Ability.new(@user).can? :read, User
+    end
+
+    def presenter
+      ->{ PeoplePresenter.new(collection: @collection, view_context: @view_context ).to_html }
+    end
+
+    def journal_event
+      {
+        context:    self,
+        user:       @user,
+        collection: @collection,
+      }
     end
 
 end
-

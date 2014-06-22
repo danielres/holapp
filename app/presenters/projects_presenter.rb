@@ -1,6 +1,6 @@
 class ProjectsPresenter < Erector::Widget
 
-  needs :projects, :view_context
+  needs :collection, :view_context
 
   include Support::PresenterHelpers
 
@@ -16,15 +16,15 @@ class ProjectsPresenter < Erector::Widget
   private
 
     def past_projects
-      @projects.select{ |p| p.ends_at && p.ends_at < Time.zone.now }
+      @collection.select{ |p| p.ends_at && p.ends_at < Time.zone.now }
     end
 
     def current_projects
-      @projects.select{ |p| p.starts_at && p.starts_at < Time.zone.now } - past_projects
+      @collection.select{ |p| p.starts_at && p.starts_at < Time.zone.now } - past_projects
     end
 
     def future_projects
-      @projects - past_projects - current_projects
+      @collection - past_projects - current_projects
     end
 
     def projects_table collection, caption_text

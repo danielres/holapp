@@ -36,7 +36,7 @@ class MembershipsPresenter < Erector::Widget
 
     def membership_durations(membership)
       durations = Duration.where(durable_id: membership.id, durable_type: 'Membership')
-      text AddingADuration.new(@viewer, membership).gather_user_input(@view_context)
+      text AddingADuration.new(@viewer, membership).view_context(@view_context).get_user_input
       if durations.any?
         table( 'data-purpose' => 'durations-list' ) do
           tr do

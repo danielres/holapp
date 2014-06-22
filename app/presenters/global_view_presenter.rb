@@ -8,14 +8,14 @@ class GlobalViewPresenter < Erector::Widget
     row do
       col(6) do
         panel do
-          text ViewingPeople.new(@viewer).expose_list(@view_context)
-          text AddingAPerson.new(@viewer).gather_user_input(@view_context)
+          text ViewingPeople.new(@viewer).view_context(@view_context).call
+          text AddingAPerson.new(@viewer).view_context(@view_context).get_user_input
         end
       end
       col(6) do
         panel do
-          text ViewingProjects.new(@viewer).expose_list(@view_context)
-          text AddingAProject.new(@viewer).gather_user_input(@view_context)
+          text ViewingProjects.new(@viewer).view_context(@view_context).call
+          text AddingAProject.new(@viewer).view_context(@view_context).get_user_input
         end
       end
     end

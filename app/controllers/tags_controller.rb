@@ -3,7 +3,7 @@ class TagsController < ApplicationController
 
   def index
     render layout: true,
-             text: ViewingTags.new(current_user).expose_list(view_context)
+             text: ViewingTags.new(current_user).view_context(view_context).call
   end
 
   def show
@@ -43,37 +43,23 @@ class TagsController < ApplicationController
 
   def destroy
     tag = Tag.find(params[:id])
-    destroying_a_tag = DestroyingATag.new(current_user, tag)
-    destroying_a_tag.command(self)
-    destroying_a_tag.execute
-  end
-  def destroy_failure(tag)
-    respond_to do |format|
-      format.html { redirect_to :back }
-    end
-  end
-  def destroy_success(tag)
-    respond_to do |format|
-      format.html { redirect_to tags_path }
-    end
+    DestroyingAResource
+      .new(current_user, tag)
+      .call(
+        success: ->{ respond_to { |format| format.html { redirect_to tags_path } } },
+        failure: ->{ respond_to { |format| format.html { redirect_to :back     } } },
+      )
   end
 
   def merge_tags
     master_tag = Tag.find(params[:tag][:id])
     slave_tag = Tag.find(params[:slave_tag])
-    merging_tags = MergingTags.new(current_user, master_tag, slave_tag)
-    merging_tags.command(self)
-    merging_tags.execute
-  end
-  def merge_tags_success(master_tag, slave_tag)
-    respond_to do |format|
-      format.html { redirect_to :back }
-    end
-  end
-  def merge_tags_failure(master_tag, slave_tag)
-    respond_to do |format|
-      format.html { redirect_to :back }
-    end
+    MergingTags
+      .new(current_user, master_tag, slave_tag)
+      .call(
+        success: ->{ respond_to { |format| format.html { redirect_to :back } } },
+        failure: ->{ respond_to { |format| format.html { redirect_to :back } } },
+      )
   end
 
   private

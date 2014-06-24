@@ -13,16 +13,13 @@ describe TopsByTagFieldPresenter do
 
   context 'when taggings have been applied' do
     let(:user){ build(:no_roles_user) }
-    let(:taggable){ create(:person, first_name: 'person_name') }
+    let(:taggable){ build(:person, first_name: 'person_name') }
     let(:execution){ ->{ subject.execute } }
-
-    before(:each) do
-      TagRepository.apply_tag_list_on('tag1', taggable, tag_field)
-      Tagging.last.update_attributes(quantifier: 3)
-    end
-    before(:each) do
-      TagRepository.apply_tag_list_on('tag2', taggable, tag_field)
-      Tagging.last.update_attributes(quantifier: 2)
+    let(:taggings){ [ tagging1, tagging2 ] }
+    let(:tagging1){ Tagging.new(tag: build(:tag, name: 'tag1'), quantifier: 3, taggable: taggable, context: 'skills' ) }
+    let(:tagging2){ Tagging.new(tag: build(:tag, name: 'tag2'), quantifier: 1, taggable: taggable, context: 'skills' )}
+    before do
+      subject.taggings = taggings
     end
     it 'presents only the top taggings' do
       expect( fragment(subject.to_html) ).to     have_the     'top-skills'

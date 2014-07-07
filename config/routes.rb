@@ -14,4 +14,5 @@ Marketplace::Application.routes.draw do
   devise_scope :user do
     get "users/auth/google_oauth2/callback", to: "oauth#google"
   end
+  get "/cvs", to: "cvs#index", as: 'cvs'
 end

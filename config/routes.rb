@@ -7,8 +7,10 @@ Marketplace::Application.routes.draw do
   resources :projects
   resources :memberships
   resources :taggings, only: [ :create, :update, :destroy ]
-  resources :durations, only: [ :create, :update, :destroy ]
+  resources :durations, only: [ :create, :update, :destroy, :show ]
+
   resources :tags, only: [ :index, :show, :update, :destroy ]
+  resources :activities, only: [ :index ]
   post "/tags/merge_tags", to: "tags#merge_tags", as: 'merge_tags'
   get "/tags/autocomplete/results.json", to: "tags#autocomplete"
   devise_scope :user do

@@ -9,6 +9,7 @@ describe Tagging do
     expect_it { to have_attribute('context') }
     expect_it { to have_attribute('description') }
     expect_it { to have_attribute('quantifier') }
+    expect_it { to respond_to('name') }
   end
 
   describe 'validation' do
@@ -23,4 +24,5 @@ describe Tagging do
       expect{tagging.save!}.to raise_exception
     end
   end
+
 end

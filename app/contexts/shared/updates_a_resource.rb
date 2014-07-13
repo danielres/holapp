@@ -15,10 +15,10 @@ module UpdatesAResource
 
     def journal_event
       {
-        context:    self,
         user:       @user,
-        resource:   @resource,
-        attributes: @attributes,
+        action:     :updated,
+        object:     @resource,
+        details:    @attributes,
       }
     end
 

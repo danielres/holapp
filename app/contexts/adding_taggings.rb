@@ -27,11 +27,11 @@ class AddingTaggings
 
     def journal_event
       {
-        context:   self,
-        user:      @user,
-        taggable:  @taggable,
-        tag_list:  @tag_list,
-        tag_field: @tag_field,
+        user:    @user,
+        action:  :added_taggings,
+        object:  @taggable,
+        details: { object_name: @taggable.name, oject_type: @taggable.class.name,
+                   tag_list: @tag_list, tag_field: @tag_field },
       }
     end
 

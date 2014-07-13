@@ -20,7 +20,12 @@ class ViewingCvs
     end
 
     def journal_event
-      #todo
+      {
+        user:    @user,
+        action:  :viewed_cvs,
+        object:  nil,
+        details: {},
+      }
     end
 
 end

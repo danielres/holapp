@@ -1,6 +1,11 @@
 class MembershipsController < ApplicationController
   before_filter :authenticate_user!
 
+  def show
+    membership = Membership.find(params[:id])
+    redirect_to membership.person
+  end
+
   def create
     person     = User.find params[:membership][:user_id]
     project    = Project.find params[:membership][:project_id]

@@ -35,11 +35,10 @@ class TaggingAResource
 
     def journal_event
       {
-        context:   self,
         user:      @user,
-        resource:  @resource,
-        tag:       @tag,
-        tag_field: @tag_field,
+        action:    :tagged,
+        object:    @resource,
+        details:   { tag_name: @tag.name, tag_field: @tag_field },
       }
     end
 

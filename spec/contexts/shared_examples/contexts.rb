@@ -26,7 +26,17 @@ shared_examples 'a context' do
       end
     end
 
+    describe 'generating an activity' do
+      context 'when authorized' do
+        before { authorization.call }
+        it 'generates a new activity when called' do
+          expect( Journal ).to receive(:insert)
+          subject.call
+        end
+      end
+    end
   end
 
 end
+
 

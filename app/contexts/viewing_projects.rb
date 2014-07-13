@@ -23,9 +23,10 @@ class ViewingProjects
 
     def journal_event
       {
-        context:    self,
-        user:       @user,
-        collection: @collection,
+        user:    @user,
+        action:  :viewed_projects,
+        object:  nil,
+        details: {},
       }
     end
 

@@ -16,14 +16,14 @@ class TagsController < ApplicationController
   end
 
   def update
-    tag = Tag.find(params[:id])
-    respond_to do |format|
-      if tag.update_attributes(tag_params)
-        format.json { respond_with_bip(tag) }
-      else
-        format.json { respond_with_bip(tag) }
-      end
-    end
+    resource = Tag.find(params[:id])
+    UpdatingAResource
+      .new(current_user, resource)
+      .with(tag_params)
+      .call(
+        success: ->{ respond_to { |format| format.json { respond_with_bip(resource) } } },
+        failure: ->{ respond_to { |format| format.json { respond_with_bip(resource) } } },
+      )
   end
 
   def autocomplete

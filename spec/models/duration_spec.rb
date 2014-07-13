@@ -8,6 +8,7 @@ describe Duration do
     expect_it { to have_attribute('starts_at') }
     expect_it { to have_attribute('ends_at') }
     expect_it { to have_attribute('quantifier') }
+    expect_it { to respond_to('name') }
   end
 
 end

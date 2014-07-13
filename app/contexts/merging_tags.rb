@@ -29,10 +29,10 @@ class MergingTags
 
     def journal_event
       {
-        context:    self,
-        user:       @user,
-        master_tag: @master_tag,
-        slave_tag:  @slave_tag,
+        user:    @user,
+        action:  :merged_tags,
+        object:  @master_tag,
+        details: { object_name: @master_tag.name, slave_name: @slave_tag.name },
       }
     end
 

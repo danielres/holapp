@@ -25,9 +25,10 @@ class AddingAResource
 
     def journal_event
       {
-        context:   self,
-        user:      @user,
-        resource:  @resource,
+        user:    @user,
+        action:  :added,
+        object:  @resource,
+        details: { object_name: @resource.name, object_type: @resource.class.name },
       }
     end
 

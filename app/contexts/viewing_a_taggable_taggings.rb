@@ -32,9 +32,10 @@ class ViewingATaggableTaggings
 
     def journal_event
       {
-        context:    self,
-        user:       @user,
-        collection: @collection,
+        user:    @user,
+        action:  :viewed_taggable_taggings,
+        object:  @taggable,
+        details: { },
       }
     end
 

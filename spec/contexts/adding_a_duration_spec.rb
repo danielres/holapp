@@ -6,7 +6,7 @@ require_relative 'shared_examples/form_providers'
 describe AddingADuration do
   subject{ described_class.new(user, durable ) }
   let(:user){ build(:no_roles_user) }
-  let(:durable){ mock_model(Membership) }
+  let(:durable){ mock_model(Membership, name: _) }
 
   include_examples 'a context'
   include_examples 'a form provider'

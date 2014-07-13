@@ -6,6 +6,7 @@ describe Membership do
     expect_it { to have_attribute('project_id') }
     expect_it { to have_attribute('user_id') }
     expect_it { to have_attribute('description') }
+    expect_it { to respond_to('name') }
   end
 
   describe 'associations' do

@@ -7,7 +7,7 @@ describe DestroyingAResource do
 
   subject{ described_class.new(user, resource)  }
   let(:user){ build(:no_roles_user) }
-  let(:resource){ double(:resource, destroy: _) }
+  let(:resource){ double(:resource, destroy: _, name: _) }
 
   include_examples 'a context'
 
@@ -59,12 +59,10 @@ describe DestroyingAResource do
 
 
     context 'with a person' do
-      let(:resource){ create(:person) }
+      let(:resource){ build(:person) }
       it 'destroys the person' do
-        expect{ subject.call }
-          .to change{ User.count }
-          .from(1)
-          .to(0)
+        expect( resource ).to receive(:destroy)
+        subject.call
       end
       describe 'handling related associations' do
         context 'with memberships' do
@@ -77,7 +75,7 @@ describe DestroyingAResource do
           end
         end
         context 'with taggings' do
-          before{ Tagging.create(taggable_id: resource.id, taggable_type: 'User')  }
+          before{ Tagging.create(taggable: resource)  }
           it 'destroys related taggings' do
             expect{ subject.call }
               .to change{ Tagging.count }

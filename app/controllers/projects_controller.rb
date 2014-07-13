@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
 
   def create
     project = Project.new(project_params)
-    AddingAProject
+    AddingAResource
       .new(current_user, project)
       .call(
         success: ->{ redirect_to :back, notice: %Q[project "#{project.name}" has been added successfully] },

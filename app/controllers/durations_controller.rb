@@ -1,6 +1,12 @@
 class DurationsController < ApplicationController
   before_filter :authenticate_user!
 
+  def show
+    duration = Duration.find(params[:id])
+    person   = duration.durable.user
+    redirect_to person
+  end
+
   def create
     durable_id   = params[:duration][:durable_id]
     durable_type = params[:duration][:durable_type]

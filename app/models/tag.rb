@@ -24,4 +24,9 @@ class Tag < ActiveRecord::Base
     parents.each { |p| result.concat(p.ancestors) }
     result
   end
+
+  def to_s
+    name
+  end
+
 end

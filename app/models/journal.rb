@@ -1,5 +1,6 @@
 class Journal
-  def self.insert *args
-    "(TODO: Insert new journal entry)"
+  def self.insert args
+    Activity.create!(args)
   end
 end
+

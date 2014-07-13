@@ -19,9 +19,10 @@ class DestroyingAResource
 
     def journal_event
       {
-        context:   self,
         user:      @user,
-        resource:  @resource,
+        action:    :deleted,
+        object:    nil,
+        details:   { object_name: @resource.name, object_type: @resource.class.name },
       }
     end
 

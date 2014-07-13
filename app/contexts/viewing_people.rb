@@ -23,9 +23,10 @@ class ViewingPeople
 
     def journal_event
       {
-        context:    self,
-        user:       @user,
-        collection: @collection,
+        user:    @user,
+        action:  :viewed_people,
+        object:  nil,
+        details: {},
       }
     end
 

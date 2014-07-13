@@ -24,10 +24,10 @@ class ViewingATagTaggings
 
     def journal_event
       {
-        context:    self,
-        user:       @user,
-        resource:   @resource,
-        collection: @collection,
+        user:    @user,
+        action:  :viewed_tag_taggings,
+        object:  @tag,
+        details: { },
       }
     end
 

@@ -18,5 +18,9 @@ class Tagging < ActiveRecord::Base
     taggable.try(:name) || 'undefined'
   end
 
+  def name
+    taggable_name
+  end
+
 end
 

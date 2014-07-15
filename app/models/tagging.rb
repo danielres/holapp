@@ -14,13 +14,25 @@ class Tagging < ActiveRecord::Base
   PROJECTS_TAG_FIELDS = [ :skills ]
   PEOPLE_TAG_FIELDS   = [ :skills, :motivations ]
 
+
+  def to_s
+    name
+  end
+
+  def name
+    "#{ taggable_name } - #{ context }: #{ tag_name }"
+  end
+
   def taggable_name
     taggable.try(:name) || 'undefined'
   end
 
-  def name
-    taggable_name
-  end
+
+  private
+
+    def tag_name
+      tag.try(:name) || 'undefined'
+    end
+
 
 end
-

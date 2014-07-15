@@ -1,6 +1,13 @@
 class TaggingsController < ApplicationController
   before_filter :authenticate_user!
 
+  def show
+    tagging  = Tagging.find(params[:id])
+    taggable = tagging.taggable
+    redirect_to taggable
+  end
+
+
   def create
     taggable_id   = params[:tagging][:taggable_id]
     taggable_type = params[:tagging][:taggable_type]

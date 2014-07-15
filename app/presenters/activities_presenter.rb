@@ -36,7 +36,7 @@ class ActivitiesPresenter < Erector::Widget
         td object_name
       when 'updated'
         td 'updated'
-        td "#{ a.details.keys.join(', ')}"
+        td "#{a.object.class.name.downcase} #{ a.details.keys.join(', ')}"
         td.object do
           text link_to(a.object, a.object) if a.object
         end
@@ -54,8 +54,8 @@ class ActivitiesPresenter < Erector::Widget
         end
         td "#{ a.details['tag_list'].split(',').map{|t| @view_context.link_to_if(Tag.find_by_name(t), t, Tag.find_by_name(t) )}.join(', ') }".html_safe
       when 'merged_tags'
-        td "merged tag"
-        td a.details['slave_name']
+        td 'merged'
+        td "tag '#{ a.details['slave_name'] }' into"
         td.object do
           text @view_context.link_to_if(a.object, a.details['object_name'], a.object)
         end

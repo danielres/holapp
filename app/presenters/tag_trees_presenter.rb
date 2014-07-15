@@ -38,8 +38,11 @@ class TagTreesPresenter < Erector::Widget
         end
         if tag.children.any?
           ul do
-            tag.children.each do |t|
-              tag_tree_branch(t)
+            tag
+              .children
+              .sort{|a,b| a.name <=> b.name }
+              .each do |t|
+                tag_tree_branch(t)
             end
           end
         end

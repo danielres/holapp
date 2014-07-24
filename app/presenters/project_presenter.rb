@@ -12,6 +12,10 @@ class ProjectPresenter < Erector::Widget
       panel do
         table.details do
           tr do
+            th 'Name'
+            td best_in_place @project, :name
+          end
+          tr do
             th 'Description'
             td do
               random_val = (rand * 1000).to_i

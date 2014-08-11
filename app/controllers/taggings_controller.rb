@@ -1,6 +1,10 @@
 class TaggingsController < ApplicationController
   before_filter :authenticate_user!
 
+  include ResourceInPlaceUpdate
+  include ResourceDestroy
+
+
   def show
     tagging  = Tagging.find(params[:id])
     taggable = tagging.taggable
@@ -24,33 +28,19 @@ class TaggingsController < ApplicationController
   end
 
 
-  def update
-    tagging = Tagging.find(params[:id])
-    UpdatingAResource
-      .new(current_user, tagging)
-      .with(tagging_params)
-      .call(
-        success: ->{ respond_to { |format| format.json { head :ok                  } } },
-        failure: ->{ respond_to { |format| format.json { respond_with_bip(tagging) } } },
-      )
-  end
-
-  def destroy
-    resource = Tagging.find(params[:id])
-    DestroyingAResource
-      .new(current_user, resource)
-      .call(
-        success: ->{ respond_to { |format| format.html { redirect_to :back } } },
-        failure: ->{ respond_to { |format| format.html { redirect_to :back } } },
-      )
-  end
-
-
   private
 
-    def tagging_params
-      params.require(:tagging).permit(:description, :quantifier)
+    def resource_params
+      params
+        .require(:tagging)
+        .permit(
+          :description,
+          :quantifier,
+        )
     end
 
+    def resource
+      Tagging.find(params[:id])
+    end
 
 end

@@ -1,51 +1,46 @@
 class DurationsController < ApplicationController
   before_filter :authenticate_user!
 
+  include ResourceInPlaceUpdate
+  include ResourceDestroy
+
+
   def show
-    duration = Duration.find(params[:id])
-    person   = duration.durable.user
+    person = resource.durable.user
     redirect_to person
   end
 
+
   def create
-    durable_id   = params[:duration][:durable_id]
-    durable_type = params[:duration][:durable_type]
-    durable      = durable_type.constantize.find(durable_id)
     AddingADuration
-      .new(current_user, durable)
+      .new(current_user, new_resource)
       .call(
         success: ->{ redirect_to :back, notice: 'Duration added successfully' },
         failure: ->{ redirect_to :back, alert: 'Could not add duration' },
-      )
-
-  end
-
-  def update
-    duration = Duration.find(params[:id])
-    UpdatingAResource
-      .new(current_user, duration)
-      .with(duration_params)
-      .call(
-        success: ->{ respond_to { |format| format.json { head :ok                   } } },
-        failure: ->{ respond_to { |format| format.json { respond_with_bip(duration) } } },
-      )
-  end
-
-  def destroy
-    resource = Duration.find(params[:id])
-    DestroyingAResource
-      .new(current_user, resource)
-      .call(
-        success: ->{ respond_to { |format| format.html { redirect_to :back } } },
-        failure: ->{ respond_to { |format| format.html { redirect_to :back } } },
       )
   end
 
 
   private
 
-    def duration_params
-      params.require(:duration).permit(:starts_at, :ends_at, :quantifier)
+    def resource_params
+      params
+        .require(:duration)
+        .permit(
+          :starts_at,
+          :ends_at,
+          :quantifier,
+        )
+    end
+
+    def resource
+      Duration.find(params[:id])
+    end
+
+    def new_resource
+      durable_id   = params[:duration][:durable_id]
+      durable_type = params[:duration][:durable_type]
+      durable_type.constantize.find(durable_id)
     end
 
 end

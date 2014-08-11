@@ -1,6 +1,9 @@
 class TagsController < ApplicationController
   before_filter :authenticate_user!
 
+  include ResourceInPlaceUpdate
+
+
   def index
     render layout: true,
              text: ViewingTags.new(current_user).view_context(view_context).call
@@ -13,17 +16,6 @@ class TagsController < ApplicationController
                                tag: tag,
                       view_context: view_context,
                     ).to_html, layout: true
-  end
-
-  def update
-    resource = Tag.find(params[:id])
-    UpdatingAResource
-      .new(current_user, resource)
-      .with(tag_params)
-      .call(
-        success: ->{ respond_to { |format| format.json { respond_with_bip(resource) } } },
-        failure: ->{ respond_to { |format| format.json { respond_with_bip(resource) } } },
-      )
   end
 
   def autocomplete
@@ -42,9 +34,8 @@ class TagsController < ApplicationController
   end
 
   def destroy
-    tag = Tag.find(params[:id])
     DestroyingAResource
-      .new(current_user, tag)
+      .new(current_user, resource)
       .call(
         success: ->{ respond_to { |format| format.html { redirect_to tags_path } } },
         failure: ->{ respond_to { |format| format.html { redirect_to :back     } } },
@@ -53,7 +44,7 @@ class TagsController < ApplicationController
 
   def merge_tags
     master_tag = Tag.find(params[:tag][:id])
-    slave_tag = Tag.find(params[:slave_tag])
+    slave_tag  = Tag.find(params[:slave_tag])
     MergingTags
       .new(current_user, master_tag, slave_tag)
       .call(
@@ -64,9 +55,17 @@ class TagsController < ApplicationController
 
   private
 
-    def tag_params
-      params.require(:tag).permit(:description, :name)
+    def resource_params
+      params
+        .require(:tag)
+        .permit(
+          :description,
+          :name,
+        )
     end
 
+    def resource
+      Tag.find(params[:id])
+    end
 
 end

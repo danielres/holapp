@@ -5,15 +5,11 @@ class ProjectPresenter < Erector::Widget
   include Support::PresenterHelpers
 
   def content
-    row do
-      col(12) do
-        page_head_html
-        panel{ project_details_html }
-        panel{ memberships_html }
-        panel{ skills_html }
-        panel{ dangerous_actions_menu_html }
-      end
-    end
+    page_head_html
+    panel{ project_details_html }
+    panel{ memberships_html }
+    panel{ skills_html }
+    panel{ dangerous_actions_menu_html }
   end
 
 

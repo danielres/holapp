@@ -6,12 +6,15 @@ class TagPresenter < Erector::Widget
 
   def content
     row do
-      col( 8){ page_head_html }
-      col( 4){ panel{ quick_add_to_current_user_html } }
-      col( 8){ panel{ tag_details_html } }
+      col(8){ page_head_html }
+      col(8){ panel{ tag_details_html } }
+      col(4){ panel{ quick_add_to_current_user_html } }
+      col(8) do
+          parents_html
+          dangerous_actions_menu_html
+      end
+
       col( 4){ tag_trees }
-      col(12){ parents_html }
-      col( 6){ dangerous_actions_menu_html }
     end
   end
 

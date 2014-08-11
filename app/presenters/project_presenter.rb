@@ -76,9 +76,7 @@ class ProjectPresenter < Erector::Widget
     def dangerous_actions_menu_html
       h3 'Dangerous actions'
       actions_menu do
-        ul do
-          li delete_resource_link("/projects/#{@project.to_param}")
-        end
+        li delete_resource_link("/projects/#{@project.to_param}")
       end
     end
 

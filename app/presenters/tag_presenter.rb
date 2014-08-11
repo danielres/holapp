@@ -83,9 +83,7 @@ class TagPresenter < Erector::Widget
         col(6) do
           panel do
             actions_menu do
-              ul do
-                li delete_resource_link(@tag)
-              end
+              li delete_resource_link(@tag)
             end
           end
         end

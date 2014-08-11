@@ -10,8 +10,8 @@ class PersonPresenter < Erector::Widget
         page_head_html
         panel{ person_details_html }
         panel{ memberships_html }
-        panel{ skills_html }
-        panel{ motivations_html }
+        panel{ taggings_on_html(:skills) }
+        panel{ taggings_on_html(:motivations) }
         panel{ dangerous_actions_menu_html }
       end
     end
@@ -52,18 +52,13 @@ class PersonPresenter < Erector::Widget
             .get_user_input
     end
 
-    def skills_html
-      text ViewingATaggableTaggings.new(@viewer, @person, :skills).view_context(@view_context).call
-      text AddingTaggings
-            .new(@viewer, @person, nil, :skills)
+    def taggings_on_html(tag_field)
+      text ViewingATaggableTaggings
+            .new(@viewer, @person, tag_field)
             .view_context(@view_context)
-            .get_user_input
-    end
-
-    def motivations_html
-      text ViewingATaggableTaggings.new(@viewer, @person, :motivations).view_context(@view_context).call
+            .call
       text AddingTaggings
-            .new(@viewer, @person, nil, :motivations)
+            .new(@viewer, @person, nil, tag_field)
             .view_context(@view_context)
             .get_user_input
     end
@@ -133,9 +128,7 @@ class PersonPresenter < Erector::Widget
     def dangerous_actions_menu_html
       h3 'Dangerous actions'
       actions_menu do
-        ul do
-          li delete_resource_link("/people/#{@person.to_param}")
-        end
+        li delete_resource_link("/people/#{@person.to_param}")
       end
     end
 

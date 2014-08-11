@@ -17,7 +17,9 @@ module Support
     end
     def actions_menu
       element(:menu, the('actions-menu') ).actions_menu do
-        yield
+        ul do
+          yield
+        end
       end
     end
     def delete_resource_link(resource)

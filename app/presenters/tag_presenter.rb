@@ -26,16 +26,29 @@ class TagPresenter < Erector::Widget
     end
 
     def quick_add_to_current_user_html
+
       ul.menu do
         Tagging::PEOPLE_TAG_FIELDS.each do |tag_field|
-          li TaggingAResource
-              .new(@viewer, @tag, tag_field, @viewer)
-              .view_context(@view_context)
-              .get_user_input(
-                text: "Add to my #{ tag_field }"
-              )
+          if user_has_tag_on?(@viewer, @tag, tag_field)
+            li(class: "btn btn-default btn-sm") do
+              span '', class: "glyphicon glyphicon-ok"
+              text " In my #{tag_field}"
+            end
+            br
+          else
+            li TaggingAResource
+                .new(@viewer, @tag, tag_field, @viewer)
+                .view_context(@view_context)
+                .get_user_input(
+                  text: "Add to my #{ tag_field }"
+                )
+          end
         end
       end
+    end
+
+    def user_has_tag_on?(user, tag, tag_field)
+      user.taggings.select{ |t| t.context == tag_field.to_s }.map(&:tag).include?(@tag)
     end
 
     def tag_details_html

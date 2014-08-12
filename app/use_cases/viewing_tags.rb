@@ -18,7 +18,7 @@ class ViewingTags
     end
 
     def presenter
-      ->{ TagsPresenter.new(collection: @collection, view_context: @view_context).to_html }
+      ->{ TagsPresenter.new(collection: @collection, view_context: @view_context, viewer: @user).to_html }
     end
 
     def journal_event

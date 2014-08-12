@@ -1,6 +1,6 @@
 class TagTreesPresenter < Erector::Widget
 
-  needs :tag, :view_context
+  needs :tag, :view_context, :viewer_taggings
 
   include Support::PresenterHelpers
 
@@ -36,6 +36,7 @@ class TagTreesPresenter < Erector::Widget
         else
           text link_to(tag.name, tag)
         end
+        tag_badges(tag)
         if tag.children.any?
           ul do
             tag
@@ -46,6 +47,15 @@ class TagTreesPresenter < Erector::Widget
             end
           end
         end
+      end
+    end
+
+    def tag_badges(tag)
+      text ' '
+      tag_fields = ( @viewer_taggings & tag.taggings ).map(&:context).sort
+      tag_fields.each do |tf|
+        span tf[0].upcase, title: "In my #{ tf }", class: [:badge, tf]
+        text ' '
       end
     end
 

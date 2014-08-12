@@ -1,6 +1,6 @@
 class TagsPresenter < Erector::Widget
 
-  needs :collection, :view_context
+  needs :collection, :view_context, :viewer
 
   include Support::PresenterHelpers
 
@@ -13,7 +13,7 @@ class TagsPresenter < Erector::Widget
             col(4) do
               panel do
                 text  TagTreesPresenter
-                        .new(tag: pole, view_context: @view_context)
+                        .new(tag: pole, view_context: @view_context, viewer_taggings: @viewer.taggings )
                         .to_html
               end
             end

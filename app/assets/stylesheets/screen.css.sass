@@ -1,3 +1,7 @@
+$skills_color:      darken(lightsteelblue, 10%)
+$motivations_color: mix(red, lightgray, 30%)
+
+
 section
   // disable bootstrap treating sections as rows
   margin: 0
@@ -144,3 +148,8 @@ dl.inline
   margin: none
   padding: none
 
+.badge
+  &.skills
+    background: $skills_color
+  &.motivations
+    background: $motivations_color

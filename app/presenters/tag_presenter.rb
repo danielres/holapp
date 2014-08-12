@@ -75,10 +75,9 @@ class TagPresenter < Erector::Widget
 
     def tag_trees
       text TagTreesPresenter
-            .new(tag: @tag, view_context: @view_context)
+            .new(tag: @tag, view_context: @view_context, viewer_taggings: @viewer.taggings )
             .to_html
     end
-
 
     def parents_html
       text ViewingATagTaggings

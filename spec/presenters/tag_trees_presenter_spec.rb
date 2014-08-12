@@ -29,7 +29,7 @@ describe TagTreesPresenter do
 
       describe 'from a pole' do
         it 'displays the pole with all its descendants' do
-          food_tree = described_class.new(tag: food, view_context: view).to_html
+          food_tree = described_class.new(tag: food, view_context: view, viewer_taggings: [] ).to_html
           #  **food**
           #       snack
           #           burger
@@ -46,7 +46,7 @@ describe TagTreesPresenter do
       end
       describe 'from a tag with multiple parents' do
         it 'presents the multiple trees' do
-          apple_tree = described_class.new(tag: apple, view_context: view).to_html
+          apple_tree = described_class.new(tag: apple, view_context: view, viewer_taggings: [] ).to_html
           # food
           #     snack
           #         burger

@@ -8,7 +8,7 @@ describe TagsPresenter do
 
   describe 'rendering to html' do
     let(:user){ double 'user' }
-    subject{ described_class.new(collection: collection, view_context: view_context) }
+    subject{ described_class.new(collection: collection, view_context: view_context, viewer: double) }
     let(:tag1){ build(:tag, name: 'tag1') }
     let(:tag2){ build(:tag, name: 'tag2') }
     let(:collection){ [ tag1, tag2 ] }

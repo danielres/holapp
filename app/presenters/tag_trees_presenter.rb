@@ -34,7 +34,7 @@ class TagTreesPresenter < Erector::Widget
         if tag == @tag
           strong{ u link_to tag.name, tag }
         else
-          text link_to tag.name, tag
+          text link_to(tag.name, tag)
         end
         if tag.children.any?
           ul do

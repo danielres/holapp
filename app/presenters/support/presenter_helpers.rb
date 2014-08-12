@@ -9,8 +9,10 @@ module Support
     def col(width)
       div(class: "col-md-#{width}"){ yield }
     end
-    def panel
-      div(class: "panel"){ yield }
+    def panel(*args, &block)
+      div.panel(*args) do
+        block.call if block_given?
+      end
     end
     def row
       div(class: "row"){ yield }

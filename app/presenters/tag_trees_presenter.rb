@@ -18,7 +18,7 @@ class TagTreesPresenter < Erector::Widget
       trees = []
       poles(tag).each do |p|
         trees << capture_content do
-          panel do
+          panel.tag_tree do
             ul do
               tag_tree_branch(p)
             end

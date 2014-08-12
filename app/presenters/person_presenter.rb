@@ -73,23 +73,23 @@ class PersonPresenter < Erector::Widget
         end
         tr do
           th 'Firstname'
-          td best_in_place @person, :first_name,  path: "/people/#{@person.to_param}", nil: '…'
+          td editable_field(:first_name)
         end
         tr do
           th 'Last name'
-          td best_in_place @person, :last_name,  path: "/people/#{@person.to_param}", nil: '…'
+          td editable_field(:last_name)
         end
         tr do
           th 'Display name'
-          td best_in_place @person, :display_name,  path: "/people/#{@person.to_param}", nil: '…'
+          td editable_field(:display_name)
         end
         tr do
           th 'Trigram'
-          td best_in_place @person, :trigram,  path: "/people/#{@person.to_param}", nil: '…'
+          td editable_field(:trigram)
         end
         tr do
           th 'Mobile'
-          td best_in_place @person, :mobile,  path: "/people/#{@person.to_param}", nil: '…'
+          td editable_field(:mobile)
         end
         tr do
           th 'CV url'
@@ -105,6 +105,11 @@ class PersonPresenter < Erector::Widget
         end
       end
     end
+
+    def editable_field(field_name)
+      best_in_place @person, field_name,  path: "/people/#{@person.to_param}", nil: '…'
+    end
+
 
     def person_details2_html
       table.details do

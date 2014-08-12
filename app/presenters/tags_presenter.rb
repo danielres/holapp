@@ -12,7 +12,9 @@ class TagsPresenter < Erector::Widget
           yes_poles.each do |pole|
             col(4) do
               panel do
-                text TagTreesPresenter.new(tag: pole, view_context: @view_context).to_html
+                text  TagTreesPresenter
+                        .new(tag: pole, view_context: @view_context)
+                        .to_html
               end
             end
           end

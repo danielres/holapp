@@ -39,13 +39,17 @@ class ProjectPresenter < Erector::Widget
         end
         tr do
           th 'Start'
-          td best_in_place @project, :starts_at, type: :date, display_with: ->(d){ pretty_date(d) }
+          td editable_date_field(:starts_at)
         end
         tr do
           th 'End'
-          td best_in_place @project, :ends_at, type: :date, display_with: ->(d){ pretty_date(d) }
+          td editable_date_field(:ends_at)
         end
       end
+    end
+
+    def editable_date_field(field_name)
+      best_in_place @project, field_name, type: :date, display_with: ->(d){ pretty_date(d) }
     end
 
     def memberships_html

@@ -73,14 +73,24 @@ class TagPresenter < Erector::Widget
       end
     end
 
+
     def tag_trees
-      text TagTreesPresenter.new(tag: @tag, view_context: @view_context).to_html
+      text TagTreesPresenter
+            .new(tag: @tag, view_context: @view_context)
+            .to_html
     end
 
+
     def parents_html
-      text ViewingATagTaggings.new(@viewer, @tag).view_context(@view_context).call
+      text ViewingATagTaggings
+            .new(@viewer, @tag)
+            .view_context(@view_context)
+            .call
       panel do
-        text ViewingATaggableTaggings.new(@viewer, @tag, :tag_parents).view_context(@view_context).call
+        text ViewingATaggableTaggings
+              .new(@viewer, @tag, :tag_parents)
+              .view_context(@view_context)
+              .call
         text AddingTaggings
               .new(@viewer, @tag, nil, :tag_parents)
               .view_context(@view_context)
@@ -88,12 +98,16 @@ class TagPresenter < Erector::Widget
       end
     end
 
+
     def dangerous_actions_menu_html
       h3 'Dangerous actions'
       row do
         col(6) do
           panel do
-            text MergingTags.new(@viewer, @tag, nil).view_context(@view_context).get_user_input
+            text MergingTags
+                  .new(@viewer, @tag, nil)
+                  .view_context(@view_context)
+                  .get_user_input
           end
         end
         col(6) do
@@ -105,7 +119,6 @@ class TagPresenter < Erector::Widget
         end
       end
     end
-
 
 
 end

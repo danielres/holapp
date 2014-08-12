@@ -26,7 +26,6 @@ class TagPresenter < Erector::Widget
     end
 
     def quick_add_to_current_user_html
-
       ul.menu do
         Tagging::PEOPLE_TAG_FIELDS.each do |tag_field|
           if user_has_tag_on?(@viewer, @tag, tag_field)

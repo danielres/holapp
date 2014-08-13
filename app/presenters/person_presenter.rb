@@ -103,7 +103,7 @@ class PersonPresenter < Erector::Widget
             text best_in_place @person, :cv_url,
                     path: "/people/#{@person.to_param}",
                      nil: '…',
-            display_with: ->(cv_url){ link_to cv_url, cv_url },
+            display_with: ->(cv_url){ link_to(@view_context.truncate(cv_url, length: 50), cv_url)  },
                activator: "##{ random_val }"
           end
         end

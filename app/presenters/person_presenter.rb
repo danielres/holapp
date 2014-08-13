@@ -10,9 +10,13 @@ class PersonPresenter < Erector::Widget
         page_head_html
         panel{ person_details_html }
         panel{ memberships_html }
-        panel{ taggings_on_html(:skills) }
-        panel{ taggings_on_html(:motivations) }
-        panel{ dangerous_actions_menu_html }
+        row do
+          col(6){ panel{ taggings_on_html(:skills     ) } }
+          col(6){ panel{ taggings_on_html(:motivations) } }
+        end
+        row do
+          col(6){ panel{ dangerous_actions_menu_html    } }
+        end
       end
     end
   end

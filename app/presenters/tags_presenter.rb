@@ -6,16 +6,21 @@ class TagsPresenter < Erector::Widget
 
   def content
     h2 'Tags'
+
+    p do
+      b 'Poles:'
+      text yes_poles.map{ |pole| link_to(pole, "#pole_#{ pole.id}" )}.join(' | ').html_safe
+    end
+
     row do
       col(9) do
         row do
           yes_poles.each do |pole|
             col(4) do
-              panel do
-                text  TagTreesPresenter
-                        .new(tag: pole, view_context: @view_context, viewer_taggings: @viewer.taggings )
-                        .to_html
-              end
+              a '', id: "pole_#{ pole.id}", name: "#pole_#{ pole.id}"
+              text  TagTreesPresenter
+                      .new(tag: pole, view_context: @view_context, viewer_taggings: @viewer.taggings )
+                      .to_html
             end
           end
         end

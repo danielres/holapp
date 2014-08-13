@@ -9,9 +9,12 @@ module Support
     def col(width)
       div(class: "col-md-#{width}"){ yield }
     end
-    def panel(*args, &block)
-      div.panel(*args) do
-        block.call if block_given?
+    def panel(*args, heading: nil, &block)
+      div(*args, class: 'panel panel-default') do
+        div(class: 'panel-heading'){ text heading } if heading
+        div(class: 'panel-body') do
+          block.call if block_given?
+        end
       end
     end
     def row

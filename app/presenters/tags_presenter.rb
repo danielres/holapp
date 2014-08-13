@@ -17,7 +17,7 @@ class TagsPresenter < Erector::Widget
         row do
           yes_poles.each do |pole|
             col(4) do
-              a '', id: "pole_#{ pole.id}", name: "#pole_#{ pole.id}"
+              a.anchor '', id: "pole_#{ pole.id}", name: "#pole_#{ pole.id}"
               text  TagTreesPresenter
                       .new(tag: pole, view_context: @view_context, viewer_taggings: @viewer.taggings )
                       .to_html

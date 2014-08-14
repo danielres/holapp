@@ -52,9 +52,29 @@ class TagTreesPresenter < Erector::Widget
 
     def tag_badges(tag)
       text ' '
-      tag_fields = ( @viewer_taggings & tag.taggings ).map(&:context).sort
+      tag_fields = tag.taggings
+                    .select{ |t|t.taggable_type == 'User' }
+                    .map(&:context)
+                    .uniq
+                    .sort
       tag_fields.each do |tf|
-        span tf[0].upcase, title: "In my #{ tf }", class: [:badge, tf]
+        users_count = tag.taggings
+                      .select{|t| t.taggable_type == "User" && t.context == tf }
+                      .count
+        tag_score = tag.taggings
+                      .select{|t| t.taggable_type == "User" && t.context == tf }
+                      .map{ |t| t.quantifier.to_i }
+                      .sum
+        span title: "#{ users_count } persons have this #{ tf.singularize }, totalling a score of #{ tag_score }", class: [:badge, tf] do
+          text users_count
+          sup " #{ tag_score }"
+        end
+        if @viewer_taggings.map(&:tag).include?(tag)
+          sup do
+            text ' '
+            span class: ['glyphicon', 'glyphicon-ok', tf], title: "In my #{ tf }"
+          end
+        end
         text ' '
       end
     end

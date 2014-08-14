@@ -157,7 +157,20 @@ dl.inline
     background: $skills_color
   &.motivations
     background: $motivations_color
+  &.count
+    background: #eee
+    color: #aaa
+    min-width: 2em
+.glyphicon-ok
+  &.skills
+    color: lighten($skills_color, 10%)
+  &.motivations
+    color: lighten($motivations_color, 10%)
 
 
 .panel.tag_tree
   padding: 30px 0
+  ul
+    padding-left: 2em
+  a
+    font-size: 90%

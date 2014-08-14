@@ -30,7 +30,8 @@ class TagTreesPresenter < Erector::Widget
     end
 
     def tag_tree_branch(tag)
-      li do
+      css_class = tag == @tag ? 'active' : ''
+      li(class: css_class) do
         if tag == @tag
           strong{ u link_to tag.name, tag }
         else

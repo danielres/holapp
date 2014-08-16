@@ -29,8 +29,12 @@ class TagTreesPresenter < Erector::Widget
       rawtext trees.join
     end
 
-    def tag_tree_branch(tag)
-      css_class = tag == @tag ? 'active' : ''
+    def highlight?
+      true unless @view_context.params['action'] == 'index'
+    end
+
+     def tag_tree_branch(tag)
+      css_class = (highlight? && tag == @tag) ? 'active' : ''
       li(class: css_class) do
         if tag == @tag
           strong{ u link_to tag.name, tag }

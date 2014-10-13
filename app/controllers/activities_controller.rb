@@ -5,7 +5,7 @@ class ActivitiesController < ApplicationController
     collection = Activity
                   .where("action not LIKE ?", "viewed%")
                   .order('created_at DESC')
-                  .last(500)
+                  .first(500)
 
 
     render layout: true,

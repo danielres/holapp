@@ -61,7 +61,7 @@ group :test do
   gem 'shoulda'
   gem 'simplecov', require: false, group: :test
   gem 'selenium-webdriver'
-
 end
 
+gem 'angular-rails'
 

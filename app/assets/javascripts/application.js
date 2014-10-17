@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery.ui.datepicker
 //= require jquery_ujs
+//= require angular
+//= require angular-resource
 //= require bootstrap
 //= require best_in_place
 //= require typeahead.bundle

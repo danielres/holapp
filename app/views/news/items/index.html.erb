@@ -1,0 +1,74 @@
+<div ng-app="NewsApp">
+  <div ng-controller="NewsItemsCtrl">
+
+    <div class="row">
+
+
+      <div class="col-xs-8">
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+            <div ng-repeat="item in items | orderBy:'created_at':true">
+                  <div class="row" >
+                    <div class="col-md-2">
+                      <div><small>{{ item.created_at | date }}</small></div>
+                      <div>By <a href="">Ludo</a> </div>
+                      <div>
+                        <button type="button" class="btn btn-default btn-xs" ng-click="editItem(item)">
+                          <i class="glyphicon glyphicon-pencil"></i>
+                        </button>
+                        <button type="button" class="btn btn-default btn-xs" ng-click="destroyItem(item)">
+                          <i class="glyphicon glyphicon-remove"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      {{item.summary}}
+                    </div>
+                    <div class="col-md-4">{{item.body}}</div>
+                    <div class="col-md-2">
+                      <small>
+                      <a href="#">tag1</a>,
+                      <a href="#">tag2</a>,
+                      <a href="#">tag3</a>,
+                      <a href="#">tag4</a>,
+                      <a href="#">tag5</a>
+                      </small>
+                    </div>
+                  </div>
+                  <hr />
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="col-xs-4 col-xs-offset-8"  style="position: fixed">
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+
+            <form ng-model="item" ng-submit="mode != 'edit' && addItem(item) || saveItem(item)">
+              <div class="form-group">
+                <label for="newsItemSummary">Summary</label>
+                <input id="newsItemSummary" type="text" ng-model="item.summary" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="newsItemBody">Body</label>
+                <textarea id="newsItemBody" rows=5 ng-model="item.body"  placeholder="News body and / or link(s)" class="form-control"></textarea>
+              </div>
+              <button ng-show="mode == 'add' ">Add </button>
+              <button ng-show="mode == 'edit'">Save</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+</div>

@@ -17,4 +17,10 @@ Marketplace::Application.routes.draw do
     get "users/auth/google_oauth2/callback", to: "oauth#google"
   end
   get "/cvs", to: "cvs#index", as: 'cvs'
+
+  namespace :news do
+    resources :items
+  end
+
+
 end

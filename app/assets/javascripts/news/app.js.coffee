@@ -1,7 +1,7 @@
-window.app = angular.module "NewsApp", [
+NewsApp = angular.module "NewsApp", [
   "ngResource"
 ]
 
-window.app.config ["$httpProvider", ($httpProvider) ->
+NewsApp.config ["$httpProvider", ($httpProvider) ->
   $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
 ]

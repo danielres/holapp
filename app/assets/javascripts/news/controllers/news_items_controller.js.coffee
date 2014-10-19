@@ -1,5 +1,5 @@
 angular.module("NewsApp")
-  .controller "NewsItemsCtrl", ($scope, $window, NewsItem) ->
+  .controller "NewsItemsCtrl", [ "$scope", "$window", "NewsItem",  ($scope, $window, NewsItem) ->
     $scope.load = ->
       $scope.items = NewsItem.query()
       $scope.mode = 'add'
@@ -24,3 +24,4 @@ angular.module("NewsApp")
       $scope.mode = 'edit'
 
     $scope.load()
+  ]

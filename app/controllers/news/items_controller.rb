@@ -20,6 +20,10 @@ module News
       respond_with resource.destroy
     end
 
+    def update
+      respond_with resource.update(resource_params)
+    end
+
     private
 
       def resource

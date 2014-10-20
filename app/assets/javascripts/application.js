@@ -14,6 +14,7 @@
 //= require jquery.ui.datepicker
 //= require jquery_ujs
 //= require angular
+//= require sugar
 //= require angular-resource
 //= require bootstrap
 //= require best_in_place

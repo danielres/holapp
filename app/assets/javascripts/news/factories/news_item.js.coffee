@@ -1,6 +1,7 @@
 angular.module("NewsApp")
   .factory "NewsItem", [ "$resource", ($resource) ->
-    $resource "api/news/items/:id",
-      { 'save': {method:'PUT'} },
-      { id: "@id" },
+    $resource "api/news/items/:id", {},
+    { update: { method: "PUT" } }
   ]
+
+

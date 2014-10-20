@@ -67,3 +67,14 @@ end
 
 
 gem 'angularjs-rails'
+gem 'rails-assets-sugar'
+
+group :development, :test do
+  gem 'guard-jasmine'
+  gem 'jasmine-rails'
+  # gem 'rails-assets-angular-mocks'
+  # gem 'rails-assets-sinon'
+  # gem 'rails-assets-jasmine-sinon'
+  # gem 'compass-rails'
+end
+

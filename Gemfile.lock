@@ -8,6 +8,7 @@ GIT
 
 GEM
   remote: https://rubygems.org/
+  remote: https://rails-assets.org/
   specs:
     actionmailer (4.0.2)
       actionpack (= 4.0.2)
@@ -36,9 +37,7 @@ GEM
     acts-as-taggable-on (3.0.1)
       rails (>= 3, < 5)
     addressable (2.3.5)
-    angular-rails (0.0.12)
-      coffee-script (~> 2.2.0)
-      rails
+    angularjs-rails (1.2.25)
     arel (4.0.2)
     atomic (1.1.14)
     awesome_print (1.2.0)
@@ -379,7 +378,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
-  angular-rails
+  angularjs-rails
   best_in_place!
   better_errors
   binding_of_caller

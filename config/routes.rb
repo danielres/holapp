@@ -18,8 +18,16 @@ Marketplace::Application.routes.draw do
   end
   get "/cvs", to: "cvs#index", as: 'cvs'
 
+
+
   namespace :news do
-    resources :items
+    get "/", to: "items#index"
+  end
+
+  scope '/api', defaults: { format: :json } do
+    namespace :news do
+      resources :items
+    end
   end
 
 

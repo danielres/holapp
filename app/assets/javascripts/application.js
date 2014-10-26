@@ -16,6 +16,11 @@
 //= require angular
 //= require sugar
 //= require angular-resource
+
+//= require angular-sanitize
+//= require angular-markdown-directive
+//= require showdown
+
 //= require bootstrap
 //= require best_in_place
 //= require typeahead.bundle

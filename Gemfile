@@ -69,6 +69,11 @@ end
 gem 'angularjs-rails'
 gem 'rails-assets-sugar'
 
+gem 'rails-assets-angular-markdown-directive'
+
+gem 'ngannotate-rails'
+
+
 group :development, :test do
   gem 'guard-jasmine'
   gem 'jasmine-rails'

@@ -15,7 +15,7 @@ angular.module("NewsApp")
           $scope.news_items.splice($scope.news_items.indexOf(news_item),1)
 
     $scope.saveItem = (news_item) ->
-      NewsItem.save news_item
+      NewsItem.update({ id: news_item.id }, news_item)
       $scope.mode = 'add'
       $scope.news_item = new NewsItem() # clear the form
 

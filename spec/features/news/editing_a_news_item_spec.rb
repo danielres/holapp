@@ -21,9 +21,9 @@ describe 'Editing a news item', :slow, :news, :js do
         end
       end
       it 'updates the news item' do
-        item = News::Item.last
-        expect( item.summary ).to eq 'Updated summary'
-        expect( item.body    ).to eq 'Updated body'
+        news_item.reload
+        expect( news_item.summary ).to eq 'Updated summary'
+        expect( news_item.body    ).to eq 'Updated body'
       end
     end
 

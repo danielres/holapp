@@ -3,7 +3,9 @@ require 'fast_authentication_spec_helper'
 require 'purpose_selector_spec_helper'
 require 'factories_spec_helper'
 
-describe 'Editing a news item', :slow, :news, driver: :selenium do
+require 'capybara/poltergeist'
+
+describe 'Editing a news item', :slow, :news, driver: :poltergeist do
   let(:super_user){ create(:super_user) }
   let!(:news_item){ create(:news_item, summary: 'Initial summary', body: 'Initial body') }
 

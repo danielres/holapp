@@ -78,3 +78,7 @@ group :development, :test do
   # gem 'compass-rails'
 end
 
+
+group :test do
+  gem 'poltergeist'
+end

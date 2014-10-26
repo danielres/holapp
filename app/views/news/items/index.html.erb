@@ -6,7 +6,7 @@
 
       <div class="col-xs-8">
         <div class="panel panel-default">
-          <div class="panel-body">
+          <div class="panel-body" data-purpose="news_items-list">
 
             <div ng-repeat="news_item in news_items | orderBy:'created_at':true">
                   <div class="row" >
@@ -50,7 +50,7 @@
           <div class="panel-body">
 
 
-            <form ng-model="news_item" ng-submit="mode != 'edit' && addItem(news_item) || saveItem(news_item)">
+            <form ng-model="news_item" ng-submit="mode != 'edit' && addItem(news_item) || saveItem(news_item)" data-purpose="news_item-form">
                 <%= simple_fields_for News::Item.new,
                       html: {
                        'ng-model' => "news_item",

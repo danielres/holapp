@@ -9,12 +9,12 @@
           <div class="panel-body" data-purpose="news_items-list">
 
             <div ng-repeat="news_item in news_items | orderBy:'created_at':true">
-                  <div class="row" >
+                  <div class="row news_item">
                     <div class="col-md-2">
                       <div><small>{{ news_item.created_at | date }}</small></div>
                       <div>By <a href="">Ludo</a> </div>
                       <div>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="editItem(news_item)">
+                        <button type="button" class="btn btn-default btn-xs" ng-click="editItem(news_item)" data-purpose="update-action">
                           <i class="glyphicon glyphicon-pencil"></i>
                         </button>
                         <button type="button" class="btn btn-default btn-xs" ng-click="destroyItem(news_item)">
@@ -59,8 +59,8 @@
                 %>
                   <%= f.input :summary, input_html: { rows: 5, style: 'width: 100%' , 'ng-model' => 'news_item.summary' }  %>
                   <%= f.input :body   , input_html: { rows: 9, style: 'width: 100%' , 'ng-model' => 'news_item.body', placeholder: 'News body and / or link(s)' }  %>
-                  <%= f.button :submit, 'Add' , 'ng-show' => "mode == 'add'  "  %>
-                  <%= f.button :submit, 'Save', 'ng-show' => "mode == 'edit' "  %>
+                  <%= f.button :submit, 'Add' , 'ng-show' => "mode == 'add'  " %>
+                  <%= f.button :submit, 'Save', 'ng-show' => "mode == 'edit' " %>
                 <% end %>
             </form>
 

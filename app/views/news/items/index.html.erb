@@ -58,7 +58,7 @@
                        'ng-submit' => "mode != 'edit' && addItem(news_item) || saveItem(news_item)"
                       } do |f|
                 %>
-                  <%= f.input :language, collection: News::Item::LANGUAGES, as: :radio_buttons, input_html: { 'ng-model' => 'news_item.language' }  %>
+                  <%= f.input :language, collection: News::Item::LANGUAGES, input_html: { 'ng-model' => 'news_item.language' }  %>
                   <%= f.input :summary, input_html: { rows: 5, style: 'width: 100%' , 'ng-model' => 'news_item.summary' }  %>
                   <%= f.input :body   , input_html: { rows: 9, style: 'width: 100%' , 'ng-model' => 'news_item.body', placeholder: 'News body and / or link(s)' }  %>
                   <%= f.button :submit, 'Add' , 'ng-show' => "mode == 'add'  " %>

@@ -32,7 +32,11 @@ module News
 
       def resource_params
         params
-          .permit(:summary, :body)
+          .permit(
+            :summary,
+            :body,
+            :language
+          )
       end
 
   end

@@ -8,24 +8,24 @@
         <div class="panel panel-default">
           <div class="panel-body">
 
-            <div ng-repeat="item in items | orderBy:'created_at':true">
+            <div ng-repeat="news_item in news_items | orderBy:'created_at':true">
                   <div class="row" >
                     <div class="col-md-2">
-                      <div><small>{{ item.created_at | date }}</small></div>
+                      <div><small>{{ news_item.created_at | date }}</small></div>
                       <div>By <a href="">Ludo</a> </div>
                       <div>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="editItem(item)">
+                        <button type="button" class="btn btn-default btn-xs" ng-click="editItem(news_item)">
                           <i class="glyphicon glyphicon-pencil"></i>
                         </button>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="destroyItem(item)">
+                        <button type="button" class="btn btn-default btn-xs" ng-click="destroyItem(news_item)">
                           <i class="glyphicon glyphicon-remove"></i>
                         </button>
                       </div>
                     </div>
                     <div class="col-md-4">
-                      {{item.summary}}
+                      {{news_item.summary}}
                     </div>
-                    <div class="col-md-4">{{item.body}}</div>
+                    <div class="col-md-4">{{news_item.body}}</div>
                     <div class="col-md-2">
                       <small>
                       <a href="#">tag1</a>,
@@ -50,22 +50,25 @@
           <div class="panel-body">
 
 
-            <form ng-model="item" ng-submit="mode != 'edit' && addItem(item) || saveItem(item)">
-              <div class="form-group">
-                <label for="newsItemSummary">Summary</label>
-                <input id="newsItemSummary" type="text" ng-model="item.summary" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="newsItemBody">Body</label>
-                <textarea id="newsItemBody" rows=5 ng-model="item.body"  placeholder="News body and / or link(s)" class="form-control"></textarea>
-              </div>
-              <button ng-show="mode == 'add' ">Add </button>
-              <button ng-show="mode == 'edit'">Save</button>
+            <form ng-model="news_item" ng-submit="mode != 'edit' && addItem(news_item) || saveItem(news_item)">
+                <%= simple_fields_for News::Item.new,
+                      html: {
+                       'ng-model' => "news_item",
+                       'ng-submit' => "mode != 'edit' && addItem(news_item) || saveItem(news_item)"
+                      } do |f|
+                %>
+                  <%= f.input :summary, input_html: { rows: 5, style: 'width: 100%' , 'ng-model' => 'news_item.summary' }  %>
+                  <%= f.input :body   , input_html: { rows: 9, style: 'width: 100%' , 'ng-model' => 'news_item.body', placeholder: 'News body and / or link(s)' }  %>
+                  <%= f.button :submit, 'Add' , 'ng-show' => "mode == 'add'  "  %>
+                  <%= f.button :submit, 'Save', 'ng-show' => "mode == 'edit' "  %>
+                <% end %>
             </form>
+
 
           </div>
         </div>
       </div>
+
 
 
     </div>

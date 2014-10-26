@@ -1,13 +1,18 @@
 angular.module("NewsApp")
   .controller "NewsItemsCtrl", [ "$scope", "$window", "NewsItem",  ($scope, $window, NewsItem) ->
+
+    $scope.reset_form = ->
+      $scope.mode = 'add'
+      $scope.news_item = new NewsItem( language: '<%= News::Item::LANGUAGES.first %>')
+
     $scope.load = ->
       $scope.news_items = NewsItem.query()
-      $scope.mode = 'add'
+      $scope.reset_form()
 
     $scope.addItem = (data) ->
       NewsItem.save data, (news_item) ->
         $scope.news_items.unshift(new NewsItem(news_item))
-        $scope.news_item = new NewsItem() # clear the form
+        $scope.reset_form()
 
     $scope.destroyItem = (news_item) ->
       if $window.confirm('Are you sure ?')
@@ -16,8 +21,7 @@ angular.module("NewsApp")
 
     $scope.saveItem = (news_item) ->
       NewsItem.update({ id: news_item.id }, news_item)
-      $scope.mode = 'add'
-      $scope.news_item = new NewsItem() # clear the form
+      $scope.reset_form()
 
     $scope.editItem = (news_item) ->
       $scope.news_item = news_item

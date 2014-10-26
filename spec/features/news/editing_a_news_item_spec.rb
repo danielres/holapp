@@ -5,6 +5,8 @@ require 'factories_spec_helper'
 
 require 'capybara/poltergeist'
 
+include Capybara::Angular::DSL
+
 describe 'Editing a news item', :slow, :news, driver: :poltergeist do
   let(:super_user){ create(:super_user) }
   let!(:news_item){ create(:news_item, summary: 'Initial summary', body: 'Initial body') }
@@ -22,7 +24,7 @@ describe 'Editing a news item', :slow, :news, driver: :poltergeist do
           fill_in :news_item_summary, with: 'Updated summary'
           fill_in :news_item_body   , with: 'Updated body'
           find('input[type=submit]').click
-          sleep 0.1
+          wait_until_angular_ready
         end
       end
       it %q[updates the news item] do

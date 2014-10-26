@@ -5,6 +5,8 @@ require 'factories_spec_helper'
 
 require 'capybara/poltergeist'
 
+include Capybara::Angular::DSL
+
 describe 'Deleting a news item', :slow, :news, driver: :poltergeist do
   let(:super_user){ create(:super_user) }
   let!(:news_item){ create(:news_item, summary: 'The summary', body: 'The body') }
@@ -17,7 +19,7 @@ describe 'Deleting a news item', :slow, :news, driver: :poltergeist do
         visit news_path
         within the('news_items-list') do
           find( the 'delete-action').click
-          sleep 0.1
+          wait_until_angular_ready
         end
       end
       it %q[destroys the news item] do

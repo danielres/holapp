@@ -1,13 +1,6 @@
-require 'spec_helper'
-require 'fast_authentication_spec_helper'
-require 'purpose_selector_spec_helper'
-require 'factories_spec_helper'
+require_relative 'spec_helper'
 
-require 'capybara/poltergeist'
-
-include Capybara::Angular::DSL
-
-describe 'Deleting a news item', :slow, :news, driver: :poltergeist do
+describe 'Deleting a news item', :slow, :news, :js do
   let(:super_user){ create(:super_user) }
   let!(:news_item){ create(:news_item, summary: 'The summary', body: 'The body') }
 
@@ -22,7 +15,7 @@ describe 'Deleting a news item', :slow, :news, driver: :poltergeist do
           wait_until_angular_ready
         end
       end
-      it %q[destroys the news item] do
+      it 'destroys the news item' do
         expect( News::Item.count ).to eq 0
       end
     end

@@ -14,7 +14,10 @@ module News
     end
 
     def create
-      respond_with Item.create(resource_params)
+      item = Item.new(resource_params)
+      item.author = current_user
+      item.save!
+      respond_with item
     end
 
     def destroy

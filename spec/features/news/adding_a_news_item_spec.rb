@@ -1,7 +1,7 @@
 require_relative 'spec_helper'
 
 describe 'Adding a news item', :slow, :news, :js do
-  let(:super_user){ create(:super_user) }
+  let(:super_user){ create(:super_user, display_name: 'Spiderman') }
 
   context 'as superuser' do
 
@@ -20,6 +20,12 @@ describe 'Adding a news item', :slow, :news, :js do
         within the('news_items-list') do
           expect( page ).to have_content 'The summary'
           expect( page ).to have_content 'The body'
+        end
+      end
+      it 'sets the author of the news item'do
+        visit news_path
+        within the('news_items-list') do
+          expect( page ).to have_content 'Spiderman'
         end
       end
     end

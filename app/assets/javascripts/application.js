@@ -18,8 +18,8 @@
 //= require angular-resource
 
 //= require angular-sanitize
-//= require angular-markdown-directive
 //= require showdown
+//= require angular-markdown-directive
 
 //= require bootstrap
 //= require best_in_place
@@ -39,4 +39,6 @@ jQuery(function($){
     showMonthAfterYear: true
   };
   $.datepicker.setDefaults($.datepicker.regional['fr']);
+
 });
+

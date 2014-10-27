@@ -6,9 +6,10 @@ module News
     respond_to :json, :html
 
     def index
+      @items = Item.all
       respond_to do |format|
         format.html
-        format.json { render json: News::Item.all }
+        format.json
       end
     end
 

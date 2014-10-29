@@ -55,7 +55,7 @@
                   <%= f.input :summary, input_html: { rows: 5, style: 'width: 100%' , 'ng-model' => 'news_item.summary' }  %>
                   <%= f.input :body   , input_html: { rows: 3, style: 'width: 100%' , 'ng-model' => 'news_item.body', placeholder: 'News body and / or link(s)' }  %>
                   <%= f.button :submit, 'Add' , 'ng-show' => "mode == 'add'  " %>
-                  <%= f.button :submit, 'Save', 'ng-show' => "mode == 'edit' " %>
+                  <%= f.button :submit, 'Save changes', 'ng-show' => "mode == 'edit' " %>
                   <input class="btn" name="cancel" ng-show="mode == 'edit'" type="reset" value="Cancel" ng-click="reset_form()" />
                 <% end %>
             </form>

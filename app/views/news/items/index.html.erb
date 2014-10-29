@@ -17,9 +17,6 @@
                         <button type="button" class="btn btn-default btn-xs" ng-click="editItem(news_item)" data-purpose="update-action">
                           <i class="glyphicon glyphicon-pencil"></i>
                         </button>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="destroyItem(news_item)" data-purpose="delete-action">
-                          <i class="glyphicon glyphicon-remove"></i>
-                        </button>
                       </div>
                     </div>
                     <div class="col-md-4"  btf-markdown="news_item.summary"></div>
@@ -73,6 +70,22 @@
             </div>
           </div>
         </div>
+
+
+        <div class="panel panel-default" ng-show="mode == 'edit'">
+          <div class="panel-body">
+            <div id="dangerous_actions">
+            <label>Dangerous actions</label>
+              <div>
+                <button type="button" class="btn btn-default btn-xs" ng-click="destroyItem(news_item)" data-purpose="delete-action">
+                  Destroy <i class="glyphicon glyphicon-remove"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
       </div>
 
 

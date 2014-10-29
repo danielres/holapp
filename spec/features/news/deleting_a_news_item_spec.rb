@@ -11,9 +11,11 @@ describe 'Deleting a news item', :slow, :news, :js do
         login_as(super_user, scope: :user)
         visit news_path
         within the('news_items-list') do
-          find( the 'delete-action').click
+          find( the 'update-action').click
           wait_until_angular_ready
         end
+        find( the 'delete-action').click
+        wait_until_angular_ready
       end
       it 'destroys the news item' do
         expect( News::Item.count ).to eq 0

@@ -18,6 +18,7 @@ angular.module("NewsApp")
       if $window.confirm('Are you sure ?')
         NewsItem.delete news_item, (success) ->
           $scope.news_items.splice($scope.news_items.indexOf(news_item),1)
+          $scope.reset_form()
 
     $scope.saveItem = (news_item) ->
       NewsItem.update({ id: news_item.id }, news_item)

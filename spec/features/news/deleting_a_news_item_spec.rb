@@ -11,7 +11,7 @@ describe 'Deleting a news item', :slow, :news, :js do
         login_as(super_user, scope: :user)
         visit news_path
         within the('news_items-list') do
-          find( the 'update-action').click
+          find( the 'edit-action').click
           wait_until_angular_ready
         end
         find( the 'delete-action').click

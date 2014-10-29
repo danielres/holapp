@@ -11,7 +11,7 @@ describe 'Editing a news item', :slow, :news, :js do
         login_as(super_user, scope: :user)
         visit news_path
         within the('news_items-list') do
-          find( the 'update-action').click
+          find( the 'edit-action').click
         end
         within the 'news_item-form' do
           fill_in :news_item_summary, with: 'Updated summary'

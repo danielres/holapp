@@ -27,11 +27,9 @@
                     <div class="col-md-2">
                       <div class="language"><small>[{{news_item.language}}]</small></div>
                       <small>
-                      <a href="#">tag1</a>,
-                      <a href="#">tag2</a>,
-                      <a href="#">tag3</a>,
-                      <a href="#">tag4</a>,
-                      <a href="#">tag5</a>
+                      <span ng-repeat="tag in news_item.tags">
+                        <a href="{{tag.url}}">{{tag.name}}</a>{{$last ? '' : ', '}}
+                      </span>
                       </small>
                     </div>
                   </div>
@@ -64,7 +62,15 @@
                 <% end %>
             </form>
 
+          </div>
+        </div>
 
+
+        <div class="panel panel-default" ng-show="mode == 'edit'">
+          <div class="panel-body">
+            <div id="adding_themes">
+              <%= render partial: 'adding_taggings', locals: { tag_field: 'themes' } %>
+            </div>
           </div>
         </div>
       </div>

@@ -4,4 +4,11 @@ json.array!(@items) do |item|
     json.author item.author.name
     json.author_path person_path(item.author)
   end
+
+  json.tags item.taggings do |t|
+    json.id t.tag.id
+    json.url url_for(t.tag)
+    json.name t.tag.name
+  end
+
 end

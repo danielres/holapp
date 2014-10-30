@@ -2,7 +2,7 @@ class News::Item < ActiveRecord::Base
 
   before_save :preprocess_contents
 
-  LANGUAGES = %w(fr en)
+  LANGUAGES = %w(fr nl en)
   validates_presence_of  :summary
   validates_presence_of  :language
   validates_inclusion_of :language, in: LANGUAGES
@@ -32,8 +32,9 @@ class News::Item < ActiveRecord::Base
 
     def link_text
       case language
-      when 'fr' then 'lire la suite'
-      else 'read more'
+      when 'fr' then 'Lire la suite'
+      when 'nl' then 'Lees verder'
+      else 'Read more'
       end
     end
 

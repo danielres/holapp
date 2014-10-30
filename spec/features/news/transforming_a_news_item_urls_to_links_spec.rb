@@ -21,14 +21,14 @@ describe 'Transforming a news item urls to links ', :slow, :news, :js do
       it 'records the urls as markdown links'do
         news_item = News::Item.last
         expect( news_item.summary ).to include "[wikipedia.org](http://wikipedia.org)"
-        expect( news_item.body    ).to include "[lire la suite](http://wikipedia.org)"
+        expect( news_item.body    ).to include "[Lire la suite](http://wikipedia.org)"
       end
 
       it 'renders the urls as html links'do
         visit news_path
         within the('news_items-list') do
           expect( page.html ).to include '<a href="http://wikipedia.org">wikipedia.org</a>'
-          expect( page.html ).to include '<a href="http://wikipedia.org">lire la suite</a>'
+          expect( page.html ).to include '<a href="http://wikipedia.org">Lire la suite</a>'
         end
       end
 

@@ -9,7 +9,7 @@ describe 'Adding a news item', :slow, :news, :js do
       before(:each) do
         login_as(super_user, scope: :user)
         visit news_path
-        within the('news_item-form') do
+        within the('news_item-editor') do
           fill_in :news_item_summary, with: 'The summary'
           fill_in :news_item_body,    with: 'The body'
           find('input[type=submit]').click

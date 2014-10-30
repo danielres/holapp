@@ -13,11 +13,13 @@ describe 'Editing a news item', :slow, :news, :js do
         within the('news_items-list') do
           find( the 'edit-action').click
         end
-        within the 'news_item-form' do
-          fill_in :news_item_summary, with: 'Updated summary'
-          fill_in :news_item_body   , with: 'Updated body'
-          find('input[type=submit]').click
-          wait_until_angular_ready
+        within the 'news_item-editor' do
+          within the 'main-fields' do
+            fill_in :news_item_summary, with: 'Updated summary'
+            fill_in :news_item_body   , with: 'Updated body'
+            find('input[type=submit]').click
+            wait_until_angular_ready
+          end
         end
       end
       it 'updates the news item' do

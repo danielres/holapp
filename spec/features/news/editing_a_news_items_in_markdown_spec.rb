@@ -13,7 +13,7 @@ describe 'Live-editing a news item using markdown', :slow, :news, :js do
         within the('news_items-list') do
           find( the 'edit-action').click
         end
-        within the 'news_item-form' do
+        within the 'news_item-editor' do
           fill_in :news_item_summary, with: 'Updated **strong summary**'
           fill_in :news_item_body   , with: 'Updated **strong body**'
           wait_until_angular_ready

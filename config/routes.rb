@@ -27,6 +27,10 @@ Marketplace::Application.routes.draw do
     get "/", to: "items#index"
   end
 
+  namespace :forecasts do
+    get "/(:start_date)", to: "forecasts#index"
+  end
+
   scope '/api', defaults: { format: :json } do
     namespace :news do
       resources :items

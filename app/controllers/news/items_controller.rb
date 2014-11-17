@@ -6,10 +6,15 @@ module News
     respond_to :json, :html
 
     def index
-      @items = Item.all
       respond_to do |format|
         format.html
-        format.json
+        format.json do
+          if params[:filter] == 'interesting'
+            @items = Item.all.select{ |i| interesting?(i) }
+          else
+            @items = Item.all
+          end
+        end
       end
     end
 
@@ -29,6 +34,10 @@ module News
     end
 
     private
+
+      def interesting?(news_item)
+        ( current_user.taggings.map(&:tag) & news_item.taggings.map(&:tag) ).any?
+      end
 
       def resource
         Item.find(params[:id])

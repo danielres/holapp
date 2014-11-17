@@ -8,6 +8,18 @@
         <div class="panel panel-default">
           <div class="panel-body" data-purpose="news_items-list">
 
+
+            <ul class="nav nav-tabs">
+              <li ng-class="{active:filter=='all'}">
+                <a ng-click="setFilter('all')" data-purpose="filter-all">all</a>
+              </li>
+              <li ng-class="{active:filter=='interesting'}">
+                <a ng-click="setFilter('interesting')" data-purpose="filter-interesting">interesting</a>
+              </li>
+            </ul>
+            <br />
+
+
             <div ng-repeat="news_item in news_items | orderBy:'created_at':true">
                   <div class="row news_item">
                     <div class="col-md-2">

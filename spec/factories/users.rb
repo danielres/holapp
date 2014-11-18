@@ -4,13 +4,14 @@ FactoryGirl.define do
 
   factory :user do
 
+    first_name 'New user'
+    last_name 'New user'
     password 'changeme'
     password_confirmation 'changeme'
     confirmed_at Time.now
+    sequence(:email) { |n| "person-#{n}@example.com" }
 
     factory :no_roles_user do
-      first_name 'New user'
-      last_name 'New user'
       email 'regular@example.com'
     end
 

@@ -9,11 +9,7 @@ module News
       respond_to do |format|
         format.html
         format.json do
-          if params[:filter] == 'interesting'
-            @items = Item.all.select{ |i| interesting?(i) }
-          else
-            @items = Item.all
-          end
+          @items = Fetcher.new(current_user, params[:filter]).call
         end
       end
     end

@@ -3,9 +3,10 @@ module News
 
   class Fetcher
 
-    def initialize(user, filter)
+    def initialize(user, filter, created_after = nil)
       @user   = user
       @filter = filter
+      @created_after = created_after || DateTime.new(2000)
     end
 
 
@@ -20,11 +21,11 @@ module News
     private
 
       def interesting
-        Item.all.select{ |i| interesting?(i) }
+        all.select{ |i| interesting?(i) }
       end
 
       def all
-        Item.all
+        Item.where("created_at > :created_after", { created_after: @created_after } )
       end
 
       def interesting?(news_item)

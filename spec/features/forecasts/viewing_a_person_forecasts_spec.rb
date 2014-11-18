@@ -79,7 +79,7 @@ describe 'Viewing a persons forecasts' do
         within the('forecasts-list') do
           expect( page ).to have_css( ".occupation"        , text: "5"  , count: 3 )
           expect( page ).to have_css( ".occupation"        , text: "2"  , count: 6 )
-          expect( page ).to have_css( "td:has(.occupation)", text: "5 2", count: 2 )
+          expect( page ).to have_xpath( "//td[*[@class='occupation']]", text: "5 2", count: 2 )
         end
       end
     end

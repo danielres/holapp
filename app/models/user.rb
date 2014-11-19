@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true
   validates :first_name, uniqueness: { scope: :last_name, case_sensitive: false }
 
-  devise :database_authenticatable, :registerable, :confirmable,
+  devise :database_authenticatable, :registerable,
          :trackable, :validatable, :timeoutable,
          :omniauthable
 

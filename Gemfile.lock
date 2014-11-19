@@ -416,6 +416,7 @@ DEPENDENCIES
   devise_invitable
   email_spec
   erector
+  execjs
   factory_girl_rails
   figaro
   github-markdown

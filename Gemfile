@@ -87,3 +87,6 @@ group :test do
   gem 'poltergeist'
   gem 'capybara-angular'
 end
+
+
+gem 'execjs'

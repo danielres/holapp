@@ -15,9 +15,9 @@ module News
               td renderer.call i.body
               td i.taggings
                     .map(&:tag)
-                    .map{|i| link_to i, i }
+                    .map{|i| link_to(i, @view_context.polymorphic_url(i)) }
                     .join(', ').html_safe
-              td link_to(i.author, i.author)
+              td link_to(i.author, @view_context.polymorphic_url(i.author))
             end
           end
         end

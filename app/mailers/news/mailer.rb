@@ -4,9 +4,8 @@ class News::Mailer < ActionMailer::Base
   def digest_email(user)
     subject     = "Your Marketplace news digest"
     news_items  = News::Fetcher.new(user, 'interesting').call
-    digest_body = News::Digest.new(news_items).call
     mail(to: user.email, subject: subject) do |format|
-      format.html { render locals: { digest_body: digest_body, user: user} }
+      format.html { render locals: { news_items: news_items, user: user} }
     end
   end
 

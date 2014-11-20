@@ -5,6 +5,6 @@
   </head>
   <body>
     <h1>Hello <%= user.name %>, here are your freshes news from the Marketplace</h1>
-    <%= digest_body %>
+    <%= News::DigestPresenter.new(collection: news_items, view_context: self).to_html %>
   </body>
 </html>

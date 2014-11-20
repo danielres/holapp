@@ -1,5 +1,5 @@
 class News::Mailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: ENV['MAILER_FROM_ADDRESS'] || "from@example.com"
 
   def digest_email(user)
     subject     = "Your Marketplace news digest"

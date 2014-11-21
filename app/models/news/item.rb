@@ -17,12 +17,17 @@ class News::Item < ActiveRecord::Base
   private
 
     def preprocess_contents
-      self.summary = md_links(summary.to_s)
-      self.body    = md_links(body.to_s, link_text)
+      md_links(summary)
+      md_links(body, link_text)
     end
 
     def md_links s, link_text = nil
-      Rinku.auto_link(s){ |url| link_text || url }
+      url = /( |^)http:\/\/([^\s]*\.[^\s]*)( |$)/
+      while s =~ url
+        name = $2
+        s.sub! /( |^)http:\/\/#{name}( |$)/, " [#{ link_text || name }](http://#{ name }) "
+      end
+      s
     end
 
     def link_text

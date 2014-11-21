@@ -10,24 +10,15 @@ class News::Item < ActiveRecord::Base
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
   has_many :taggings, as: :taggable, dependent: :destroy
 
-  def name       ; summary end
-  def to_s       ; name  end
+  def name; summary end
+  def to_s; name    end
 
 
   private
 
     def preprocess_contents
-      md_links(summary)
-      md_links(body, link_text)
-    end
-
-    def md_links s, link_text = nil
-      url = /( |^)http:\/\/([^\s]*\.[^\s]*)( |$)/
-      while s =~ url
-        name = $2
-        s.sub! /( |^)http:\/\/#{name}( |$)/, " [#{ link_text || name }](http://#{ name }) "
-      end
-      s
+      self.summary = MdLinker.new(summary        ).call
+      self.body    = MdLinker.new(body, link_text).call
     end
 
     def link_text

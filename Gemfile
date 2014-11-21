@@ -90,3 +90,4 @@ end
 
 
 gem 'execjs'
+gem 'rinku'

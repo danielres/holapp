@@ -5,6 +5,13 @@ module News
 
     respond_to :json, :html
 
+    def show
+      render inline: ItemPresenter
+                      .new(viewer: current_user, item: resource, view_context: view_context)
+                      .to_html,
+                      layout: true
+    end
+
     def index
       respond_to do |format|
         format.html

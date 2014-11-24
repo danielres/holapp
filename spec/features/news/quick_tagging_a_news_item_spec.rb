@@ -11,7 +11,7 @@ describe 'Quick tagging a news item', :slow, :news, :js, driver: :selenium do
 
     describe 'adding themes' do
       before(:each) do
-        visit news_path
+        visit news_items_path
         find( the 'edit-action').click
         wait_until_angular_ready
       end
@@ -20,7 +20,7 @@ describe 'Quick tagging a news item', :slow, :news, :js, driver: :selenium do
           fill_in 'tagging[tag_list]', with: 'tag1, tag2,'
           first('[type=submit]').click
         end
-        visit news_path
+        visit news_items_path
         expect( page ).to have_content('tag1')
         expect( page ).to have_content('tag2')
       end

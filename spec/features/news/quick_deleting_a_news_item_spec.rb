@@ -9,7 +9,7 @@ describe 'Quick deleting a news item', :slow, :news, :js do
     describe 'deleting the news item' do
       before(:each) do
         login_as(super_user, scope: :user)
-        visit news_path
+        visit news_items_path
         within the('news_items-list') do
           find( the 'edit-action').click
           wait_until_angular_ready

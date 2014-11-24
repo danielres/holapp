@@ -17,7 +17,7 @@ describe 'Quick filtering news items', :slow, :news, :js do
 
     before do
       login_as(super_user, scope: :user)
-      visit news_path
+      visit news_items_path
     end
 
     describe "setting filter to 'all'" do

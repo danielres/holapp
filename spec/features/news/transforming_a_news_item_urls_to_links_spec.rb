@@ -9,7 +9,7 @@ describe 'Transforming a news item urls to links ', :slow, :news, :js do
 
       before(:each) do
         login_as(super_user, scope: :user)
-        visit news_path
+        visit news_items_path
         within the('news_item-editor') do
           fill_in :news_item_summary, with: 'A link to http://wikipedia.org'
           fill_in :news_item_body,    with: 'A link to http://wikipedia.org'
@@ -20,14 +20,14 @@ describe 'Transforming a news item urls to links ', :slow, :news, :js do
 
       it 'records the urls as markdown links'do
         news_item = News::Item.last
-        expect( news_item.summary ).to include "[wikipedia.org](http://wikipedia.org)"
+        expect( news_item.summary ).to include "[http://wikipedia.org](http://wikipedia.org)"
         expect( news_item.body    ).to include "[Lire la suite](http://wikipedia.org)"
       end
 
       it 'renders the urls as html links'do
-        visit news_path
+        visit news_items_path
         within the('news_items-list') do
-          expect( page.html ).to include '<a href="http://wikipedia.org">wikipedia.org</a>'
+          expect( page.html ).to include '<a href="http://wikipedia.org">http://wikipedia.org</a>'
           expect( page.html ).to include '<a href="http://wikipedia.org">Lire la suite</a>'
         end
       end

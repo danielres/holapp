@@ -3,6 +3,8 @@ json.array!(@items) do |item|
   if item.author
     json.author item.author.name
     json.author_path person_path(item.author)
+    json.path polymorphic_path(item)
+
   end
 
   json.tags item.taggings do |t|

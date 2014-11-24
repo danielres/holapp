@@ -9,7 +9,7 @@ describe 'Quick editing a news item using markdown', :slow, :news, :js do
     describe 'using the form to edit the news item using markdown' do
       before(:each) do
         login_as(super_user, scope: :user)
-        visit news_path
+        visit news_items_path
         within the('news_items-list') do
           find( the 'edit-action').click
         end

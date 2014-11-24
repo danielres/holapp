@@ -3,7 +3,7 @@ module News
 
     before_filter :authenticate_user!
 
-    respond_to :json, :html
+    include ResourceInPlaceUpdate
 
     def show
       render inline: ItemPresenter
@@ -12,42 +12,17 @@ module News
                       layout: true
     end
 
-    def index
-      respond_to do |format|
-        format.html
-        format.json do
-          @items = Fetcher.new(current_user, params[:filter]).call
-        end
-      end
-    end
-
-    def create
-      item = Item.new(resource_params)
-      item.author = current_user
-      item.save!
-      respond_with item
-    end
-
     def destroy
-      respond_to do |format|
-        format.html do
-          redirect_to news_path if resource.destroy
-        end
-        format.json do
-          respond_with resource.destroy
-        end
-      end
+      DestroyingAResource
+        .new(current_user, resource)
+        .call(
+          success: ->{ redirect_to news_items_path },
+          failure: ->{ redirect_to :back },
+        )
     end
 
-    def update
-      respond_with resource.update(resource_params)
-    end
 
     private
-
-      def interesting?(news_item)
-        ( current_user.taggings.map(&:tag) & news_item.taggings.map(&:tag) ).any?
-      end
 
       def resource
         Item.find(params[:id])
@@ -55,6 +30,7 @@ module News
 
       def resource_params
         params
+          .require(:news_item)
           .permit(
             :summary,
             :body,

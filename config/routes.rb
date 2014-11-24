@@ -24,18 +24,16 @@ Marketplace::Application.routes.draw do
 
 
   namespace :news do
-    get "/"   , to: "items#index"
-    get "/:id", to: "items#show", as: 'item'
-    delete "/:id", to: "items#destroy"
+    resources :items, path: '/'
   end
 
   namespace :forecasts do
     get "/(:start_date)", to: "forecasts#index"
   end
 
-  scope '/api', defaults: { format: :json } do
+  namespace :api, defaults: { format: :json }, contraints: { format: :json } do
     namespace :news do
-      resources :items
+      resources :items, path: '/'
     end
   end
 

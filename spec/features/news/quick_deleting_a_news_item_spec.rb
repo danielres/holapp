@@ -1,6 +1,6 @@
 require_relative 'spec_helper'
 
-describe 'Deleting a news item', :slow, :news, :js do
+describe 'Quick deleting a news item', :slow, :news, :js do
   let(:super_user){ create(:super_user) }
   let!(:news_item){ create(:news_item, summary: 'The summary', body: 'The body') }
 

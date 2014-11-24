@@ -1,6 +1,6 @@
 require_relative 'spec_helper'
 
-describe 'Filtering news item', :slow, :news, :js do
+describe 'Quick filtering news items', :slow, :news, :js do
   let(:super_user){ create(:super_user) }
 
   let!(:news_item_not_interesting){ create(:news_item, summary: 'Not interesting') }

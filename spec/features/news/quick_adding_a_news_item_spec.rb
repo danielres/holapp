@@ -1,6 +1,6 @@
 require_relative 'spec_helper'
 
-describe 'Adding a news item', :slow, :news, :js do
+describe 'Quick adding a news item', :slow, :news, :js do
   let(:super_user){ create(:super_user, display_name: 'Spiderman') }
 
   context 'as superuser' do

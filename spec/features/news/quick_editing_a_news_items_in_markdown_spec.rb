@@ -1,6 +1,6 @@
 require_relative 'spec_helper'
 
-describe 'Live-editing a news item using markdown', :slow, :news, :js do
+describe 'Quick editing a news item using markdown', :slow, :news, :js do
   let(:super_user){ create(:super_user) }
   let!(:news_item){ create(:news_item, summary: 'Initial summary', body: 'Initial body') }
 

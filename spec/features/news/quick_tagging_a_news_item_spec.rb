@@ -1,6 +1,6 @@
 require_relative 'spec_helper'
 
-describe 'Tagging a news item', :slow, :news, :js, driver: :selenium do
+describe 'Quick tagging a news item', :slow, :news, :js, driver: :selenium do
   let(:super_user){ create(:super_user) }
   let!(:news_item){ create(:news_item, summary: 'The summary', body: 'The body') }
 

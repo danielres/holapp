@@ -29,6 +29,9 @@
                         <button type="button" class="btn btn-default btn-xs" ng-click="editItem(news_item)" data-purpose="edit-action">
                           <i class="glyphicon glyphicon-pencil"></i>
                         </button>
+                        <a href="{{news_item.path}}" class="btn btn-default btn-xs" data-purpose="advanced-edit-action">
+                          <i class="glyphicon glyphicon-wrench"></i>
+                        </a>
                       </div>
                     </div>
                     <div class="col-md-4"  btf-markdown="news_item.summary"></div>

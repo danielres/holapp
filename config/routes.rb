@@ -26,6 +26,7 @@ Marketplace::Application.routes.draw do
   namespace :news do
     get "/"   , to: "items#index"
     get "/:id", to: "items#show", as: 'item'
+    delete "/:id", to: "items#destroy"
   end
 
   namespace :forecasts do

@@ -29,7 +29,14 @@ module News
     end
 
     def destroy
-      respond_with resource.destroy
+      respond_to do |format|
+        format.html do
+          redirect_to news_path if resource.destroy
+        end
+        format.json do
+          respond_with resource.destroy
+        end
+      end
     end
 
     def update

@@ -3,7 +3,7 @@ require 'fast_authentication_spec_helper'
 require 'factories_spec_helper'
 require 'purpose_selector_spec_helper'
 
-describe 'Item page', :slow do
+describe 'Item page', :news, :slow do
   let(:news_item){ create(:news_item) }
 
 

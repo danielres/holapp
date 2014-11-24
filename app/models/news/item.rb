@@ -17,8 +17,10 @@ class News::Item < ActiveRecord::Base
   private
 
     def preprocess_contents
-      self.summary = MdLinker.new(summary        ).call
-      self.body    = MdLinker.new(body, link_text).call
+      if new_record?
+        self.summary = MdLinker.new(summary        ).call
+        self.body    = MdLinker.new(body, link_text).call
+      end
     end
 
     def link_text

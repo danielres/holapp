@@ -7,13 +7,8 @@ module News
 
     def content
       row do
-        col(6) do
-          panel do
-            dl do
-              dt renderer.call(@item.summary)
-              dd renderer.call(@item.body)
-            end
-          end
+        col(12) do
+          panel{ item_details_html }
         end
       end
       row do
@@ -49,6 +44,38 @@ module News
           li delete_resource_link(@item)
         end
       end
+
+    def item_details_html
+      table.details do
+        tr do
+          th 'Summary'
+          td do
+            random_val = (rand * 1000).to_i
+            best_in_place_activator(random_val, :body)
+            text best_in_place @item, :body,
+                    type: :textarea,
+                    path: "/news/#{@item.to_param}",
+                     nil: '…',
+            display_with: ->(txt){ render_description(txt) },
+               activator: "##{ random_val }"
+          end
+        end
+        tr do
+          th 'Body'
+          td do
+            random_val = (rand * 1000).to_i
+            best_in_place_activator(random_val, :summary)
+            text best_in_place @item, :summary,
+                    type: :textarea,
+                    path: "/news/#{@item.to_param}",
+                     nil: '…',
+            display_with: ->(txt){ render_description(txt) },
+               activator: "##{ random_val }"
+          end
+        end
+      end
+    end
+
 
 
   end

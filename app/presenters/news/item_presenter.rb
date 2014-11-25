@@ -7,9 +7,8 @@ module News
 
     def content
       row do
-        col(12) do
-          panel{ item_details_html }
-        end
+        col(6){ panel{ item_details_html1 } }
+        col(6){ panel{ item_details_html2 } }
       end
       row do
         col(6){ panel{ taggings_on_html(:themes) } }
@@ -45,7 +44,7 @@ module News
         end
       end
 
-    def item_details_html
+    def item_details_html1
       table.details do
         tr do
           th 'Summary'
@@ -71,6 +70,29 @@ module News
                      nil: '…',
             display_with: ->(txt){ render_description(txt) },
                activator: "##{ random_val }"
+          end
+        end
+      end
+    end
+
+    def item_details_html2
+      table.details do
+        tr('data-purpose' => 'language-editor') do
+          th 'Language'
+          td best_in_place @item, :language , collection: Item::LANGUAGES.map{ |l| [ l, l ]  }, type: :select
+        end
+        tr('data-purpose' => 'author-editor') do
+          th 'Author'
+          td best_in_place @item, :author_id, collection: User.all.map{ |u| [ u.id, u.name ] }, type: :select
+        end
+        tr do
+          th 'Created at'
+          td @view_context.localize( @item.created_at, format: :short)
+        end
+        unless @item.updated_at == @item.created_at
+          tr do
+            th 'Edited at'
+            td @view_context.localize( @item.updated_at, format: :short)
           end
         end
       end

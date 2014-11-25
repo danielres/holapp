@@ -34,7 +34,8 @@ module News
           .permit(
             :summary,
             :body,
-            :language
+            :language,
+            :author_id,
           )
       end
 

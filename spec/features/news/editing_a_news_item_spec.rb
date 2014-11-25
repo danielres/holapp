@@ -16,7 +16,7 @@ describe 'Editing a news item', :slow do
     end
 
 
-    describe 'updating the news_item details', js: true do
+    describe 'updating the news_item details', :js, driver: :selenium do
       before(:each) do
         news_item.update(
               summary: 'initial_summary',
@@ -35,7 +35,29 @@ describe 'Editing a news item', :slow do
         expect( page ).to have_content('updated_body')
       end
 
-      it "supports updating the language on the news_item's page"
+      it "supports updating the language on the news_item's page" do
+        news_item.update(language: 'fr')
+        visit news_item_path(news_item)
+        edit_in_place_select(news_item, :language, 'en')
+        visit news_item_path(news_item)
+        within the('language-editor') do
+          expect( page ).not_to have_content 'fr'
+          expect( page ).to have_content 'en'
+        end
+      end
+
+      it "supports updating the author on the news_item's page" do
+        visit news_item_path(news_item)
+        expect( page ).not_to have_content 'Superuser'
+
+        edit_in_place_select(news_item, :author_id, 'Superuser')
+        visit news_item_path(news_item)
+
+        within the('author-editor') do
+          expect( page ).to have_content 'Superuser'
+        end
+      end
+
 
     end
 

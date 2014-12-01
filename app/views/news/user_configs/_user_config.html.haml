@@ -1,0 +1,22 @@
+%table
+  %tbody
+    %tr
+      %th
+        %p Receive news digests by email ?
+        %p
+          %small Last received at: #{ user_config.digest_sent_at || 'never' }
+        %p
+          %button.btn.btn-sm.btn-primary
+            %i{ class: 'glyphicon glyphicon-envelope' }
+            receive now
+          %button.btn.btn-sm
+            %i{ class: 'glyphicon glyphicon-eye-open' }
+            preview
+      %td= best_in_place user_config, :receive_digest, type: :checkbox, collection: [raw("<i class='glyphicon glyphicon-unchecked'></i>"), raw("<i class='glyphicon glyphicon-check'></i>")]
+    %tr
+      %th
+        Periodicity
+      %td
+        \--
+
+

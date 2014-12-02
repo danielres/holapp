@@ -16,7 +16,7 @@ describe 'Config page', :slow do
     end
 
     it 'supports choosing to receive the news digest by email' do
-      expect( page ).to have_content 'UserConfigs#index'
+      expect( page ).to have_the 'news_user_config-editor'
     end
 
   end

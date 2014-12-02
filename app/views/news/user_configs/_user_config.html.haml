@@ -1,4 +1,4 @@
-%table
+%table{ data: { purpose: 'news_user_config-editor' } }
   %tbody
     %tr
       %th
@@ -12,7 +12,9 @@
           %button.btn.btn-sm
             %i{ class: 'glyphicon glyphicon-eye-open' }
             preview
-      %td= best_in_place user_config, :receive_digest, type: :checkbox, collection: [raw("<i class='glyphicon glyphicon-unchecked'></i>"), raw("<i class='glyphicon glyphicon-check'></i>")]
+      %td
+        = # best_in_place user_config, :receive_digest, type: :checkbox, collection: [raw("<i class='glyphicon glyphicon-unchecked'></i>"), raw("<i class='glyphicon glyphicon-check'></i>")]
+        %i.glyphicon.glyphicon-check
     %tr
       %th
         Periodicity

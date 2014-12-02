@@ -1,2 +1,7 @@
 %h1 UserConfigs#index
-%p Find me in app/views/user_configs/index.html.haml
+- panels.each do |p|
+  .panel.panel-default
+    .panel-heading
+      = p.class.to_s.split('::').first
+    .panel-body
+      = render p

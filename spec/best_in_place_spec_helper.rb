@@ -25,6 +25,10 @@ module BestInPlace
         bip_select *args
         sleep 0.1
       end
+      def edit_in_place_boolean *args
+        bip_bool *args
+        sleep 0.2
+      end
       def edit_in_place_date *args
         expect( page.evaluate_script("$('.ui-datepicker-calendar').is(':visible')") ).to be_false
         bip_text *args

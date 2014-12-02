@@ -26,6 +26,7 @@ Marketplace::Application.routes.draw do
 
   namespace :news do
     resources :items, path: '/'
+    resources :user_configs
   end
 
   namespace :forecasts do

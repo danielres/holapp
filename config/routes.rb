@@ -21,6 +21,7 @@ Marketplace::Application.routes.draw do
   end
   get "/cvs", to: "cvs#index", as: 'cvs'
 
+  get "/config", to: "user_configs#index", as: 'user_configs'
 
 
   namespace :news do

@@ -21,6 +21,7 @@ module Marketplace
     end
 
     config.autoload_paths << Rails.root.join("app/use_cases/shared")
+    config.autoload_paths << Rails.root.join("app/use_cases/news"  )
     config.autoload_paths << Rails.root.join('lib')
 
     # Settings in config/environments/* take precedence over those specified here.

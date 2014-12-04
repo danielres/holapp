@@ -22,6 +22,13 @@ describe News::ReceivingADigestEmail do
             .and_call_original
           subject.call
         end
+        it 'keeps tracks of the last time the digest was mailed' do
+          expect( subject.config.digest_sent_at ).not_to be_kind_of(Time)
+          expect( subject.config.digest_sent_at ).to     be_nil
+          subject.call
+          expect( subject.config.digest_sent_at ).to     be_kind_of(Time)
+          expect( subject.config.digest_sent_at ).not_to be_nil
+        end
       end
       context 'with no news items to send' do
         it 'sends an email informing the user of the absence of news'
@@ -29,8 +36,12 @@ describe News::ReceivingADigestEmail do
     end
 
     context 'when the recipient has opted out' do
+      before{ subject.config.receive_digest = false }
       context 'with news items to send' do
-        it 'does not trigger the mailing of the digest'
+        it 'does not trigger the mailing of the digest' do
+          expect( News::Mailer ).not_to receive(:digest_email)
+          subject.call
+        end
       end
     end
   end

@@ -3,20 +3,24 @@ module News
 
     include IsAnAdvancedCallable
 
+    attr_reader :config
+
     def initialize(recipient_user)
       @recipient  = recipient_user
-      @news_items = News::Fetcher.new(@recipient, 'interesting').call
+      @config     = News::UserConfig.first_or_create(user: @recipient)
+      @news_items = News::Fetcher.new(@recipient, 'interesting', @config.digest_sent_at).call
     end
 
     private
 
       def execution
+        return unless @config.receive_digest?
         News::Mailer
           .digest_email(
             @recipient,
             @news_items,
           )
-          .deliver
+          .deliver && @config.refresh_digest_sent_at!
       end
 
       def authorized?

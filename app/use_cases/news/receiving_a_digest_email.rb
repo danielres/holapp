@@ -15,7 +15,7 @@ module News
     private
 
       def execution
-        return :user_refuses_digests if @config.receive_digest? == false
+        return :user_refuses_digests if @config.receive_digest == false
         return :news_items_empty     if @news_items.empty?
         News::Mailer
           .digest_email(
@@ -30,7 +30,7 @@ module News
       end
 
       def journal_event
-        return {} if @config.receive_digest? == false
+        return {} if @config.receive_digest == false
         return {} if @news_items.empty?
         {
           user:    @recipient,

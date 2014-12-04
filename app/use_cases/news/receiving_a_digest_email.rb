@@ -4,6 +4,7 @@ module News
     include IsAnAdvancedCallable
 
     attr_reader :config
+    attr_writer :news_items
 
     def initialize(recipient_user)
       @recipient  = recipient_user
@@ -14,7 +15,8 @@ module News
     private
 
       def execution
-        return unless @config.receive_digest?
+        return :user_refuses_digests if @config.receive_digest? == false
+        return :news_items_empty     if @news_items.empty?
         News::Mailer
           .digest_email(
             @recipient,
@@ -28,6 +30,8 @@ module News
       end
 
       def journal_event
+        return {} if @config.receive_digest? == false
+        return {} if @news_items.empty?
         {
           user:    @recipient,
           action:  :received_news_digest_by_mail,

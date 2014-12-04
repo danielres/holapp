@@ -12,13 +12,16 @@ describe News::ReceivingADigestEmail do
   context 'when authorized' do
 
     before{ authorization.call }
+    let(:news_items){ [ build(:news_item) ] }
 
     context 'when the recipient has opted in' do
-      context 'with news items to send' do
+      before{ subject.config.receive_digest = true }
+       context 'with news items to send' do
+        before{ subject.news_items = news_items }
         it 'triggers the mailing of the digest' do
           expect( News::Mailer )
             .to receive(:digest_email).once
-            .with( user, anything)
+            .with( user, news_items)
             .and_call_original
           subject.call
         end
@@ -30,14 +33,28 @@ describe News::ReceivingADigestEmail do
           expect( subject.config.digest_sent_at ).not_to be_nil
         end
       end
+      context 'with news items to send' do
+        before{ subject.news_items = news_items }
+        it 'triggers the mailing of the digest' do
+          expect( News::Mailer ).to receive(:digest_email).once
+            .with( user, news_items)
+            .and_call_original
+          subject.call
+        end
+      end
       context 'with no news items to send' do
-        it 'sends an email informing the user of the absence of news'
+        before{ subject.news_items = [] }
+        it 'does not trigger the mailing of the digest' do
+          expect( News::Mailer ).not_to receive(:digest_email)
+          subject.call
+        end
       end
     end
 
-    context 'when the recipient has opted out' do
+    context 'when the recipient refuses digests' do
       before{ subject.config.receive_digest = false }
       context 'with news items to send' do
+        before{ subject.news_items = news_items }
         it 'does not trigger the mailing of the digest' do
           expect( News::Mailer ).not_to receive(:digest_email)
           subject.call

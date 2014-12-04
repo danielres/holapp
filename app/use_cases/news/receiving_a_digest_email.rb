@@ -8,7 +8,7 @@ module News
 
     def initialize(recipient_user)
       @recipient  = recipient_user
-      @config     = News::UserConfig.first_or_create(user: @recipient)
+      @config     = News::UserConfig.where(user: @recipient).first_or_create
       @news_items = News::Fetcher.new(@recipient, 'interesting', @config.digest_sent_at).call
     end
 

@@ -3,7 +3,7 @@ class UserConfigsController < ApplicationController
     render locals: {
       panels:
       [
-        News::UserConfig.first_or_create(user: current_user),
+        News::UserConfig.where(user: current_user).first_or_create,
       ]
     }
   end

@@ -31,8 +31,7 @@ module News
       def interesting?(news_item)
         news_item_themes     = news_item.taggings.select{|t| t.context == 'themes' }.map(&:tag)
         user_motivations     = @user.taggings.select{|t| t.context == 'motivations'}.map(&:tag)
-        user_motivations_sub = user_motivations.map(&:children).flatten
-        user_motivations_sub += user_motivations_sub.map(&:children).flatten
+        user_motivations_sub = user_motivations.map(&:descendants).flatten
         all_user_motivations = user_motivations + user_motivations_sub
         (  all_user_motivations & news_item_themes ).any?
       end

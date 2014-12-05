@@ -44,11 +44,11 @@ describe News::Fetcher, :news do
           before do
             AddingTaggings.new(super_user, tagged_user, 'java', :motivations).call
           end
-          it 'includes sub-themed news' do
+          it 'includes sub-themed news items' do
             expect( News::Fetcher.new(tagged_user, 'interesting').call ).to include news_item_java
             expect( News::Fetcher.new(tagged_user, 'interesting').call ).to include news_item_jee
           end
-          it 'includes sub-sub-themed news' do
+          it 'includes sub-sub-...-themed news items' do
             expect( News::Fetcher.new(tagged_user, 'interesting').call ).to include news_item_jee_tips
           end
         end

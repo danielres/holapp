@@ -19,6 +19,12 @@ class Tag < ActiveRecord::Base
       .map(&:tag)
   end
 
+  def descendants
+    result = children
+    children.each { |p| result.concat(p.descendants) }
+    result
+  end
+
   def ancestors
     result = parents
     parents.each { |p| result.concat(p.ancestors) }

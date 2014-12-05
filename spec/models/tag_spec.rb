@@ -57,6 +57,18 @@ describe Tag do
         expect(css.parents).to  match_array []
       end
     end
+    describe '#descendants' do
+      let(:vegetal) { FactoryGirl.create(:tag, name: 'vegetal') }
+      let(:fruit  ) { FactoryGirl.create(:tag, name: 'fruit'  ) }
+      let(:berry  ) { FactoryGirl.create(:tag, name: 'berry'  ) }
+      before(:each) do
+        Tagging.create( tag: fruit  , taggable: berry, context: 'tag_parents' )
+        Tagging.create( tag: vegetal, taggable: fruit, context: 'tag_parents')
+      end
+      it 'returns the descendants of a tag' do
+        expect(vegetal.descendants).to match_array [ fruit, berry ]
+      end
+    end
     describe '#ancestors' do
       let(:jsf) { FactoryGirl.create(:tag, name: 'jsf') }
       let(:html) { FactoryGirl.create(:tag, name: 'html') }

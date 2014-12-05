@@ -25,6 +25,7 @@ module News
           .map{|tag| tag.taggings }.flatten.uniq
           .select{|t| t.taggable_type == 'News::Item'}
           .map(&:taggable)
+          .select{ |item| item.created_at > @created_after }
       end
 
       def all

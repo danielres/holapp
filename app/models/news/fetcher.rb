@@ -21,19 +21,26 @@ module News
     private
 
       def interesting
-        all.select{ |i| interesting?(i) }
+        ( user_motivations + user_sub_motivations )
+          .map{|tag| tag.taggings }.flatten.uniq
+          .select{|t| t.taggable_type == 'News::Item'}
+          .map(&:taggable)
       end
 
       def all
         Item.where("created_at > :created_after", { created_after: @created_after } )
       end
 
-      def interesting?(news_item)
-        news_item_themes     = news_item.taggings.select{|t| t.context == 'themes' }.map(&:tag)
-        user_motivations     = @user.taggings.select{|t| t.context == 'motivations'}.map(&:tag)
-        user_motivations_sub = user_motivations.map(&:descendants).flatten
-        all_user_motivations = user_motivations + user_motivations_sub
-        (  all_user_motivations & news_item_themes ).any?
+      def user_motivations
+        @user.taggings
+          .select{|t| t.context == 'motivations'}
+          .map(&:tag)
+      end
+
+      def user_sub_motivations
+         user_motivations
+          .map(&:descendants)
+          .flatten.uniq
       end
 
 

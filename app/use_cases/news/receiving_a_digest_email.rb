@@ -15,8 +15,16 @@ module News
     private
 
       def execution
-        return :user_refuses_digests if @config.receive_digest == false
-        return :news_items_empty     if @news_items.empty?
+        puts ""
+        puts "Sending digest with #{ @news_items.count } news to #{ @recipient.name.ljust(20, ' ') } #{ @news_items.map(&:id) }"
+        if @config.receive_digest == false
+          puts 'Canceled: user refuses digests'
+          return :user_refuses_digests
+        end
+        if @news_items.empty?
+          puts 'Canceled: news list is empty'
+          return :news_items_empty
+        end
         News::Mailer
           .digest_email(
             @recipient,

@@ -25,6 +25,35 @@ describe News::Fetcher, :news do
         expect( News::Fetcher.new(tagged_user, 'interesting').call ).not_to include news_item_not_interesting
       end
     end
+    describe "filter 'interesting" do
+      describe 'handling sub-themed news' do
+        let(:news_item_java     ){ FactoryGirl.create(:news_item, summary: 'A news item about java'      ) }
+        let(:news_item_jee      ){ FactoryGirl.create(:news_item, summary: 'A news item about jee'       ) }
+        let(:news_item_jee_tips ){ FactoryGirl.create(:news_item, summary: 'A news item about jee tips' ) }
+        before do
+          AddingTaggings.new(super_user, news_item_java    , 'java'    , :themes).call
+          AddingTaggings.new(super_user, news_item_jee     , 'jee'     , :themes).call
+          AddingTaggings.new(super_user, news_item_jee_tips, 'jee_tips', :themes).call
+          java_tag      = Tag.find_by_name('java'     )
+          jee_tag       = Tag.find_by_name('jee'      )
+          jee_tips_tag  = Tag.find_by_name('jee_tips' )
+          Tagging.create( tag: java_tag, taggable: jee_tag     , context: 'parents')
+          Tagging.create( tag: jee_tag , taggable: jee_tips_tag, context: 'parents')
+        end
+        context 'when a user is interested by a theme' do
+          before do
+            AddingTaggings.new(super_user, tagged_user, 'java', :motivations).call
+          end
+          it 'includes sub-themed news' do
+            expect( News::Fetcher.new(tagged_user, 'interesting').call ).to include news_item_java
+            expect( News::Fetcher.new(tagged_user, 'interesting').call ).to include news_item_jee
+          end
+          it 'includes sub-sub-themed news' do
+            expect( News::Fetcher.new(tagged_user, 'interesting').call ).to include news_item_jee_tips
+          end
+        end
+      end
+    end
   end
 
   describe 'considering only news published after a certain date' do

@@ -23,7 +23,6 @@ describe 'Authentication', :slow do
 
     context 'when visitor has been confirmed and has been elevated' do
       before(:each) do
-        visitor.confirm!
         visitor.add_role :admin
       end
       it 'displays the contents of the home page' do

@@ -27,6 +27,7 @@ Marketplace::Application.routes.draw do
   namespace :news do
     resources :items, path: '/'
     resources :user_configs
+    get "/digest/preview", to: 'items#preview_digest', as: 'preview_digest'
   end
 
   namespace :forecasts do

@@ -1,0 +1,8 @@
+%h1 Admin
+- panels.each do |p|
+  - title = p.class.to_s.split('::').first
+  .panel.panel-default{ data: { purpose: "#{ title.downcase }-admin"} }
+    .panel-heading
+      = title
+    .panel-body
+      = p

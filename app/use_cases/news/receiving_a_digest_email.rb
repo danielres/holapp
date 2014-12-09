@@ -5,7 +5,7 @@ module News
 
     attr_reader :config
     attr_reader :email
-    attr_writer :news_items
+    attr_accessor :news_items
 
     def initialize(recipient_user, dry_run: false)
       @recipient  = recipient_user
@@ -18,18 +18,23 @@ module News
     private
 
       def execution
-        return if @dry_run
-        puts ""
-        puts "Sending digest with #{ @news_items.count } news to #{ @recipient.name.ljust(20, ' ') } #{ @news_items.map(&:id) }"
+        msg = ""
+        msg << "Sending digest with #{ @news_items.count } news to #{ @recipient.name.ljust(20, ' ') } \n"
+        msg << @news_items.map{|n| n.id.to_s + ": " + n.summary.truncate(80) }.join("\n")  if @news_items.any?
         if @config.receive_digest == false
-          puts 'Canceled: user refuses digests'
-          return :user_refuses_digests
+          msg << 'Canceled: user refuses digests'
+          puts msg
+          return msg
         end
         if @news_items.empty?
-          puts 'Canceled: news list is empty'
-          return :news_items_empty
+          msg << 'Canceled: no fresh news'
+          puts msg
+          return msg
         end
+        puts msg
+        return msg if @dry_run
         @email.deliver && @config.refresh_digest_sent_at!
+        return msg
       end
 
       def authorized?

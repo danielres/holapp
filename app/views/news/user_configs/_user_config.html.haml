@@ -6,7 +6,7 @@
         %p
           %small Last received at: #{ user_config.digest_sent_at || 'never' }
         %p
-          %a.btn.btn-sm.btn-primary{ href: news_preview_digest_path }
+          %a.btn.btn-sm.btn-primary{ href: news_preview_digest_path(user_id: user_config.user.id) }
             %i{ class: 'glyphicon glyphicon-eye-open' }
             preview
       %td

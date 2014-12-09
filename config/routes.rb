@@ -22,12 +22,16 @@ Marketplace::Application.routes.draw do
   get "/cvs", to: "cvs#index", as: 'cvs'
 
   get "/config", to: "user_configs#index", as: 'user_configs'
+  get "/admin",  to: "admin#index", as: 'admin'
+  get "/admin",  to: "admin#index", as: 'news_admin'
 
 
   namespace :news do
     resources :items, path: '/'
     resources :user_configs
-    get "/digest/preview", to: 'items#preview_digest', as: 'preview_digest'
+    get "/digest/preview(/:user_id)", to: 'digests#preview'             , as: 'preview_digest'
+    get "/digests/dry_run"          , to: 'digests#dry_run_send_digests', as: 'dry_run_send_digests'
+    get "/digests/send"             , to: 'digests#send_digests'        , as: 'send_digests'
   end
 
   namespace :forecasts do

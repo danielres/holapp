@@ -21,14 +21,6 @@ module News
         )
     end
 
-    def preview_digest
-      render  text: News::ReceivingADigestEmail
-                    .new(current_user, dry_run: true)
-                    .email
-                    .body.to_s.html_safe,
-              layout: true
-    end
-
 
     private
 

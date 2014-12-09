@@ -18,7 +18,7 @@ module News
             text ' '
             a class: 'btn btn-warning', href: @view_context.news_send_digests_path, 'data-confirm' =>  'Are you sure ?' do
               i class: 'glyphicon glyphicon-envelope'
-              text " Send digests"
+              text " Send news digests"
             end
           end
 

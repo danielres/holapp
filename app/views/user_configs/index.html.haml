@@ -1,7 +1,7 @@
-%h1 UserConfigs#index
+%h1 Personal preferences
 - panels.each do |p|
   .panel.panel-default
     .panel-heading
-      = p.class.to_s.split('::').first
+      %h3= p.class.to_s.split('::').first
     .panel-body
       = render p

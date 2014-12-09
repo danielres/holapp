@@ -3,6 +3,6 @@
   - title = p.class.to_s.split('::').first
   .panel.panel-default{ data: { purpose: "#{ title.downcase }-admin"} }
     .panel-heading
-      = title
+      %h3= title
     .panel-body
       = p

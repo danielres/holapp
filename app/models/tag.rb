@@ -5,7 +5,11 @@ class Tag < ActiveRecord::Base
   has_many :taggings_as_taggable, as: :taggable, class_name: 'Tagging', foreign_key: 'taggable_id', dependent: :destroy
 
   def self.poles
-    find(tags_without_parents_ids & tags_with_children_ids)
+    find(poles_ids)
+  end
+
+  def self.free
+    find(tags_without_parents_ids - poles_ids)
   end
 
 
@@ -58,6 +62,10 @@ class Tag < ActiveRecord::Base
 
     def self.tags_with_parents_ids
       Tagging.where(taggable_type: 'Tag', context: 'tag_parents').pluck(:taggable_id)
+    end
+
+    def self.poles_ids
+      tags_without_parents_ids & tags_with_children_ids
     end
 
 

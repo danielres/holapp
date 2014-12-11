@@ -44,7 +44,7 @@ class TagsPresenter < Erector::Widget
     end
 
     def free_tags
-      all_tags.reject{ |t| t.parents.any? } - yes_poles
+      Tag.free
     end
 
     def tags_table tags, caption_text

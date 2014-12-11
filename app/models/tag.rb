@@ -4,6 +4,11 @@ class Tag < ActiveRecord::Base
   has_many :taggings, dependent: :destroy
   has_many :taggings_as_taggable, as: :taggable, class_name: 'Tagging', foreign_key: 'taggable_id', dependent: :destroy
 
+  def self.poles
+    find(tags_without_parents_ids & tags_with_children_ids)
+  end
+
+
   def pole?
     children.any? && parents.none?
   end
@@ -35,5 +40,25 @@ class Tag < ActiveRecord::Base
   def to_s
     name
   end
+
+
+  private
+
+    def self.tags_with_children_ids
+       Tagging.joins(:tag).where(taggable_type: 'Tag').pluck(:tag_id).uniq
+    end
+
+    def self.all_tags_ids
+      Tag.pluck(:id)
+    end
+
+    def self.tags_without_parents_ids
+      all_tags_ids - tags_with_parents_ids
+    end
+
+    def self.tags_with_parents_ids
+      Tagging.where(taggable_type: 'Tag', context: 'tag_parents').pluck(:taggable_id)
+    end
+
 
 end

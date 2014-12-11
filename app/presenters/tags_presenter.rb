@@ -40,7 +40,7 @@ class TagsPresenter < Erector::Widget
     end
 
     def yes_poles
-      all_tags.select{ |t| t.pole? }
+      Tag.poles
     end
 
     def free_tags

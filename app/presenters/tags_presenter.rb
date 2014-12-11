@@ -36,7 +36,7 @@ class TagsPresenter < Erector::Widget
   private
 
     def all_tags
-      @collection.sort{ |a,b| a.name <=> b.name }
+      @collection.order('name')
     end
 
     def yes_poles

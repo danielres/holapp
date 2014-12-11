@@ -49,7 +49,7 @@ class Tag < ActiveRecord::Base
   private
 
     def self.tags_with_children_ids
-       Tagging.joins(:tag).where(taggable_type: 'Tag').pluck(:tag_id).uniq
+       Tagging.where(taggable_type: 'Tag').pluck(:tag_id).uniq
     end
 
     def self.all_tags_ids

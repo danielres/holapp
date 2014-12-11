@@ -8,15 +8,15 @@ class TopsByTagFieldPresenter < Erector::Widget
 
   def content
     @taggings ||= Tagging.where(context: @tag_field).where("quantifier >= ?", @min_level)
+                         .includes(:tag)
+                         .includes(:taggable)
     @taggings.select!{ |t| t.quantifier >= @min_level  }
 
     div the("top-#{ @tag_field }") do
       h2 "Top #{ @tag_field }"
       @taggings
         .group_by(&:taggable_type)
-        .each do |taggable_type, taggings|
-          taggings_table(taggable_type, taggings)
-        end
+        .each {|taggable_type, taggings| taggings_table(taggable_type, taggings) }
     end
   end
 

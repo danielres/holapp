@@ -10,6 +10,7 @@ class Tag < ActiveRecord::Base
 
   def children
     taggings
+      .includes(:taggable)
       .where(taggable_type: 'Tag')
       .map(&:taggable)
   end

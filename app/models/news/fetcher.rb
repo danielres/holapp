@@ -34,7 +34,8 @@ module News
 
       def user_motivations
         @user.taggings
-          .select{|t| t.context == 'motivations'}
+          .includes(:tag)
+          .where(context: 'motivations')
           .map(&:tag)
       end
 

@@ -19,10 +19,8 @@ describe News::ReceivingADigestEmail do
        context 'with news items to send' do
         before{ subject.news_items = news_items }
         it 'triggers the mailing of the digest' do
-          expect( News::Mailer )
-            .to receive(:digest_email).once
-            .with( user, news_items)
-            .and_call_original
+          expect( subject.email )
+            .to receive(:deliver).once
           subject.call
         end
         it 'keeps tracks of the last time the digest was mailed' do
@@ -36,16 +34,14 @@ describe News::ReceivingADigestEmail do
       context 'with news items to send' do
         before{ subject.news_items = news_items }
         it 'triggers the mailing of the digest' do
-          expect( News::Mailer ).to receive(:digest_email).once
-            .with( user, news_items)
-            .and_call_original
+          expect( subject.email ).to receive(:deliver).once
           subject.call
         end
       end
       context 'with no news items to send' do
         before{ subject.news_items = [] }
         it 'does not trigger the mailing of the digest' do
-          expect( News::Mailer ).not_to receive(:digest_email)
+          expect( subject.email ).not_to receive(:deliver)
           subject.call
         end
       end
@@ -56,7 +52,7 @@ describe News::ReceivingADigestEmail do
       context 'with news items to send' do
         before{ subject.news_items = news_items }
         it 'does not trigger the mailing of the digest' do
-          expect( News::Mailer ).not_to receive(:digest_email)
+          expect( subject.email ).not_to receive(:deliver)
           subject.call
         end
       end

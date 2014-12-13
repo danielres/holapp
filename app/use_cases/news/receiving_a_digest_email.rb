@@ -45,12 +45,7 @@ module News
         return {} if @dry_run
         return {} if @config.receive_digest == false
         return {} if @news_items.empty?
-        {
-          user:    @recipient,
-          action:  :received_news_digest_by_mail,
-          object:  nil,
-          details: { news_items: @news_items},
-        }
+        {}
       end
 
   end

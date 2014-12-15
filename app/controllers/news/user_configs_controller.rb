@@ -4,6 +4,10 @@ module News
 
     include ResourceInPlaceUpdate
 
+    def show
+      redirect_to news_admin_path
+    end
+
     private
 
       def resource

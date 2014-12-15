@@ -6,4 +6,9 @@ class News::UserConfig < ActiveRecord::Base
     save!
   end
 
+
+  def to_s
+    "user config"
+  end
+
 end

@@ -23,14 +23,18 @@ module News
           end
 
         end
-        @collection.each do |u|
-          tr do
-            th u.name
-            td do
-              text @view_context.render( partial: "news/user_configs/user_config", object: News::UserConfig.where(user: u).first_or_create)
+
+        tbody( 'data-purpose' => 'users_configs-editor' ) do
+          @collection.each do |u|
+            tr do
+              th u.name
+              td do
+                text @view_context.render( partial: "news/user_configs/user_config", object: News::UserConfig.where(user: u).first_or_create)
+              end
             end
           end
         end
+
       end
     end
 

@@ -4,8 +4,8 @@ FactoryGirl.define do
 
   factory :user do
 
-    first_name 'New user'
-    last_name 'New user'
+    sequence(:first_name) { |n| "New user #{n}" }
+    sequence(:last_name ) { |n| "New user #{n}" }
     password 'changeme'
     password_confirmation 'changeme'
     confirmed_at Time.now

@@ -50,8 +50,8 @@ module News
           th 'Summary'
           td do
             random_val = (rand * 1000).to_i
-            best_in_place_activator(random_val, :body)
-            text best_in_place @item, :body,
+            best_in_place_activator(random_val, :summary)
+            text best_in_place @item, :summary,
                     type: :textarea,
                     path: "/news/#{@item.to_param}",
                      nil: '…',
@@ -63,8 +63,8 @@ module News
           th 'Body'
           td do
             random_val = (rand * 1000).to_i
-            best_in_place_activator(random_val, :summary)
-            text best_in_place @item, :summary,
+            best_in_place_activator(random_val, :body)
+            text best_in_place @item, :body,
                     type: :textarea,
                     path: "/news/#{@item.to_param}",
                      nil: '…',

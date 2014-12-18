@@ -27,7 +27,7 @@ module News
         tbody( 'data-purpose' => 'users_configs-editor' ) do
           @collection.each do |u|
             tr do
-              th u.name
+              th link_to(u, u)
               td do
                 text @view_context.render( partial: "news/user_configs/user_config", object: News::UserConfig.where(user: u).first_or_create)
               end

@@ -19,12 +19,12 @@ describe 'Config page', :slow, :js do
       end
       it 'supports choosing to receive the news digest by email' do
         user_config = News::UserConfig.first
-        expect( user_config.receive_digest ).to be_nil
+        expect( user_config.receive_digest ).to be_true
         within the 'news_user_config-editor' do
           edit_in_place_boolean user_config, :receive_digest
         end
         user_config.reload
-        expect( user_config.receive_digest ).to be_true
+        expect( user_config.receive_digest ).to be_false
       end
     end
 

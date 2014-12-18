@@ -15,6 +15,16 @@ module News
       @dry_run    = dry_run
     end
 
+    def call *args
+      begin
+        super
+      rescue ActionForbiddenError => e
+        msg = "CANCELED #{self.class} for user '#{@recipient}': #{e.message}"
+        puts   msg
+        return msg
+      end
+    end
+
     private
 
       def execution

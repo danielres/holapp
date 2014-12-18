@@ -3,7 +3,7 @@ shared_examples 'an authorization requirer' do
   context 'by a basic user' do
     let(:user){ build(:no_roles_user) }
     it 'is forbidden' do
-      expect{ subject.call }.to raise_error ActionForbiddenError
+      ( expect{ subject.call }.to raise_error ActionForbiddenError ) unless ( subject.call.include 'ActionForbiddenError' rescue false )
     end
   end
 

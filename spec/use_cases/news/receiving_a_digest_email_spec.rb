@@ -59,4 +59,13 @@ describe News::ReceivingADigestEmail do
     end
   end
 
+  context 'when not authorized' do
+    it 'rescues the exception and continues' do
+      capture(:stdout){
+        expect{ subject.call }.not_to raise_exception
+        expect( subject.call ).to eq "CANCELED News::ReceivingADigestEmail for user '#{ user.name }': ActionForbiddenError"
+      }
+    end
+  end
+
 end

@@ -11,10 +11,12 @@ class Api::News::ItemsController < ApplicationController
     end
 
     def create
-      item        = ::News::Item.new(resource_params)
-      item.author = current_user
-      item.save!
-      respond_with item
+      AddingAResource
+        .new(current_user, new_resource)
+        .call(
+          success: ->{ respond_with(new_resource.tap(&:save)) },
+          failure: ->{ },
+        )
     end
 
     def destroy
@@ -33,11 +35,19 @@ class Api::News::ItemsController < ApplicationController
 
       def resource_params
         params
+          .require(:item)
           .permit(
             :summary,
             :body,
             :language,
           )
       end
+
+    def new_resource
+      resource = ::News::Item.new(resource_params)
+      resource.author = current_user
+      resource
+    end
+
 
 end

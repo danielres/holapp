@@ -23,6 +23,11 @@ describe Tagging do
       expect(tagging.valid?).to be_false
       expect{tagging.save!}.to raise_exception
     end
+    it 'mark a self tagging as invalid' do
+      tagging = Tagging.new( tag: java, taggable: java, context: 'tag parents')
+      expect(tagging.valid?).to be_false
+      expect{tagging.save!}.to raise_exception
+    end
   end
 
 end

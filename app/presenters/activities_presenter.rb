@@ -20,7 +20,7 @@ class ActivitiesPresenter < Erector::Widget
           th.time    'Time'
           th.user    'User'
           th.action  'Action'
-          th.subject 'Subject'
+          th.subject 'Related object(s)'
           th.details 'Details'
         end
         collection.each do |a|

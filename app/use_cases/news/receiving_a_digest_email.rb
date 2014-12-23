@@ -19,7 +19,7 @@ module News
       begin
         super
       rescue ActionForbiddenError => e
-        msg = "CANCELED #{self.class} for user '#{@recipient}': #{e.message}"
+        msg = "\nCANCELED #{self.class} for user '#{@recipient}': #{e.message}"
         puts   msg
         return msg
       end
@@ -28,7 +28,7 @@ module News
     private
 
       def execution
-        msg = ""
+        msg = "\n"
         msg << "Sending digest with #{ @news_items.count } news to #{ @recipient.name.ljust(20, ' ') } \n"
         msg << @news_items.map{|n| n.id.to_s + ": " + n.summary.truncate(80) }.join("\n")  if @news_items.any?
         if @config.receive_digest == false

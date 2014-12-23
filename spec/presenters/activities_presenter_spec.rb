@@ -45,6 +45,19 @@ describe ActivitiesPresenter do
         end
       end
     end
+
+    describe 'in case of sending news digests' do
+      let(:activity  ){ build(:activity, action: 'sent_news_digests', object: resource, details: attributes) }
+      let(:resource  ){ nil }
+      let(:attributes){ { 'log_output' => 'The log output' } }
+      let(:subject   ){ described_class.new(collection: [ activity ], view_context: view_context) }
+      it 'presents the activity' do
+        expect(fragment(subject.to_html)).to have_css 'td', text: 'sent news digests'
+        expect(fragment(subject.to_html)).to have_css 'td', text: 'all users'
+        expect(fragment(subject.to_html)).to have_css 'td', text: 'The log output'
+      end
+    end
+
   end
 
 end

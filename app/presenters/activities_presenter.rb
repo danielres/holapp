@@ -66,6 +66,14 @@ class ActivitiesPresenter < Erector::Widget
         td.object do
           text @view_context.link_to_if(a.object, a.details['object_name'], a.object)
         end
+      when 'sent_news_digests'
+        random_id = 'elt' + ( rand * 10_000 ).to_i.to_s
+        td 'sent news digests'
+        td 'all users'
+        td( class: 'collapse-group' ) do
+          p{ a 'View log »', class: 'btn btn-default', 'data-toggle' => 'collapse', 'data-target' => "##{random_id}" }
+          pre a.details['log_output'], class: 'collapse', id: random_id
+        end
       else
         td.action a.action.humanize.downcase
       end

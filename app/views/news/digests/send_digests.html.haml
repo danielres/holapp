@@ -7,5 +7,4 @@
 
 %h3 Sending news digests
 
-- users.each do |user|
-  %pre= News::ReceivingADigestEmail.new(user, dry_run: false).call
+%pre= News::SendingAllDigestEmails.new(current_user, dry_run: false).call

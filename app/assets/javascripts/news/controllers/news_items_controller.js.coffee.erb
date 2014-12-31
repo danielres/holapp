@@ -1,5 +1,5 @@
 angular.module("NewsApp")
-  .controller "NewsItemsCtrl", [ "$scope", "$http", "$window", "NewsItem",  ($scope, $http, $window, NewsItem) ->
+  .controller "NewsItemsCtrl", [ "$scope", "$window", "NewsItem",  ($scope, $window, NewsItem) ->
 
     $scope.setFilter = (filter) ->
       $scope.filter     = filter
@@ -32,52 +32,6 @@ angular.module("NewsApp")
     $scope.editItem = (news_item) ->
       $scope.news_item = news_item
       $scope.mode = 'edit'
-
-
-
-
-    page = 1
-    getData = (data, page) ->
-      res = []
-      i = 0
-
-      while i < page * 100 and i < data.length
-        res.push data[i]
-        ++i
-      res
-
-
-    rowTemplate = ->
-        "<div ng-click=\"getExternalScopes().fnOne(row)\"
-              ng-repeat=\"col in colContainer.renderedColumns track by col.colDef.name\"
-              class=\"ui-grid-cell\" ui-grid-cell>
-        </div>"
-
-    $scope.gridOptions = {
-      rowTemplate:     rowTemplate()
-      enableFiltering: true
-      columnDefs: [
-        { field: "author" }
-        {
-          field: "summary"
-          filter:
-            condition: (searchTerm, cellValue) ->
-              cellValue.match searchTerm
-        }
-        { field: "body" }
-        { field: "language" }
-      ],
-    }
-
-    $http.get '/data/10000_complex.json'
-      .success (data) ->
-        $scope.gridOptions.data = getData(data, page)
-
-
-
-
-
-
 
     $scope.load()
   ]

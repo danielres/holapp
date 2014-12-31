@@ -10,9 +10,10 @@ angular.module("NewsApp")
       $scope.news_item = new NewsItem( language: '<%= News::Item::LANGUAGES.first %>')
 
     $scope.load = ->
-      $scope.news_items = NewsItem.query()
-      $scope.setFilter('all')
-      $scope.reset_form()
+      $scope.news_items = NewsItem.query(->
+        $scope.setFilter('all')
+        $scope.reset_form()
+      )
 
     $scope.addItem = (data) ->
       NewsItem.save data, (news_item) ->

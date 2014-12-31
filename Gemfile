@@ -67,6 +67,8 @@ end
 
 gem 'angularjs-rails'
 gem 'rails-assets-sugar'
+gem 'rails-assets-angular-ui-grid'
+
 
 # gem 'rails-assets-angular-markdown-directive'
 

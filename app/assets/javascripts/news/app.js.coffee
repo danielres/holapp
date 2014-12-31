@@ -2,6 +2,7 @@ NewsApp = angular.module "NewsApp", [
   "ngResource",
   "ngSanitize",
   "btford.markdown",
+  "ui.grid",
 ]
 
 NewsApp.config ["$httpProvider",  ($httpProvider) ->

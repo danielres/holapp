@@ -44,5 +44,7 @@ Marketplace::Application.routes.draw do
     end
   end
 
+  get '/data/10000_complex.json', to: 'data#complex'
+
 
 end

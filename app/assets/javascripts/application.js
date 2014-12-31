@@ -20,6 +20,7 @@
 //= require angular-sanitize
 //= require showdown
 //= require angular-markdown-directive
+//= require angular-ui-grid
 
 //= require bootstrap
 //= require best_in_place

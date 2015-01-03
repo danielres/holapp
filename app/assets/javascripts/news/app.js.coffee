@@ -2,6 +2,7 @@ NewsApp = angular.module "NewsApp", [
   "ngResource",
   "ngSanitize",
   "btford.markdown",
+  "infinite-scroll",
 ]
 
 NewsApp.config ["$httpProvider",  ($httpProvider) ->

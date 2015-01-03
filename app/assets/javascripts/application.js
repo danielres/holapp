@@ -20,6 +20,8 @@
 //= require angular-sanitize
 //= require showdown
 //= require angular-markdown-directive
+//= require ngInfiniteScroll
+
 
 //= require bootstrap
 //= require best_in_place

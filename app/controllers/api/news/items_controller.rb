@@ -5,16 +5,17 @@ class Api::News::ItemsController < ApplicationController
     respond_to :json
 
     def index
+      after  = params['after'].to_i || 0
       @items = ::News::Fetcher
                   .new(current_user, params[:filter])
-                  .call
+                  .call[(after)..(after+19)]
     end
 
     def create
       AddingAResource
         .new(current_user, new_resource)
         .call(
-          success: ->{ respond_with(new_resource.tap(&:save)) },
+          success: ->{ render new_resource.tap(&:save) },
           failure: ->{ },
         )
     end

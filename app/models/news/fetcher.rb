@@ -30,7 +30,7 @@ module News
       end
 
       def all
-        Item.where("created_at > :created_after", { created_after: @created_after } )
+        Item.where("created_at > :created_after", { created_after: @created_after } ).order('created_at DESC')
       end
 
       def user_motivations

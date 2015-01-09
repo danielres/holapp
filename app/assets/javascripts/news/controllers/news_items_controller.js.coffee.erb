@@ -1,29 +1,29 @@
 angular.module("NewsApp")
-  .controller "NewsItemsCtrl", [ "$scope", "$window", "NewsItem",  ($scope, $window, NewsItem) ->
+  .controller "NewsItemsCtrl", [ "$scope", "$window", "NewsItem", "NewsItemsLoader",  ($scope, $window, NewsItem, NewsItemsLoader) ->
 
-    $scope.setFilter = (filter) ->
-      $scope.filter     = filter
-      $scope.news_items = NewsItem.query(filter: filter)
+    $scope.news_items_loader = new NewsItemsLoader()
+
+    $scope.$watch 'news_items_loader.items', (value) ->
+      $scope.items = value
+
+    $scope.load = ->
+      $scope.mode = 'add'
+      $scope.reset_form()
+
 
     $scope.reset_form = ->
       $scope.mode = 'add'
       $scope.news_item = new NewsItem( language: '<%= News::Item::LANGUAGES.first %>')
 
-    $scope.load = ->
-      $scope.news_items = NewsItem.query(->
-        $scope.setFilter('all')
-        $scope.reset_form()
-      )
-
     $scope.addItem = (data) ->
       NewsItem.save data, (news_item) ->
-        $scope.news_items.unshift(new NewsItem(news_item))
+        $scope.news_items_loader.items.unshift(new NewsItem(news_item))
         $scope.reset_form()
 
     $scope.destroyItem = (news_item) ->
       if $window.confirm('Are you sure ?')
         NewsItem.delete news_item, (success) ->
-          $scope.news_items.splice($scope.news_items.indexOf(news_item),1)
+          $scope.news_items_loader.items.splice($scope.news_items_loader.items.indexOf(news_item),1)
           $scope.reset_form()
 
     $scope.saveItem = (news_item) ->

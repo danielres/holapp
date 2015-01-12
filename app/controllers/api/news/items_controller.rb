@@ -12,12 +12,7 @@ class Api::News::ItemsController < ApplicationController
     end
 
     def create
-      AddingAResource
-        .new(current_user, new_resource)
-        .call(
-          success: ->{ render new_resource.tap(&:save) },
-          failure: ->{ },
-        )
+      render AddingAResource.new(current_user, new_resource).call
     end
 
     def destroy

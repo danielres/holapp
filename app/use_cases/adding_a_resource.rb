@@ -20,7 +20,7 @@ class AddingAResource
     end
 
     def execution
-      @resource.save
+      @resource.tap(&:save)
     end
 
     def journal_event

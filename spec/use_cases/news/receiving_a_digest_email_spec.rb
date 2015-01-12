@@ -63,7 +63,7 @@ describe News::ReceivingADigestEmail do
     it 'rescues the exception and continues' do
       capture(:stdout){
         expect{ subject.call }.not_to raise_exception
-        expect( subject.call ).to eq "CANCELED News::ReceivingADigestEmail for user '#{ user.name }': ActionForbiddenError"
+        expect( subject.call ).to include "CANCELED News::ReceivingADigestEmail for user '#{ user.name }': ActionForbiddenError"
       }
     end
   end

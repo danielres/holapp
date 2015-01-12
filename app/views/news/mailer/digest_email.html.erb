@@ -4,7 +4,8 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
     <style type="text/css" media="screen">
       body{ font-size: 0.85em; }
-      h1 { color: #aaa; font-size: 1.3em; color: gray; font-weight: normal; }
+      h1 { color: #999; font-size: 1.3em; color: gray; font-weight: normal; }
+      h2 { color: #ccc; font-size: 1.15em; color: gray; font-weight: normal; }
       table { border-collapse: collapse; }
       table td,
       table th { border: 1px solid #ccc; width: 30%; }
@@ -14,7 +15,26 @@
     </style>
   </head>
   <body>
+
     <h1>Hello <%= user.name %>, here are your freshest news from the Marketplace</h1>
-    <%= News::DigestPresenter.new(collection: news_items, view_context: self).to_html %>
+    <h2>News related to your interests</h2>
+
+    <% if news_items_interesting.any? %>
+      <%= News::DigestPresenter.new(collection: news_items_interesting, view_context: self).to_html %>
+      <% else %>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <p>There are currently no fresh news related to your interests.</p>
+          <p>You may want to declare more interests on your <%= link_to 'profile page', user_path(user) %>,
+             or pick some from the <%= link_to 'tags page', tags_path %>.</p>
+        </div>
+      </div>
+    <% end %>
+
+    <% if news_items_other.any? %>
+      <h2>Other news</h2>
+      <%= News::DigestPresenter.new(collection: news_items_other      , view_context: self).to_html %>
+    <% end %>
+
   </body>
 </html>

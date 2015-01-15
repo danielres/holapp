@@ -4,7 +4,7 @@ require 'purpose_selector_spec_helper'
 require 'factories_spec_helper'
 require 'best_in_place_spec_helper'
 
-describe 'Config page', :slow, :js do
+describe 'Config page', :slow, :news, :js do
 
   context 'for a superuser' do
 

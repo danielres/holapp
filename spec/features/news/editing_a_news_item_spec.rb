@@ -5,7 +5,7 @@ require 'factories_spec_helper'
 require 'best_in_place_spec_helper'
 require_relative '../shared_examples_for_taggables_spec'
 
-describe 'Editing a news item', :slow do
+describe 'Editing a news item', :slow, :news do
   let!(:news_item){ create(:news_item) }
 
   context 'as a superuser' do

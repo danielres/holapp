@@ -4,7 +4,7 @@ require 'purpose_selector_spec_helper'
 require 'factories_spec_helper'
 require 'best_in_place_spec_helper'
 
-describe 'Admin page for news', :slow, :js do
+describe 'Admin page for news', :slow, :news, :admin, :js do
 
   context 'for a superuser' do
     let(:user){ create(:super_user) }

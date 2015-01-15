@@ -1,6 +1,7 @@
 require_relative 'spec_helper'
 
 describe 'Quick adding a news item', :slow, :news, :js do
+  include Capybara::Angular::DSL
   let(:super_user){ create(:super_user, display_name: 'Spiderman') }
 
   context 'as superuser' do

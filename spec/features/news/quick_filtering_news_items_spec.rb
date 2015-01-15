@@ -1,6 +1,8 @@
 require_relative 'spec_helper'
 
 describe 'Quick filtering news items', :slow, :news, :js do
+  include Capybara::Angular::DSL
+
   let(:super_user){ create(:super_user) }
 
   let!(:news_item_not_interesting){ create(:news_item, summary: 'Not interesting') }

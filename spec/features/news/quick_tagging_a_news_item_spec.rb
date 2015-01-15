@@ -1,6 +1,8 @@
 require_relative 'spec_helper'
 
 describe 'Quick tagging a news item', :slow, :news, :js, driver: :selenium do
+  include Capybara::Angular::DSL
+
   let(:super_user){ create(:super_user) }
   let!(:news_item){ create(:news_item, summary: 'The summary', body: 'The body') }
 

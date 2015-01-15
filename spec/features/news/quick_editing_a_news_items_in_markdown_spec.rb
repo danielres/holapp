@@ -1,6 +1,8 @@
 require_relative 'spec_helper'
 
 describe 'Quick editing a news item using markdown', :slow, :news, :js do
+  include Capybara::Angular::DSL
+
   let(:super_user){ create(:super_user) }
   let!(:news_item){ create(:news_item, summary: 'Initial summary', body: 'Initial body') }
 

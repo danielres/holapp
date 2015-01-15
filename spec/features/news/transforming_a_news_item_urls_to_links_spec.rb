@@ -1,6 +1,7 @@
 require_relative 'spec_helper'
 
 describe 'Transforming a news item urls to links ', :slow, :news, :js do
+  include Capybara::Angular::DSL
 
   context 'as superuser' do
 

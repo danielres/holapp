@@ -24,6 +24,7 @@ Marketplace::Application.routes.draw do
   get "/config", to: "user_configs#index", as: 'user_configs'
   get "/admin",  to: "admin#index", as: 'admin'
   get "/admin",  to: "admin#index", as: 'news_admin'
+  get "/admin",  to: "admin#index", as: 'roles_admin'
 
 
   namespace :news do

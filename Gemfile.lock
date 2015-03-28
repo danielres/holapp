@@ -413,7 +413,7 @@ DEPENDENCIES
   best_in_place!
   better_errors
   binding_of_caller
-  bootstrap-sass (>= 3.1.1.1)
+  bootstrap-sass (>= 3.3.4)
   cancan
   capybara
   capybara-angular

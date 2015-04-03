@@ -18,7 +18,7 @@ class ViewingPeople
     end
 
     def presenter
-      ->{ PeoplePresenter.new(collection: @collection, view_context: @view_context ).to_html }
+      ->{ PeoplePresenter.new(collection: listables(@collection), view_context: @view_context ).to_html }
     end
 
     def journal_event
@@ -29,5 +29,11 @@ class ViewingPeople
         details: {},
       }
     end
+
+    private
+
+      def listables(collection)
+        collection.select(&:listable?)
+      end
 
 end

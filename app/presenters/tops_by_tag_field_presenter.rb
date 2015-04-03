@@ -43,6 +43,7 @@ class TopsByTagFieldPresenter < Erector::Widget
     def taggings_taggables(taggings)
       taggings
         .sort{ |a,b| b.quantifier <=> a.quantifier }
+        .reject{ |tag| tag.taggable.respond_to?(:listable?) && !tag.taggable.listable? }
         .group_by(&:quantifier)
         .each do |quantifier, taggings|
           dl.inline do

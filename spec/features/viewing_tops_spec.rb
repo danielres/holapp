@@ -17,7 +17,13 @@ describe 'Viewing tops', :slow do
     context 'with people having skills at various levels' do
       let(:javamaster){ create(:person, display_name: 'javamaster') }
       let(:javajunior){ create(:person, display_name: 'javajunior') }
-      before(:each) do
+      before do
+        User.enable_list_all!
+      end
+      after do
+        User.disable_list_all!
+      end
+      before do
         AddingTaggings.new(user, javamaster, 'java', 'skills').call
         Tagging.last.tap{ |t| t.quantifier = 5; t.save! }
         AddingTaggings.new(user, javajunior, 'java', 'skills').call

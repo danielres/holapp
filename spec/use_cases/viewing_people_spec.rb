@@ -21,16 +21,45 @@ describe ViewingPeople do
       subject.collection = collection
     end
 
-    it 'passes the people to a presenter' do
-      expect( PeoplePresenter )
-        .to receive(:new).once
-        .with( {collection: collection, view_context: view_context} )
-        .and_return{ presenter }
+    context 'with listable people' do
 
-      expect( presenter )
-        .to receive(:to_html).once
+      before do
+        user.stub(   :listable? => true )
+        person.stub( :listable? => true )
+      end
 
-      subject.call
+      it 'passes the listable people to a presenter' do
+        expect( PeoplePresenter )
+          .to receive(:new).once
+          .with( {collection: collection, view_context: view_context} )
+          .and_return{ presenter }
+
+        expect( presenter )
+          .to receive(:to_html).once
+
+        subject.call
+      end
+    end
+
+
+    context 'with some listable people' do
+      before do
+        user.stub(   :listable? => true )
+        person.stub( :listable? => false )
+      end
+      it 'passes only the listable people to a presenter' do
+        expect( PeoplePresenter )
+          .to receive(:new).once
+          .with( {collection: [user], view_context: view_context} )
+          .and_return{ presenter }
+
+        expect( presenter )
+          .to receive(:to_html).once
+
+        subject.call
+
+      end
+
     end
 
   end

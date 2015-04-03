@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  @@list_all = false
+
   attr_accessor :name
 
   default_scope { order('first_name', 'last_name') }
@@ -20,6 +22,10 @@ class User < ActiveRecord::Base
   has_many :taggings, as: :taggable, dependent: :destroy
 
   has_many :projects, through: :memberships
+
+  def self.enable_list_all!  ; @@list_all = true   ; end
+  def self.disable_list_all! ; @@list_all = false  ; end
+  def self.list_all?         ; @@list_all          ; end
 
   def initialize(options={})
     super
@@ -52,6 +58,9 @@ class User < ActiveRecord::Base
       user
   end
 
+  def listable?
+    @@list_all || has_role?(:admin)
+  end
 
   private
 

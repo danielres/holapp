@@ -6,10 +6,17 @@ require 'factories_spec_helper'
 describe 'Adding a person', :slow do
   let(:super_user){ create(:super_user) }
 
+  before do
+    User.enable_list_all!
+  end
+  after do
+    User.disable_list_all!
+  end
+
   context 'as superuser' do
 
     describe 'using the form to add a person' do
-      before(:each) do
+      before do
         login_as(super_user, scope: :user)
         visit '/'
         within 'form.new_user' do

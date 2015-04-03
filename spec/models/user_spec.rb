@@ -22,6 +22,23 @@ describe User do
     expect_it { to have_attribute('cv_url') }
   end
 
+  describe "appearing or not in common lists" do
+    expect_it { to respond_to('listable?') }
+    describe "class-level override for #listable?" do
+      describe "User.list_all?" do
+        it 'is disabled by default' do
+          expect( User.list_all? ).to be_false
+        end
+        it 'can be enabled / disabled' do
+          User.enable_list_all!
+          expect( User.list_all? ).to be_true
+          User.disable_list_all!
+          expect( User.list_all? ).to be_false
+        end
+      end
+    end
+  end
+
   describe 'quick creation' do
     it 'extract the firstname and last name from single name field' do
       user = User.create!(name: 'Jean de Dupont', email: 'anything@anything.com', password: 'anything')

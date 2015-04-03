@@ -15,13 +15,19 @@ describe 'Viewing a persons forecasts' do
         )
     end
 
-    before(:each) do
+    before do
       login_as(super_user, scope: :user)
     end
 
+    before do
+      User.enable_list_all!
+    end
+    after do
+      User.disable_list_all!
+    end
 
     context 'with a simple duration' do
-      before(:each) do
+      before do
         duration
       end
       it 'shows the person occupation periods'do

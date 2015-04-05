@@ -14,6 +14,13 @@ describe ViewingCvs do
 
   context 'when authorized' do
 
+    before do
+      User.enable_list_all!
+    end
+    after do
+      User.disable_list_all!
+    end
+
     before { authorization.call }
     let(:presenter){ double('presenter') }
 

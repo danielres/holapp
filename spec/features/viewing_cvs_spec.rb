@@ -9,8 +9,15 @@ describe 'Viewing CVs', :slow do
   context 'when authenticated' do
     let(:user){ create(:super_user) }
 
-    before(:each) do
+    before do
       login_as(user, scope: :user)
+    end
+
+    before do
+      User.enable_list_all!
+    end
+    after do
+      User.disable_list_all!
     end
 
     context 'with people having a cv url' do

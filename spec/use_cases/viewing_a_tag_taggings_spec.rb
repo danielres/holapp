@@ -14,19 +14,32 @@ describe ViewingATagTaggings, '- viewing taggings from the tag side' do
 
     before { authorization.call }
 
-    let(:taggings){ [tagging_on_person, tagging_on_project1, tagging_on_project2] }
-    let(:tagging_on_person  ){ mock_model( 'Tagging', taggable_type: 'Person',  context: :skills ) }
-    let(:tagging_on_project1){ mock_model( 'Tagging', taggable_type: 'Project', context: :needs  ) }
-    let(:tagging_on_project2){ mock_model( 'Tagging', taggable_type: 'Project', context: :needs  ) }
+    let(:taggings){ [tagging_on_listable_person, tagging_on_project1, tagging_on_project2] }
+    let(:tagging_on_listable_person) do
+      mock_model( 'Tagging', taggable_type: 'Person',  context: :skills )
+        .tap{ |e| e.stub_chain(:taggable, :listable?).and_return(true) }
+    end
+    let(:tagging_on_non_listable_person) do
+      mock_model( 'Tagging', taggable_type: 'Person',  context: :skills )
+        .tap{ |e| e.stub_chain(:taggable, :listable?).and_return(false) }
+    end
+    let(:tagging_on_project1) do
+      mock_model( 'Tagging', taggable_type: 'Project', context: :needs  )
+        .tap{ |e| e.stub(:taggable) }
+    end
+    let(:tagging_on_project2) do
+      mock_model( 'Tagging', taggable_type: 'Project', context: :needs  )
+        .tap{ |e| e.stub(:taggable) }
+    end
 
-    before(:each) do
+    before do
       subject.collection = taggings
     end
 
-    it 'passes the taggings to a presenter, grouped by taggable type and by tag fields' do
+    it 'passes the taggings to a presenter, grouped by taggable type and by tag fields, excluding non-listable elements' do
       expect( TagFieldWithTaggingsPresenter )
         .to receive(:new)
-        .with( tag_field: :skills, taggings: [tagging_on_person], viewed_from: anything, view_context: anything )
+        .with( tag_field: :skills, taggings: [tagging_on_listable_person], viewed_from: anything, view_context: anything )
         .and_return{ double.as_null_object }
 
       expect( TagFieldWithTaggingsPresenter )

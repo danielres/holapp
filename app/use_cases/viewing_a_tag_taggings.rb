@@ -19,7 +19,7 @@ class ViewingATagTaggings
 
     def presenter
       @collection ||= @tag.taggings.accessible_by(Ability.new(@user), :read)
-      ->{ TagTaggingsPresenter.new(collection: @collection, view_context: @view_context).to_html }
+      ->{ TagTaggingsPresenter.new(collection: listables(@collection), view_context: @view_context).to_html }
     end
 
     def journal_event
@@ -29,6 +29,10 @@ class ViewingATagTaggings
         object:  @tag,
         details: { },
       }
+    end
+
+    def listables(collection)
+      collection.reject{|t| t.taggable.respond_to?(:listable?) && !t.taggable.listable? }
     end
 
 end

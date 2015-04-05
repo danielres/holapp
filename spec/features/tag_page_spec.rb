@@ -29,7 +29,7 @@ describe 'Tag page', :slow do
     end
 
     context 'when people and projects have been tagged' do
-      let!(:person){ create(:person) }
+      let!(:person){ create(:listable_person) }
       let!(:project){ create(:project) }
       let!(:tag){ create(:tag, name: 'my_tag') }
       let!(:tagging1){ Tagging.create!( tag_id: tag.id, taggable_type: person.class.name, taggable_id: person.id, context: :skills ) }

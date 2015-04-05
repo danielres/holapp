@@ -7,6 +7,11 @@ FactoryGirl.define do
     sequence(:email){ |n| "person#{n}@example.com" }
     password 'changeme'
     password_confirmation 'changeme'
+
+    factory :listable_person do
+      after(:create) { |person| person.add_role(:admin) }
+    end
+
   end
 
 end

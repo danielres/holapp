@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
 
   default_scope { order('first_name', 'last_name') }
 
+  def self.listable
+    all.select(&:listable?)
+  end
+
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -26,6 +30,7 @@ class User < ActiveRecord::Base
   def self.enable_list_all!  ; @@list_all = true   ; end
   def self.disable_list_all! ; @@list_all = false  ; end
   def self.list_all?         ; @@list_all          ; end
+
 
   def initialize(options={})
     super

@@ -23,6 +23,12 @@ describe User do
   end
 
   describe "appearing or not in common lists" do
+    describe "scope 'listable'" do
+      let!(:listable_person) { FactoryGirl.create(:listable_person) }
+      it 'returns only people who are listable' do
+        expect(User.listable).to match_array [listable_person]
+      end
+    end
     expect_it { to respond_to('listable?') }
     describe "class-level override for #listable?" do
       describe "User.list_all?" do

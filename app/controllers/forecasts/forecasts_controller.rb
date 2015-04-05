@@ -7,7 +7,7 @@ module Forecasts
     def index
       start_date = Date.parse params[:start_date] || DateTime.now.to_s
       @forecast  = Forecast.new(starting_from_month: start_date )
-      @people    = User.all
+      @people    = User.listable
     end
 
   end

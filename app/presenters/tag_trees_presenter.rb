@@ -59,15 +59,18 @@ class TagTreesPresenter < Erector::Widget
       text ' '
       tag_fields = tag.taggings
                     .select{ |t|t.taggable_type == 'User' }
+                    .select{ |t|t.taggable.listable? }
                     .map(&:context)
                     .uniq
                     .sort
       tag_fields.each do |tf|
         users_count = tag.taggings
                       .select{|t| t.taggable_type == "User" && t.context == tf }
+                      .select{ |t|t.taggable.listable? }
                       .count
         tag_score = tag.taggings
                       .select{|t| t.taggable_type == "User" && t.context == tf }
+                      .select{ |t|t.taggable.listable? }
                       .map{ |t| t.quantifier.to_i }
                       .sum
         span title: "#{ users_count } persons have this #{ tf.singularize }, totalling a score of #{ tag_score }", class: [:badge, tf] do

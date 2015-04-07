@@ -66,7 +66,7 @@ end
 
 
 gem 'angularjs-rails'
-gem 'rails-assets-sugar'
+gem 'rails-assets-sugar', '1.4.1'
 
 # gem 'rails-assets-angular-markdown-directive'
 

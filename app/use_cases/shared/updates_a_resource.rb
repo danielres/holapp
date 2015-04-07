@@ -10,7 +10,7 @@ module UpdatesAResource
     end
 
     def execution
-      @resource.update_attributes(@attributes)
+      @resource.update_attributes(Hash(@attributes))
     end
 
     def journal_event

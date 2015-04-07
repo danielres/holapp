@@ -45,8 +45,14 @@ class MembershipsPresenter < Erector::Widget
           end
           durations.each do |d|
             tr.duration do
-              td best_in_place d, :starts_at, type: :date, display_with: ->(d){ pretty_date(d) }
-              td best_in_place d, :ends_at  , type: :date, display_with: ->(d){ pretty_date(d) }
+              td best_in_place(d, :starts_at, type: :date, display_with: ->(d){ pretty_date(d) }),
+                class: "#{ 'inherited' if d.starts_at_inherited? }",
+                title: "#{ 'inherited from project' if d.starts_at_inherited? }"
+
+              td best_in_place(d, :ends_at  , type: :date, display_with: ->(d){ pretty_date(d) }),
+                class: "#{ 'inherited' if d.ends_at_inherited? }",
+                title: "#{ 'inherited from project' if d.ends_at_inherited? }"
+
               td best_in_place d, :quantifier, collection: quantifier_values, type: :select
               td link_to 'x', d, method: :delete, data: { purpose: 'delete-action', confirm: 'Are you sure ?' }
             end

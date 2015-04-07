@@ -7,9 +7,9 @@ describe TaggingAResource do
 
   subject{ described_class.new(user, tag, tag_field, resource)  }
   let(:user){ build(:no_roles_user) }
-  let(:tag){ mock_model(Tag, name: 'my_tag') }
+  let(:tag){ mock_model(Tag, name: 'my_tag').as_null_object }
   let(:tag_field){ :skills }
-  let(:resource){ mock_model(User) }
+  let(:resource){ mock_model(User).as_null_object }
 
   include_examples 'a context'
   include_examples 'a form provider'

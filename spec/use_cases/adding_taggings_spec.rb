@@ -8,7 +8,7 @@ require_relative 'shared_examples/form_providers'
   describe AddingTaggings, "to a #{taggable_class.name.downcase}" do
 
     subject{ described_class.new(user, taggable, tag_list, tag_field)  }
-    let( :taggable  ){ mock_model(taggable_class, name: _) }
+    let( :taggable  ){ mock_model(taggable_class, name: _).as_null_object }
     let( :tag_list  ){ 'tag1, tag2' }
     let( :tag_field ){ :skills }
 

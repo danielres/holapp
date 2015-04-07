@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-source 'https://rails-assets.org'
 ruby '2.0.0'
 
 gem 'bundler', '>= 1.9.2'
@@ -69,7 +68,6 @@ end
 
 
 gem 'angularjs-rails'
-gem 'rails-assets-sugar', '1.4.1'
 
 # gem 'rails-assets-angular-markdown-directive'
 
@@ -93,4 +91,8 @@ end
 
 
 gem 'execjs'
-gem 'rails-assets-ngInfiniteScroll'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-sugar', '1.4.1'
+  gem 'rails-assets-ngInfiniteScroll'
+end

@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 ruby '2.0.0'
+
+gem 'bundler', '>= 1.9.2'
+
 gem 'rails', '4.0.2'
 gem 'pg'
 gem 'sass-rails', '~> 4.0.0'

@@ -31,7 +31,7 @@ describe 'Viewing a persons forecasts' do
         duration
       end
       it 'shows the person occupation periods'do
-        visit forecasts_path(start_date: "2015-01-01")
+        visit forecasts_path(start_year: 2015, start_month: 1)
         within the('forecasts-list') do
           expect( page ).to have_css( "#membership_#{membership1.id} td", text: "5", count: 3 )
         end
@@ -43,7 +43,7 @@ describe 'Viewing a persons forecasts' do
         duration.update( quantifier: nil )
       end
       it "shows the occupation periods market with a em-dash '—'"do
-        visit forecasts_path(start_date: "2015-01-01")
+        visit forecasts_path(start_year: 2015, start_month: 1)
         within the('forecasts-list') do
           expect( page ).to have_css( ".occupation", text: "—", count: 3 )
         end
@@ -55,7 +55,7 @@ describe 'Viewing a persons forecasts' do
         duration.update( ends_at: nil )
       end
       it 'shows all future periods as occupied'do
-        visit forecasts_path(start_date: "2015-01-01")
+        visit forecasts_path(start_year: 2015, start_month: 1)
         within the('forecasts-list') do
           expect( page ).to have_css( ".occupation", text: "5", count: 10 )
         end
@@ -67,7 +67,7 @@ describe 'Viewing a persons forecasts' do
         duration.update( starts_at: nil )
       end
       it 'shows all past periods as occupied'do
-        visit forecasts_path(start_date: "2015-01-01")
+        visit forecasts_path(start_year: 2015, start_month: 1)
         within the('forecasts-list') do
           expect( page ).to have_css( ".occupation", text: "5", count: 5 )
         end
@@ -81,7 +81,7 @@ describe 'Viewing a persons forecasts' do
         duration2.update(starts_at: '2015-02-16', ends_at: '2015-05-01', quantifier: 2)
       end
       it 'shows the overlapping occupations'do
-        visit forecasts_path(start_date: "2015-01-01")
+        visit forecasts_path(start_year: 2015, start_month: 1)
         within the('forecasts-list') do
           expect( page ).to have_css( ".occupation"        , text: "5"  , count: 3 )
           expect( page ).to have_css( ".occupation"        , text: "2"  , count: 6 )

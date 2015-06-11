@@ -1,11 +1,13 @@
 class Forecasts::Forecast
 
-  def initialize(starting_from_month: DateTime.now)
+  def initialize(starting_from_month: DateTime.now, months: 5, periodicity: 'half-monthly')
     @starting_from_month = starting_from_month
+    @months              = months
+    @periodicity         = periodicity
   end
 
   def periods
-    Period.starting_from_month(@starting_from_month)
+    Period.starting_from_month(@starting_from_month, @months, @periodicity)
   end
 
   def self.periods
@@ -19,18 +21,18 @@ class Forecasts::Forecast
       attr_reader :starts_at
       attr_reader :ends_at
 
-      def self.starting_from_month(date, months = 6, timespan = :half_monthly )
+      def self.starting_from_month(date, months = 6, periodicity = 'half-monthly' )
         first_month_start = Date.parse(Time.new(date.year, date.month).to_s)
         periods = []
         months.times do |i|
           month_start  = first_month_start >> i
           month_end    = ((month_start >> 1) - 1)
-          case timespan
-          when :half_monthly
+          case periodicity
+          when 'half-monthly'
             month_middle = month_start + 15
             periods << Period.new(month_start, (month_middle - 1))
             periods << Period.new(month_middle, month_end )
-          when :monthly
+          when 'monthly'
             periods << Period.new(month_start, month_end)
           end
         end

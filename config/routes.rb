@@ -36,7 +36,14 @@ Marketplace::Application.routes.draw do
   end
 
   namespace :forecasts do
-    get "/(:start_date)", to: "forecasts#index"
+    get ":periodicity/:start_year/:start_month/+:months_duration/",
+        defaults: {
+              periodicity: 'half-monthly',
+               start_year: Date.today.year,
+              start_month: Date.today.month,
+          months_duration: 6
+        },
+        to: "forecasts#index"
   end
 
   namespace :api, defaults: { format: :json }, contraints: { format: :json } do

@@ -10,7 +10,7 @@ describe 'Viewing a persons forecasts' do
       Duration.create(
               durable: membership1,
             starts_at: '2015-02-01',
-              ends_at: '2015-03-01',
+              ends_at: '2015-03-31',
            quantifier: 5,
         )
     end
@@ -33,7 +33,7 @@ describe 'Viewing a persons forecasts' do
       it 'shows the person occupation periods'do
         visit forecasts_path(start_year: 2015, start_month: 1)
         within the('forecasts-list') do
-          expect( page ).to have_css( "#membership_#{membership1.id} td", text: "5", count: 3 )
+          expect( page ).to have_css( "#membership_#{membership1.id} td", text: "5", count: 4 )
         end
       end
     end
@@ -45,7 +45,7 @@ describe 'Viewing a persons forecasts' do
       it "shows the occupation periods market with a em-dash '—'"do
         visit forecasts_path(start_year: 2015, start_month: 1)
         within the('forecasts-list') do
-          expect( page ).to have_css( ".occupation", text: "—", count: 3 )
+          expect( page ).to have_css( ".occupation", text: "—", count: 4 )
         end
       end
     end
@@ -69,7 +69,7 @@ describe 'Viewing a persons forecasts' do
       it 'shows all past periods as occupied'do
         visit forecasts_path(start_year: 2015, start_month: 1)
         within the('forecasts-list') do
-          expect( page ).to have_css( ".occupation", text: "5", count: 5 )
+          expect( page ).to have_css( ".occupation", text: "5", count: 6 )
         end
       end
     end
@@ -83,9 +83,26 @@ describe 'Viewing a persons forecasts' do
       it 'shows the overlapping occupations'do
         visit forecasts_path(start_year: 2015, start_month: 1)
         within the('forecasts-list') do
-          expect( page ).to have_css( ".occupation"        , text: "5"  , count: 3 )
-          expect( page ).to have_css( ".occupation"        , text: "2"  , count: 6 )
-          expect( page ).to have_xpath( "//td[*[@class='occupation']]", text: "5 2", count: 2 )
+          expect( page ).to have_css( ".occupation"        , text: "5"  , count: 4 )
+          expect( page ).to have_css( ".occupation"        , text: "2"  , count: 5 )
+          expect( page ).to have_xpath( "//td[*[@class='occupation']]", text: "5 2", count: 3 )
+        end
+      end
+    end
+
+    context 'with duration boundaries off from period boundaries' do
+      before do
+        duration.update(
+            starts_at: '2015-02-01',
+              ends_at: '2015-03-3',
+           quantifier: 5
+        )
+      end
+      it 'extrapolates the quantifier according to the partial occupation' do
+        visit forecasts_path(start_year: 2015, start_month: 1)
+        within the('forecasts-list') do
+          expect( page ).to have_css( ".occupation", text: "5"  , count: 2 )
+          expect( page ).to have_css( ".occupation", text: "0.7", count: 1 )
         end
       end
     end

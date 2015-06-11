@@ -58,7 +58,37 @@ class Forecasts::Forecast
           return "" unless duration.starts_at || duration.ends_at
           return "" if duration.ends_at   && duration.ends_at.to_date   < starts_at
           return "" if duration.starts_at && duration.starts_at.to_date > ends_at
-          duration.quantifier || '—'
+          return '—' unless duration.quantifier.present?
+          pretty_display_quantifier(extrapolated_quantifier(duration))
+        end
+
+        def period_length_in_days
+          (ends_at - starts_at).round
+        end
+
+        def non_active_days(duration)
+          amount = 0
+          if duration.starts_at
+            days = (duration.starts_at.to_date - starts_at.to_date).round
+            amount += days if days > 0
+          end
+          if duration.ends_at
+            days = (ends_at.to_date - duration.ends_at.to_date).round
+            amount += days if days > 0
+          end
+          amount
+        end
+
+        def active_days(duration)
+          period_length_in_days - non_active_days(duration)
+        end
+
+        def extrapolated_quantifier(duration)
+          duration.quantifier.to_f / period_length_in_days * active_days(duration)
+        end
+
+        def pretty_display_quantifier(quantifier)
+          quantifier == quantifier.to_i ? quantifier.to_i : quantifier.round(1)
         end
 
     end

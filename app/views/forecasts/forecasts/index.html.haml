@@ -1,7 +1,15 @@
+%p
+  &nbsp;
+%p
+  = link_to(params.merge(format: "xls"),  class:  'btn btn-default btn-primary' ) do
+    %i{ class: 'glyphicon glyphicon-download' }
+    &nbsp; XLS
 .panel.panel-default
   .panel-body
     %table.table{ data: { purpose: "forecasts-list" } }
-      %caption Forecasts
+      %caption
+        Forecasts
+
       %thead
         %tr
           %th Person

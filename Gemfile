@@ -96,3 +96,5 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-sugar', '1.4.1'
   gem 'rails-assets-ngInfiniteScroll'
 end
+
+gem 'spreadsheet'

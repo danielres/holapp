@@ -98,3 +98,5 @@ source 'https://rails-assets.org' do
 end
 
 gem 'spreadsheet'
+
+gem 'has_secure_token'

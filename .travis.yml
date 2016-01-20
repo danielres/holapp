@@ -4,6 +4,8 @@ rvm:
   - 2.0.0
 env:
   - DB=postgresql
+install:
+  - bundle install --without development --jobs=3 --retry=3 --deployment
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare

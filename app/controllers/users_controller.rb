@@ -31,6 +31,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def generate_new_token
+    current_user.regenerate_token
+    redirect_to :back
+  end
+
   private
 
      def resource_params

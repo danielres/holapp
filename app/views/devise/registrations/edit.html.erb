@@ -31,6 +31,15 @@
   <% end %>
 </div>
 <div class="authform">
+    <%= form_for(resource, :as => resource_name, :url => generate_new_token_path, :html => { :method => :post, :role => 'form'}) do |f| %>
+    <div class="form-group">
+      <%= f.label :personal_token %>
+      <%= f.text_field :token, class: 'form-control', disabled: true %>
+    </div>
+    <%= f.submit 'Generate new token', :class => 'button right' %>
+  <% end %>
+</div>
+<div class="authform">
 <h3>Cancel Account</h3>
 <p>Unhappy? We'll be sad to see you go.</p>
 <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button right' %>

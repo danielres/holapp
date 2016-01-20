@@ -7,6 +7,7 @@ Marketplace::Application.routes.draw do
   resources :people, path: 'users', only: [:show]
   resources :people, only:  [:create, :update, :destroy]
   resources :users
+  post :generate_new_token, to: 'users#generate_new_token', as: 'generate_new_token'
   resources :projects
   resources :memberships
   resources :taggings, only: [ :create, :update, :destroy, :show ]

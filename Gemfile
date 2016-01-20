@@ -50,11 +50,11 @@ group :development do
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
   gem 'rack-livereload'
+  gem 'jazz_hands'
 end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
-  gem 'jazz_hands'
 end
 group :test do
   gem 'capybara'

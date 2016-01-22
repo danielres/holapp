@@ -101,5 +101,6 @@ source 'https://rails-assets.org' do
 end
 
 gem 'spreadsheet'
+gem 'active_model_serializers'
 
 gem 'has_secure_token'

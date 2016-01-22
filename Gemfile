@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '2.2.4'
 
 gem 'bundler', '>= 1.9.2'
 
@@ -50,11 +50,14 @@ group :development do
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
   gem 'rack-livereload'
-  gem 'jazz_hands'
+  gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
+  gem 'pry-byebug'
 end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
+  gem 'minitest'
+  gem 'test-unit'
 end
 group :test do
   gem 'capybara'

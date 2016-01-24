@@ -8,7 +8,9 @@ class User < ActiveRecord::Base
   default_scope { order('first_name', 'last_name') }
 
   def self.listable
-    all.select(&:listable?)
+    all
+      .includes(memberships: [:project, :durations])
+      .select(&:listable?)
   end
 
   rolify

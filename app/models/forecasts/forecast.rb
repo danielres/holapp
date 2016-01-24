@@ -46,8 +46,7 @@ class Forecasts::Forecast
 
 
       def membership_occupations(membership)
-        durations = Duration.where(durable: membership)
-        durations.map do |d|
+        membership.durations.map do |d|
           occupation(d)
         end
       end

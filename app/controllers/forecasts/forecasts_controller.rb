@@ -16,6 +16,7 @@ module Forecasts
       respond_to do |format|
         format.html
         format.xls { xls_export(@forecast, @people) }
+        format.json
       end
 
     end

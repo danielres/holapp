@@ -38,14 +38,14 @@ describe 'Viewing a persons forecasts' do
       end
     end
 
-    context 'with a duration having no quantifier' do
+    context 'with a set of durations having no quantifier' do
       before(:each) do
         duration.update( quantifier: nil )
       end
-      it "shows the occupation periods market with a em-dash '—'"do
+      it 'does not render the table row' do
         visit forecasts_path(start_year: 2015, start_month: 1)
         within the('forecasts-list') do
-          expect( page ).to have_css( ".occupation", text: "—", count: 4 )
+          expect( page ).not_to have_css( ".occupation", text: "—" )
         end
       end
     end

@@ -20,27 +20,18 @@
       %tbody
 
         - @people.each do |p|
-
-          - if p.memberships.none?
-            %tr
-
-              %td.person
-                = link_to (p.trigram || p.name), p
-
-              %td.project
-              - @forecast.periods.each do |period|
-                %td.period
-
-
           - p.memberships.each do |m|
-            %tr[m]
+            - is_empty_row = @forecast.periods.map{|p| p.membership_occupations(m).reject(&:blank?).map(&:to_f).reject(&:zero?) }.flatten.empty?
+            - unless is_empty_row
+              %tr[m]
 
-              %td.person
-                = link_to (p.trigram || p.name), p
+                %td.person
+                  = link_to (p.trigram || p.name), p
 
-              %td.project= link_to m.project, m.project
-              - @forecast.periods.each do |period|
-                %td.period
-                  - period.membership_occupations(m).each do |o|
-                    %p.occupation= o
+                %td.project= link_to m.project, m.project
+                - @forecast.periods.each do |period|
+                  %td.period
+                    - period.membership_occupations(m).each do |o|
+                      %p.occupation= o
+
 

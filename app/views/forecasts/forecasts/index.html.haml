@@ -12,8 +12,8 @@
 
       %thead
         %tr
-          %th Person
-          %th Project
+          %th{ style: 'width: 7em' } Person
+          %th{ style: 'width: 18em' } Project
           - @forecast.periods.each do |p|
             %th= p.starts_at
 

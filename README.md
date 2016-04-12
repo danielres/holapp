@@ -10,23 +10,23 @@ Build status: [![Build Status](https://codeship.com/projects/d8f61ba0-7f01-0132-
 
 1. rvm (or an other ruby version manager) 
    https://rvm.io/
-2. bundler
+2. install ruby `rvm install RUBY_VERSION` 
+  (find the correct ruby version for the project on top of file `Gemfile`)
+3. bundler
    `gem install bundler`
-3. node (using nvm is recommendend) 
+4. node (using nvm is recommendend) 
    https://github.com/creationix/nvm#install-script  
-4. postgresql
-5. heroku toolbelt (command-line for heroku) 
+5. postgresql
+6. heroku toolbelt (command-line for heroku) 
    https://toolbelt.heroku.com/
-6. xvfb (to run selenium tests in a virtual framebuffer)
-7. Firefox (to run selenium tests that need javascript)
+7. xvfb (to run selenium tests in a virtual framebuffer)
+8. Firefox (to run selenium tests that need javascript)
 
 ### Basic install
 
-1. install ruby `rvm install RUBY_VERSION` 
-  (find the correct ruby version for the project on top of file `Gemfile`)
-2. clone the app `git clone ...`
-3. use `bundle install`
-4. create or update your local file `app/config/database.yml`:
+1. clone the app `git clone ...`
+2. use `bundle install`
+3. create or update your local file `app/config/database.yml`:
 
         development:
           adapter:  'postgresql'
@@ -44,8 +44,8 @@ Build status: [![Build Status](https://codeship.com/projects/d8f61ba0-7f01-0132-
           password: 'PASSWORD'
           host:     'localhost'
     
-5. create these 2 postgres databases locally (one for development and one for tests), according to the entries in your `database.yml` file
-6. run `rake db:migrate` then `rake db:test:prepare`
+4. create these 2 postgres databases locally (one for development and one for tests), according to the entries in your `database.yml` file
+5. run `rake db:migrate` then `rake db:test:prepare`
 
 ### Populate local dev DB with real content from production
 
@@ -74,8 +74,10 @@ Build status: [![Build Status](https://codeship.com/projects/d8f61ba0-7f01-0132-
 ### Using Google auth
 
 * `GOOGLE_CLIENT_ID="..." GOOGLE_CLIENT_SECRET="..." rails s`
-    - google authentication will work
+    - google authentication will work 
+      (but it's not really needed for dev and test)
     - (classic auth still works as well)
+    - Google API credentials can be found in the [Google developer console for the project](https://console.developers.google.com/apis/credentials/oauthclient/973791483651-tmmscbnnndhbnfp9r683q8oovgorehk3.apps.googleusercontent.com?project=oxmarketplace)
 
 ## Tips for understanding the codebase
 

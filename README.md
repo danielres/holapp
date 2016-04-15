@@ -21,6 +21,8 @@ Build status: [![Build Status](https://codeship.com/projects/d8f61ba0-7f01-0132-
    https://toolbelt.heroku.com/
 7. xvfb (to run selenium tests in a virtual framebuffer)
 8. Firefox (to run selenium tests that need javascript)
+9. PhantomJS (to run headless selenium tests that need javascript)
+   https://gist.github.com/julionc/7476620
 
 ### Basic install
 
@@ -269,10 +271,10 @@ Zeus allows to speed up development and tests execution by preloading rails and 
 
 1. install: `gem install zeus`
 2. activate: `zeus start` (in an other terminal)
-3. launch rails commands by prefixing them with `zeus`:
-  - `zeus rails s`  
-  - `zeus rails c`  
-  - `zeus rspec`  
+3. launch rails commands by replacing them with `zeus`:
+  - `zeus s`
+  - `zeus c`
+  - `zeus rspec`
   - ...
 
 #### Using guard

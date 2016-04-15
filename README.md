@@ -20,7 +20,10 @@ Build status: [![Build Status](https://codeship.com/projects/d8f61ba0-7f01-0132-
 6. heroku toolbelt (command-line for heroku) 
    https://toolbelt.heroku.com/
 7. xvfb (to run selenium tests in a virtual framebuffer)
-8. Firefox (to run selenium tests that need javascript)
+8. Firefox v35 binary (to run javascript selenium tests that need to run in Firefox)
+   1. download from https://ftp.mozilla.org/pub/firefox/releases/35.0b8/linux-x86_64/en-US/firefox-35.0b8.tar.bz2
+   2. unpack, and move it as `/opt/firefox35` (needs sudo)
+   3. make sure `/opt/firefox35/firefox-bin` exists
 
 ### Basic install
 

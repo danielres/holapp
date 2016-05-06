@@ -9,12 +9,14 @@ describe 'Authentication', :slow do
 
     before(:each) do
       visit '/'
+      find("#login_toggle").click
       fill_in :user_email, with: visitor.email
       fill_in :user_password, with: visitor.password
     end
 
     context 'when visitor has not been confirmed' do
       it 'still offers to log in' do
+
         click_on 'Log in'
         expect( page ).to have_content 'Log in'
         expect( page ).not_to have_content 'Log out'

@@ -9,7 +9,7 @@ class PersonPresenter < Erector::Widget
       col(12) do
         page_head_html
         panel{ person_details_html }
-        panel{ memberships_html }
+        panel{ memberships_html } if FeaturesProfile.feature? :memberships
         row do
           col(6){ panel{ taggings_on_html(:skills     ) } }
           col(6){ panel{ taggings_on_html(:motivations) } }

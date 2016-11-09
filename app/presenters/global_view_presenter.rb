@@ -6,7 +6,7 @@ class GlobalViewPresenter < Erector::Widget
 
   def content
     row do
-      col(6) do
+      col(12) do
         panel do
           text ViewingPeople.new(@viewer).view_context(@view_context).call
           text AddingAPerson.new(@viewer).view_context(@view_context).get_user_input
@@ -17,7 +17,7 @@ class GlobalViewPresenter < Erector::Widget
           text ViewingProjects.new(@viewer).view_context(@view_context).call
           text AddingAProject.new(@viewer).view_context(@view_context).get_user_input
         end
-      end
+      end if FeaturesProfile.feature? :projects
     end
 
     row do

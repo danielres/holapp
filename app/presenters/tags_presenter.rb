@@ -8,7 +8,7 @@ class TagsPresenter < Erector::Widget
     h2 'Tags'
 
     p do
-      b 'Poles:'
+      b 'Competence centers:'
       text yes_poles.map{ |pole| link_to(pole, "#pole_#{ pole.id}" )}.join(' | ').html_safe
     end
 

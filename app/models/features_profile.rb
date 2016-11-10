@@ -12,6 +12,7 @@ class FeaturesProfile
         tags: true,
         edit_account: false,
         cvs: false,
+        trigram:false,
       }
     end
 end

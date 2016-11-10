@@ -90,7 +90,7 @@ class PersonPresenter < Erector::Widget
         tr do
           th 'Trigram'
           td editable_field(:trigram)
-        end
+        end if FeaturesProfile.feature? :trigram
         tr do
           th 'Mobile'
           td editable_field(:mobile)

@@ -10,6 +10,8 @@ class FeaturesProfile
         memberships: false,
         forecasts: false,
         tags: true,
+        edit_account: false,
+        cvs: false,
       }
     end
 end

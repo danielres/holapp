@@ -100,12 +100,14 @@ class TagPresenter < Erector::Widget
     def dangerous_actions_menu_html
       h3 'Dangerous actions'
       row do
-        col(6) do
-          panel do
-            text MergingTags
-                  .new(@viewer, @tag, nil)
-                  .view_context(@view_context)
-                  .get_user_input
+        if FeaturesProfile.feature? :absorb_tag
+          col(6) do
+            panel do
+              text MergingTags
+                    .new(@viewer, @tag, nil)
+                    .view_context(@view_context)
+                    .get_user_input
+            end
           end
         end
         col(6) do

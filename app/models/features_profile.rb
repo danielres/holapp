@@ -12,7 +12,8 @@ class FeaturesProfile
         tags: true,
         edit_account: false,
         cvs: false,
-        trigram:false,
+        trigram: false,
+        absorb_tag: false,
       }
     end
 end

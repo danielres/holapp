@@ -3,26 +3,26 @@ ruby '2.2.4'
 
 gem 'bundler', '>= 1.9.2'
 
-gem 'rails', '~> 4.1.0'
+gem 'rails', '~> 5.2.6', '>= 5.2.6.2'
 gem 'pg'
-gem 'sass-rails', '~> 4.0.2'
+gem 'sass-rails', '~> 5.0.5'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
+gem 'coffee-rails', '~> 4.2.2'
+gem 'jquery-rails', '>= 4.0.1'
+gem 'jquery-ui-rails', '>= 5.0.3'
 # gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bootstrap-sass', '>= 3.3.4'
 gem 'cancan'
-gem 'devise'
-gem 'devise_invitable'
-gem 'figaro'
-gem 'haml-rails'
+gem 'devise', '>= 4.4.2'
+gem 'devise_invitable', '>= 1.6.0'
+gem 'figaro', '>= 1.0.0'
+gem 'haml-rails', '>= 0.5.3'
 gem 'rolify'
-gem 'simple_form'
+gem 'simple_form', '>= 4.0.0'
 gem 'therubyracer', :platform=>:ruby
 gem 'thin'
-gem 'acts-as-taggable-on'
+gem 'acts-as-taggable-on', '>= 3.1.0'
 gem 'best_in_place', github: 'bernat/best_in_place'
 gem 'select2-rails'
 gem 'erector'
@@ -54,8 +54,8 @@ group :development do
   gem 'pry-byebug'
 end
 group :development, :test do
-  gem 'factory_girl_rails'
-  gem 'rspec-rails'
+  gem 'factory_girl_rails', '>= 4.4.0'
+  gem 'rspec-rails', '>= 2.14.1'
   gem 'minitest'
   gem 'test-unit'
 end
@@ -74,12 +74,12 @@ gem 'angularjs-rails'
 
 # gem 'rails-assets-angular-markdown-directive'
 
-gem 'ngannotate-rails'
+gem 'ngannotate-rails', '>= 0.10.1'
 
 
 group :development, :test do
   gem 'guard-jasmine'
-  gem 'jasmine-rails'
+  gem 'jasmine-rails', '>= 0.5.4'
   # gem 'rails-assets-angular-mocks'
   # gem 'rails-assets-sinon'
   # gem 'rails-assets-jasmine-sinon'
